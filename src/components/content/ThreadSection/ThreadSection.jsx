@@ -1,5 +1,5 @@
 import React from 'react';
-import ThreadCard from './ThreadCard/ThreadCard';
+import ThreadCard from './threadCard/ThreadCard';
 function ThreadSection() {
   const threads = [
     {

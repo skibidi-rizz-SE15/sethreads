@@ -1,8 +1,8 @@
 import React from 'react';
 
-import PostBtn from '../Button/Post/PostBtn';
-import Logo from './Logo/Logo';
-import Profile from './Profile/Profile';
+import PostBtn from '../button/post/PostBtn';
+import Logo from './logo/Logo';
+import Profile from './profile/Profile';
 
 function Navbar() {
     return (

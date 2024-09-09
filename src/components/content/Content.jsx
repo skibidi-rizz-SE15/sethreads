@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from './Header/Header';
-import HighlightSection from './HighlightSection/HighlightSection';
-import ThreadSection from './ThreadSection/ThreadSection';
+import Header from './header/Header';
+import HighlightSection from './highlightSection/HighlightSection';
+import ThreadSection from './threadSection/ThreadSection';
 
 function Content() {
   return (

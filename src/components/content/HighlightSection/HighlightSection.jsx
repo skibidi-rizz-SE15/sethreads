@@ -1,4 +1,4 @@
-import HighlightCard from "./HighlightCard/HighlightCard";
+import HighlightCard from "./highlightCard/HighlightCard";
 
 function HighlightSection() {
     const highlights = [

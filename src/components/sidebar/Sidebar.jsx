@@ -1,5 +1,5 @@
 import React from "react";
-import SidebarItem from "./SidebarItem/SidebarItem";
+import SidebarItem from "./sidebarItem/SidebarItem";
 
 function Sidebar() {
   const subjects = [
