@@ -1,12 +1,10 @@
 import React from 'react';
 
-
 import PostBtn from '../button/post/PostBtn';
 import Logo from './Logo/Logo';
 import Profile from './Profile/Profile';
 
 function Navbar() {
-
     return (
         <div>
             <header className='flex justify-between items-center overflow-hidden px-20 py-1 rounded-b-xl border-b-2 border-yellow-600 border-solid bg-eerie-black max-md:px-5'>
@@ -18,8 +16,6 @@ function Navbar() {
             </header>
         </div>
     );
-
 }
-
 
 export default Navbar;
