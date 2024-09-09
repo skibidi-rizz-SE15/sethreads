@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PostBtn from '../button/post/PostBtn';
+import PostBtn from '../Button/Post/PostBtn';
 import Logo from './Logo/Logo';
 import Profile from './Profile/Profile';
 

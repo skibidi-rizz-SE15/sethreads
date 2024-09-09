@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './Header/Header';
-import HighlightSection from './HighlightSection/HighlightCard/HighlightSection';
+import HighlightSection from './HighlightSection/HighlightSection';
 import ThreadSection from './ThreadSection/ThreadSection';
 
 function Content() {
