@@ -2,7 +2,12 @@ import React from "react";
 import SidebarItem from "./SidebarItem/SidebarItem";
 
 function Sidebar() {
-  const subjects = ["Subject1", "Subject2", "Subject3", "Subject4"];
+  const subjects = [
+    { name: "Subject1", id: "001" },
+    { name: "Subject2", id: "002" },
+    { name: "Subject3", id: "003" },
+    { name: "Subject4", id: "004" },
+  ];
 
   return (
     <nav className="flex overflow-hidden z-10 flex-col items-start px-3 pt-10 max-w-full text-base tracking-wide text-white whitespace-nowrap rounded-none border-r border-r-yellow-600 bg-eerie-black h-screen w-1/6">
@@ -12,8 +17,8 @@ function Sidebar() {
       </div>
       <div className="shrink-0 self-stretch mt-11 h-px border border-solid border-neutral-700 max-md:mt-10" />
       <h2 className="mt-4 text-2xl font-bold text-neutral-400">Courses</h2>
-      {subjects.map((subject, index) => (
-        <SidebarItem key={index} subject={subject} />
+      {subjects.map((subject) => (
+        <SidebarItem key={subject.id} subject={subject.name} />
       ))}
     </nav>
   );
