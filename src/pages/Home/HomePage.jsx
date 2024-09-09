@@ -1,7 +1,7 @@
 import React from 'react'
-import Navbar from '../../components/navbar/Navbar';
-import Sidebar from '../../components/sidebar/Sidebar';
-import Content from '../../components/content/Content';
+import Navbar from '../../components/navbar/Navbar'
+import Sidebar from '../../components/sidebar/Sidebar'
+import Content from '../../components/content/Content'
 
 function HomePage() {
   return (
