@@ -24,7 +24,7 @@ return (
       <React.Fragment key={index}>
         <ThreadCard {...thread} />
         {index < threads.length - 1 && (
-          <div className="shrink-0 self-center mt-12 max-w-full h-px border border-solid border-neutral-700 w-[1075px] max-md:mt-10" />
+          <div className="shrink-0 self-center max-w-full h-px border border-solid border-neutral-700 w-[1075px]" />
         )}
       </React.Fragment>
     ))}

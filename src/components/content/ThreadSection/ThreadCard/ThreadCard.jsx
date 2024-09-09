@@ -2,7 +2,7 @@ import React from 'react';
 
 function ThreadCard({ name, time, title, body, imageHeight }) {
   return (
-    <article className="flex overflow-hidden flex-col self-center py-4 mt-14 max-w-full rounded-3xl bg-neutral-800 w-[1071px] max-md:mt-10">
+    <article className="flex overflow-hidden flex-col self-center py-4 max-w-full rounded-3xl bg-neutral-800 w-[1071px] max-md:mt-10">
       <div className="flex flex-col items-start px-6 w-full max-md:px-5 max-md:max-w-full">
         <div className="flex gap-2.5 text-sm">
           <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/da1e4bf63962c141c8657868b117ac6c66f46017effdd8b677ebbc75f8cd98fd?placeholderIfAbsent=true&apiKey=55e9f8a1f064422990695f1eab1a40f5" alt="User Avatar" className="object-contain shrink-0 aspect-square rounded-[100px] w-[25px]" />

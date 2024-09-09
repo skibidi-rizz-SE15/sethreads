@@ -5,7 +5,7 @@ import Content from '../../components/content/Content';
 
 function HomePage() {
   return (
-    <div className='grid grid-cols-main-page'>
+    <div className='grid grid-cols-main-page w-screen'>
       <Navbar />
       <Sidebar />
       <Content />
