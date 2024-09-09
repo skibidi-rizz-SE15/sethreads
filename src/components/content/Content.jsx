@@ -5,13 +5,12 @@ import ThreadSection from './ThreadSection/ThreadSection';
 
 function Content() {
   return (
-    <main className="flex overflow-y-auto flex-col px-9 pt-10 mx-auto w-full bg-neutral-800">
-    <Header />
-    <HighlightSection />
-    <ThreadSection />
+    <main className="flex flex-col overflow-y-auto px-9 pt-10 mx-auto w-full min-h-screen bg-neutral-800">
+      <Header />
+      <HighlightSection />
+      <ThreadSection />
     </main>
   );
 }
 
 export default Content;
-
