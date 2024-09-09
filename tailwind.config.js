@@ -7,6 +7,9 @@ module.exports = {
     extend: {
       colors: {
         'eerie-black': '#1D1D1D'
+      },
+      gridTemplateColumns: {
+        "main-page": "clamp(10rem, 20%, 15rem) 1fr"
       }
     },
   },
