@@ -1,5 +1,7 @@
 import React from 'react';
 import ThreadCard from './threadCard/ThreadCard';
+import Separator from '../../separator/Separator';
+
 function ThreadSection() {
   const threads = [
     {
@@ -57,10 +59,8 @@ return (
   <section>
     {threads.map((thread, index) => (
       <React.Fragment key={index}>
-        <ThreadCard {...thread} />
-        {index < threads.length - 1 && (
-          <div className="shrink-0 self-center mx-auto w-4/5 min-w-96 h-px border border-solid border-neutral-700" />
-        )}
+        <ThreadCard {...thread} className='min-w-96 w-4/5' />
+        {index < threads.length - 1 && (<Separator className='mx-auto w-4/5 min-w-96' />)}
       </React.Fragment>
     ))}
   </section>

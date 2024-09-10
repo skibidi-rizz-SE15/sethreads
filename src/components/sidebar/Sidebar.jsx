@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarItem from "./sidebarItem/SidebarItem";
+import Separator from "../separator/Separator";
 
 function Sidebar() {
   const subjects = [
@@ -19,7 +20,7 @@ function Sidebar() {
         <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/48c4f85fabeec6d12399edb61563948596f63b0241a9ce3444c18958f6a5b0c2?placeholderIfAbsent=true&apiKey=55e9f8a1f064422990695f1eab1a40f5" alt="" className="object-contain shrink-0 w-6 aspect-square" />
         <div className="my-auto basis-auto">Home</div>
       </div>
-      <div className="shrink-0 self-stretch mt-11 h-px border border-solid border-neutral-700" />
+      <Separator className="self-stretch mt-11" />
       <h2 className="mt-4 text-2xl font-bold text-neutral-400">Courses</h2>
       <div>
         {subjects.map((subject) => (
