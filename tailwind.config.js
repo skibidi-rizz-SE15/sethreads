@@ -6,11 +6,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'eerie-black': '#1D1D1D'
+        'eerie-black': '#1D1D1D',
+        "comment-highlight": "rgb(31 41 55)",
       },
       gridTemplateColumns: {
         "main-page": "clamp(10rem, 20%, 15rem) 1fr"
-      }
+      },
     },
   },
   plugins: [],
