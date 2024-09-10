@@ -1,7 +1,7 @@
 import React from "react";
 
-function Profile({ name, time="", style="" }){
-    const allStyle = `flex gap-2.5 text-sm ${style}`;
+function Profile({ name, time="", className="" }){
+    const allStyle = `flex gap-2.5 text-sm ${className}`;
     return (
         <div className={allStyle}>
           <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/da1e4bf63962c141c8657868b117ac6c66f46017effdd8b677ebbc75f8cd98fd?placeholderIfAbsent=true&apiKey=55e9f8a1f064422990695f1eab1a40f5" alt="User Avatar" className="object-contain shrink-0 aspect-square rounded-[100px] w-[25px]" />
