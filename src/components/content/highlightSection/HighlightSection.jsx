@@ -2,9 +2,9 @@ import HighlightCard from "./highlightCard/HighlightCard";
 
 function HighlightSection() {
     const highlights = [
-      { title: 'Lorem ipsum dolor sit amet, consector', comments: 90, taName: 'TAs Name' },
-      { title: 'Lorem ipsum dolor sit amet, consector', comments: 90, taName: 'TAs Name' },
-      { title: 'Lorem ipsum dolor sit amet, consector', comments: 90, taName: 'TAs Name' },
+      { title: 'Lorem ipsum dolor sit amet, consector', taName: 'TAs Name' },
+      { title: 'Lorem ipsum dolor sit amet, consector', taName: 'TAs Name' },
+      { title: 'Lorem ipsum dolor sit amet, consector', taName: 'TAs Name' },
     ];
 
     return (
