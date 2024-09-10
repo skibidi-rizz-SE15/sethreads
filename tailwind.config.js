@@ -7,7 +7,7 @@ module.exports = {
     extend: {
       colors: {
         'eerie-black': '#1D1D1D',
-        "comment-highlight": "rgb(31 41 55)",
+        "comment-highlight": "rgb(87 83 78)",
         "general-highlight": "rgb(64 64 64)",
         "general-selected": "rgb(82 82 91)",
       },
