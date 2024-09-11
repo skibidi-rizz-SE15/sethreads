@@ -1,8 +1,8 @@
 import React from 'react';
 import CommentBtn from '../../../button/post/CommentBtn';
 import Profile from '../../../card/profile/Profile';
-import ThreadBody from '../../../card/threadBody/ThreadBody';
-import ThreadTitle from '../../../card/threadTitle/ThreadTitle';
+import ThreadBody from '../../../card/threadBody/TextBody';
+import ThreadTitle from '../../../card/threadTitle/TextTitle';
 
 const ThreadCard = ({ name, time, title, body, imageHeight }) => {
   return (
