@@ -1,6 +1,6 @@
 import React from "react";
 import Profile from "../../../../card/profile/Profile";
-import TextBody from "../../../../card/threadBody/TextBody";
+import TextBody from "../../../../card/textBody/TextBody";
 import ReplyBtn from "../../../../button/post/ReplyBtn";
 
 const Reply = ({ name, time, body }) => {
