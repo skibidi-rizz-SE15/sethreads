@@ -4,7 +4,7 @@ import HighlightSection from './highlightSection/HighlightSection';
 import ThreadSection from './threadSection/ThreadSection';
 import Separator from '../separator/Separator';
 
-function Content() {
+const Content = () => {
   return (
     <main className="flex flex-col overflow-y-auto px-9 pt-10 mx-auto w-full bg-neutral-800">
       <Header />

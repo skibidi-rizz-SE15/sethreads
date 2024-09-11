@@ -1,6 +1,6 @@
 import React from "react";
 
-function Profile({ name, time="", className="" }){
+const Profile = ({ name, time="", className="" }) => {
     const style = `flex gap-2.5 text-sm ${className}`;
     return (
         <div className={style}>

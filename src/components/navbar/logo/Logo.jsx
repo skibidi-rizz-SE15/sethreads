@@ -1,4 +1,4 @@
-function Logo() {
+const Logo = () => {
     return (
         <div className="flex">
             <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/7d8da78db1ff40849a641d3086462423e911d33579caaab958d340cde9701cf2?placeholderIfAbsent=true&apiKey=6c97697ae0354418a18c66f6f8aad447" alt="" className="object-contain shrink-0 self-start aspect-[1.87] w-[58px]" />

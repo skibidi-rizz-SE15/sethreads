@@ -1,6 +1,6 @@
 import HighlightCard from "./highlightCard/HighlightCard";
 
-function HighlightSection() {
+const HighlightSection = () => {
     const highlights = [
       { title: 'Lorem ipsum dolor sit amet, consector', taName: 'TAs Name' },
       { title: 'Lorem ipsum dolor sit amet, consector', taName: 'TAs Name' },

@@ -2,7 +2,7 @@ import React from "react";
 import SidebarItem from "./sidebarItem/SidebarItem";
 import Separator from "../separator/Separator";
 
-function Sidebar() {
+const Sidebar = () => {
   const subjects = [
     { name: "Subject1 your momo hehe haha lol kekw", id: "001" },
     { name: "Subject2", id: "002" },

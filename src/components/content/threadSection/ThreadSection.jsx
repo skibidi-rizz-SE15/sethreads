@@ -2,7 +2,7 @@ import React from 'react';
 import ThreadCard from './threadCard/ThreadCard';
 import Separator from '../../separator/Separator';
 
-function ThreadSection() {
+const ThreadSection = () => {
   const threads = [
     {
       name: "SomeStudent'sName",
