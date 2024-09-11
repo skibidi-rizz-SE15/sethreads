@@ -2,7 +2,7 @@ import React from "react";
 
 function SidebarItem({ subject }) {
   return (
-    <div className="overflow-hidden px-2.5 py-3 mt-6 w-full rounded-lg bg-neutral-800 hover:bg-general-highlight max-md:pr-5">
+    <div className="text-wrap px-2.5 py-3 mt-6 rounded-lg bg-neutral-800 hover:bg-general-highlight">
       {subject}
     </div>
   );

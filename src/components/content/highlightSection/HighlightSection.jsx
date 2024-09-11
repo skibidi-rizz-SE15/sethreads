@@ -2,9 +2,9 @@ import HighlightCard from "./highlightCard/HighlightCard";
 
 function HighlightSection() {
     const highlights = [
-      { title: 'Lorem ipsum dolor sit amet, consector', comments: 90, taName: 'TAs Name' },
-      { title: 'Lorem ipsum dolor sit amet, consector', comments: 90, taName: 'TAs Name' },
-      { title: 'Lorem ipsum dolor sit amet, consector', comments: 90, taName: 'TAs Name' },
+      { title: 'Lorem ipsum dolor sit amet, consector', taName: 'TAs Name' },
+      { title: 'Lorem ipsum dolor sit amet, consector', taName: 'TAs Name' },
+      { title: 'Lorem ipsum dolor sit amet, consector', taName: 'TAs Name' },
     ];
 
     return (
@@ -16,11 +16,10 @@ function HighlightSection() {
           <div className="mx-6 max-w-full">   
             <div className="flex gap-5 max-md:flex-col">   
               {highlights.map((highlight, index) => (  
-                <HighlightCard key={index} {...highlight} />  
+                <HighlightCard key={index} {...highlight} className="w-[33%]" />  
               ))}   
             </div>    
           </div>
-          <div className="shrink-0 my-6 h-px border border-solid border-neutral-700 max-md:mt-10 max-md:max-w-full" />
         </section>   
       );  
 }

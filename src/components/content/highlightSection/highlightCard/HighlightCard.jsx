@@ -1,13 +1,16 @@
 import React from 'react';
+import Profile from '../../../card/profile/Profile';
+import CommentDisplay from '../../../display/CommentDisplay';
+import ThreadTitle from '../../../card/threadTitle/ThreadTitle';
 
-function HighlightCard({ title, comments, taName }) {
+function HighlightCard({ title, taName, className="" }) {
+  const style = `flex overflow-hidden flex-col gap-2 items-start py-3 px-2.5 mx-auto text-xs text-white rounded-2xl border border-solid bg-neutral-800 hover:bg-general-highlight border-neutral-700 max-md:ml-0 max-md:w-full ${className}`;
   return (
-    <div className="flex overflow-hidden flex-col items-start py-3 pr-16 pl-2.5 mx-auto w-[33%] text-xs text-white rounded-2xl border border-solid bg-neutral-800 hover:bg-general-highlight border-neutral-700 max-md:ml-0 max-md:w-full">
-      <div className="text-xl">{title}</div>
-      <div className="text-zinc-600">{comments} comments</div>
-      <div className="flex gap-2">
-        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/bfcc04201832c504506b9b209d0b79fcdfb3cec51ae5c8e109a79b8d084bffc4?placeholderIfAbsent=true&apiKey=55e9f8a1f064422990695f1eab1a40f5" alt="TA Avatar" className="object-contain shrink-0 w-4 aspect-square rounded-[100px]" />
-        <div>{taName}</div>
+    <div className={style}>
+      <ThreadTitle title={title} />
+      <div className='flex items-center w-full'>
+        <Profile name={taName} className='mr-auto' />
+        <CommentDisplay />
       </div>
     </div>
   );
