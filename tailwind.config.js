@@ -6,8 +6,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'eerie-black': '#1D1D1D'
-      }
+        'eerie-black': '#1D1D1D',
+        "comment-highlight": "rgb(87 83 78)",
+        "general-highlight": "rgb(64 64 64)",
+        "general-selected": "rgb(82 82 91)",
+      },
+      gridTemplateColumns: {
+        "main-page": "clamp(10rem, 20%, 15rem) 1fr"
+      },
     },
   },
   plugins: [],
