@@ -5,12 +5,10 @@ import ReplyBtn from "../../../../../button/post/ReplyBtn";
 
 const Reply = ({ name, time="", body }) => {
     return (
-        <article className="flex overflow-hidden flex-col self-center pt-6 pb-3.5 mx-auto my-1 rounded-3xl bg-neutral-800 min-w-96 w-4/5">
-            <div className="flex flex-col items-start mx-6 w-full max-md:px-5 max-md:max-w-full">
-                <Profile name={name} time={time}/>
-                <TextBody body={body} />
-            </div>
-            <ReplyBtn />
+        <article className="flex overflow-hidden flex-col self-center pl-8 mx-auto mt-2 min-w-96 w-full">
+            <Profile name={name} time={time}/>
+            <TextBody body={body} />
+            <ReplyBtn className="self-start" />
         </article>
     )
 }
