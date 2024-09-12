@@ -6,7 +6,7 @@ import ReplyBtn from "../../../button/post/ReplyBtn";
 
 const Comment = () => {
     return (
-        <div>
+        <div className="mt-2">
             <Profile name={"dummy dummy"}/>
             <TextBody body={"bla bla talk bla comment ha"} />
             <ReplyBtn />

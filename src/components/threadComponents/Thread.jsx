@@ -12,18 +12,21 @@ const Thread = () => {
     let body = "lorem bla bla bla lorem bla bla bla lorem bla bla bla lorem bla bla bla lorem bla bla bla lorem bla bla bla ";
 
     return (
-        <div className="flex flex-col overflow-y-auto px-9 pt-10 mx-auto w-full bg-neutral-800">
-            <div className="w-full">
-                <Profile name={"Yapperson Yappington"} time="6 hours ago" />
-                <TextTitle title={title} />
-                <TextBody body={body} />
+        <div className="flex overflow-y-auto w-full">
+            <div className="flex flex-col px-9 py-10 mx-auto w-4/5 h-max bg-neutral-800">
+                <div className="w-full">
+                    <Profile name={"Yapperson Yappington"} time="6 hours ago" />
+                    <TextTitle title={title} />
+                    <TextBody body={body} />
+                </div>
+                <CommentDisplay />
+                <Separator className="w-full my-6" />
+                <div className="text-xl text-white">Comments</div>
+                <CommentInput />
+                <CommentSection />
             </div>
-            <CommentDisplay />
-            <Separator className="w-full" />
-            <div className="text-xl text-white">Comments</div>
-            <CommentInput />
-            <CommentSection />
         </div>
+        
     );
 };
 

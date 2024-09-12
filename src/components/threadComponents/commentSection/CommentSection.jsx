@@ -3,7 +3,7 @@ import Comment from "./comment/Comment";
 
 const CommentSection = () => {
     return (
-        <div>
+        <div className="mt-4">
             <Comment />
             <Comment />
             <Comment />
