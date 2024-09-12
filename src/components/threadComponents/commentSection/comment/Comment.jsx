@@ -8,7 +8,7 @@ const Comment = () => {
     return (
         <div className="mt-2">
             <Profile name={"dummy dummy"}/>
-            <TextBody body={'bla bla talk bla comment harewifhweiofhwlikgfhwielgfi wlgfikpwrhgflwhgfiolerh goiewrhgliehrgiehgoiwhr giwheiowhfipwhgfoiw hefiowhfoiwhfooiwegfwkilug hewrilghwrioghwroighwrighwighwpghwopgfhw roiroghwerligheroghwroighewrighaerpighewrpigwipghwrpigwpghwgowhghgpohwpo d'} />
+            <TextBody body={'bla bla talk bla comment harewifhweiof hwlikgfhwielgfi wlgfikpwrhgflwhgfiolerh goiewrhgliehrgiehgoiwhr giwheiowhfipwhgfoiw hefiowhfoiwhfooiwegfwkilug hewrilghwr ioghwroighw righwigh wpghwopgfhw roiroghwer ligheroghw roighewrighaerpighewrpigwipghwrpigwpghwgowhghgpohwpoaaaaaaa d'} />
             <ReplyBtn />
             <ReplySection />
         </div>
