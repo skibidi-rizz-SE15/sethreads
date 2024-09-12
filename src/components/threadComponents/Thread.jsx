@@ -8,16 +8,19 @@ import CommentInput from "./commentInput/CommentInput";
 import CommentSection from "./commentSection/CommentSection";
 
 const Thread = () => {
+    let title = "Title of Thread bla bla ha ha";
+    let body = "lorem bla bla bla lorem bla bla bla lorem bla bla bla lorem bla bla bla lorem bla bla bla lorem bla bla bla ";
+
     return (
         <div className="flex flex-col overflow-y-auto px-9 pt-10 mx-auto w-full bg-neutral-800">
-            <div>
-                <Profile />
-                <TextTitle />
-                <TextBody />
+            <div className="w-full">
+                <Profile name={"Yapperson Yappington"} time="6 hours ago" />
+                <TextTitle title={title} />
+                <TextBody body={body} />
             </div>
             <CommentDisplay />
-            <Separator />
-            <div>Comments</div>
+            <Separator className="w-full" />
+            <div className="text-xl text-white">Comments</div>
             <CommentInput />
             <CommentSection />
         </div>

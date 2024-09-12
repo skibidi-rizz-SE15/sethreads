@@ -2,7 +2,7 @@ import React from "react";
 
 const CommentInput = () => {
     return (
-        <form className="overflow-hidden self-end px-8 py-4 mt-12 max-w-full text-base font-medium tracking-normal leading-none text-center rounded-3xl border border-solid bg-neutral-800 border-zinc-600 text-zinc-600 w-full">
+        <form className="self-end px-8 py-4 mt-12 max-w-full text-base font-medium tracking-normal leading-none text-center rounded-3xl border border-solid bg-neutral-800 border-zinc-600 text-zinc-600 w-full">
             <label htmlFor="commentInput" className="sr-only">Add a comment</label>
             <input
                 id="commentInput"
