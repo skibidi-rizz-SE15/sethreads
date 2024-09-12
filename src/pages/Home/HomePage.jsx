@@ -9,7 +9,7 @@ const HomePage = () => {
     <div className='grid grid-cols-main-page w-screen h-screen'>
       <Navbar />
       <Sidebar />
-      <Content />
+      <Thread />
     </div>
   )
 }
