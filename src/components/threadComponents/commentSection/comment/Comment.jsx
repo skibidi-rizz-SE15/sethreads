@@ -9,12 +9,14 @@ const Comment = () => {
     return (
         <div className="mt-2">
             <Profile name={"dummy dummy"}/>
-            <TextBody body={'bla bla talk bla comment harewifhweiof hwlikgfhwielgfi wlgfikpwrhgflwhgfiolerh goiewrhgliehrgiehgoiwhr giwheiowhfipwhgfoiw hefiowhfoiwhfooiwegfwkilug hewrilghwr ioghwroighw righwigh wpghwopgfhw roiroghwer ligheroghw roighewrighaerpighewrpigwipghwrpigwpghwgowhghgpohwpoaaaaaaa d'} />
-            <div className="flex gap-1">
-                <ToggleReplyBtn />
-                <ReplyBtn />
+            <div className="pl-[2.225rem]">
+                <TextBody body={'bla bla talk bla comment harewifhweiof hwlikgfhwielgfi wlgfikpwrhgflwhgfiolerh goiewrhgliehrgiehgoiwhr giwheiowhfipwhgfoiw hefiowhfoiwhfooiwegfwkilug hewrilghwr ioghwroighw righwigh wpghwopgfhw roiroghwer ligheroghw roighewrighaerpighewrpigwipghwrpigwpghwgowhghgpohwpoaaaaaaa d'} />
+                <div className="flex gap-1">
+                    <ToggleReplyBtn />
+                    <ReplyBtn />
+                </div>
+                <ReplySection />
             </div>
-            <ReplySection />
         </div>
     )
 }
