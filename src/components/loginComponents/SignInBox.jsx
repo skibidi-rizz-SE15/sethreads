@@ -1,9 +1,22 @@
 import React from "react";
 
-const SignInBox = () => {
+const SignInBox = ({ mode="sign-in" }) => {
+    let passwordPlaceholder, modeMessage, modeText, modeTextOpposite;
+    if(mode === "sign-up"){
+        passwordPlaceholder = "Create Password";
+        modeMessage = "Already have an account?";
+        modeText = "Sign Up";
+        modeTextOpposite = "Sign In";
+    } else {
+        passwordPlaceholder = "Password";
+        modeMessage = "Don't have an account?";
+        modeText = "Sign In";
+        modeTextOpposite = "Sign Up";
+    }
+
     return (
         <div className="bg-white p-8 rounded-lg shadow-md max-w-sm w-full">
-            <h1 className="text-2xl font-semibold text-center mb-6">Sign In</h1>
+            <h1 className="text-2xl font-semibold text-center mb-6">{modeText}</h1>
             <form className="space-y-4">
                 <div>
                     <input
@@ -15,7 +28,7 @@ const SignInBox = () => {
                 <div>
                     <input
                         type="password"
-                        placeholder="Password"
+                        placeholder={passwordPlaceholder}
                         className="w-full px-4 py-2 rounded-md border border-gray-300 bg-gray-100 placeholder-gray-400 text-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                     />
                 </div>
@@ -28,9 +41,9 @@ const SignInBox = () => {
             </form>
             <div className="mt-6 text-center text-gray-400">
                 <p>
-                    Don’t have an account?{" "}
+                    {modeMessage + " "}
                     <a href="/register" className="underline text-gray-500">
-                        Sign up
+                        {modeTextOpposite}
                     </a>
                 </p>
             </div>
