@@ -4,12 +4,12 @@ import Logo from "../../components/navbar/logo/Logo";
 
 const LoginPage = () => {
     return (
-        <div className="flex h-screen w-screen overflow-hidden bg-black">
+        <div className="flex h-screen w-screen overflow-hidden">
             {/* logo and main page */}
-            <div className="bg-black flex items-center justify-center h-full w-1/2 overflow-hidden">
+            <div className="bg-neutral-900 flex items-center justify-center h-full w-1/2 overflow-hidden">
                 <Logo hasText={false} />
             </div>
-            <div className="bg-black w-1/4 overflow-hidden"></div>
+            <div className="bg-neutral-900 w-1/4 overflow-hidden"></div>
             <div className="bg-neutral-200 w-1/4 overflow-hidden"></div>
 
             {/* sign in overlay */}
