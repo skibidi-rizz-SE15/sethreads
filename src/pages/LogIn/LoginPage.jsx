@@ -5,19 +5,19 @@ import Logo from "../../components/navbar/logo/Logo";
 const LoginPage = () => {
     return (
         <div className="flex h-screen w-screen overflow-hidden bg-black">
-            {/* Left side (black background with logo) */}
+            {/* logo and main page */}
             <div className="bg-black flex items-center justify-center h-full w-1/2 overflow-hidden">
-                <div className="text-white text-4xl font-bold">LOGO</div>
+                <Logo hasText={false} />
             </div>
             <div className="bg-black w-1/4 overflow-hidden"></div>
             <div className="bg-white w-1/4 overflow-hidden"></div>
 
-            {/* Right side (white background with form) */}
+            {/* sign in overlay */}
             <div className="flex fixed top-0 bottom-0 right-0 w-1/2 min-w-[35rem]">
-                {/* Diagonal separator */}
+                {/* separator */}
                 <div className="h-full w-10 bg-neutral-600 transform -skew-x-12 "></div>
 
-                {/* White background and form */}
+                {/* white background and form */}
                 <div className="h-full bg-white p-8 flex-grow flex items-center transform -skew-x-12">
                     <form className="w-full max-w-sm mx-auto">
                         <div className="mb-4">
