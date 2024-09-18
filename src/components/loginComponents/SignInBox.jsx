@@ -8,14 +8,14 @@ const SignInBox = () => {
                 <div>
                     <input
                         type="text"
-                        placeholder="student ID"
+                        placeholder="Student ID"
                         className="w-full px-4 py-2 rounded-md border border-gray-300 bg-gray-100 placeholder-gray-400 text-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                     />
                 </div>
                 <div>
                     <input
                         type="password"
-                        placeholder="password"
+                        placeholder="Password"
                         className="w-full px-4 py-2 rounded-md border border-gray-300 bg-gray-100 placeholder-gray-400 text-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                     />
                 </div>
