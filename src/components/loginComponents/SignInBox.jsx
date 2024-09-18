@@ -1,6 +1,6 @@
 import React from "react";
 
-const SignInBox = ({ mode="sign-in" }) => {
+const SignInBox = ({ mode="sign-in", handleLinkClick }) => {
     let passwordPlaceholder, modeMessage, modeText, modeTextOpposite;
     if(mode === "sign-up"){
         passwordPlaceholder = "Create Password";
@@ -36,13 +36,13 @@ const SignInBox = ({ mode="sign-in" }) => {
                     type="submit"
                     className="w-full py-2 bg-yellow-500 text-white font-semibold rounded-md hover:bg-yellow-600 transition duration-300"
                 >
-                    Login
+                    {modeText}
                 </button>
             </form>
             <div className="mt-6 text-center text-gray-400">
                 <p>
                     {modeMessage + " "}
-                    <a href="/register" className="underline text-gray-500">
+                    <a href="/register" onClick={handleLinkClick} className="underline text-gray-500">
                         {modeTextOpposite}
                     </a>
                 </p>

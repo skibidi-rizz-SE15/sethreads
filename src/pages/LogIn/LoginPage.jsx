@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import SignInBox from "../../components/loginComponents/SignInBox";
 import Logo from "../../components/navbar/logo/Logo";
 
 const LoginPage = () => {
+    const [mode, setMode] = useState("sign-in");
+
+    function handleLinkClick(e){
+        e.preventDefault()
+        setMode((prevMode) => (prevMode === "sign-in" ? "sign-up" : "sign-in"));
+    }
+
     return (
         <div className="flex h-screen w-screen overflow-hidden">
             {/* logo and main page */}
@@ -19,7 +26,7 @@ const LoginPage = () => {
 
                 {/* white background and form */}
                 <div className="h-full bg-white p-8 flex-grow flex items-center justify-center transform -skew-x-12">
-                    <SignInBox />
+                    <SignInBox mode={mode} handleLinkClick={handleLinkClick} />
                 </div>
             </div>
         </div>
