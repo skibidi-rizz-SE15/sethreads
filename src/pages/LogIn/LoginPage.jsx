@@ -10,7 +10,7 @@ const LoginPage = () => {
                 <Logo hasText={false} />
             </div>
             <div className="bg-black w-1/4 overflow-hidden"></div>
-            <div className="bg-white w-1/4 overflow-hidden"></div>
+            <div className="bg-neutral-200 w-1/4 overflow-hidden"></div>
 
             {/* sign in overlay */}
             <div className="flex fixed top-0 bottom-0 right-0 w-1/2 min-w-[35rem]">
