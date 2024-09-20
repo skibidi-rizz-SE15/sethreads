@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Header() {
+const Header = () => {
   return (
     <header className='max-w-full'>
       <div className="flex mx-6 max-w-full h-32 rounded-3xl bg-neutral-700" />

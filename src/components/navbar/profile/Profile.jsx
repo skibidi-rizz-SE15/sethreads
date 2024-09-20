@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Profile() {
+const Profile = () => {
   return (
     <div className='text-white text-right self-start ml-10 flex'>
         <div className='mr-6'>
