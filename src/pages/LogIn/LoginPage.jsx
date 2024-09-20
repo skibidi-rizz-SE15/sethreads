@@ -29,7 +29,21 @@ const LoginPage = () => {
             ).then((res) => {
                 if (res.data.successful) {
                     localStorage.setItem("token", res.data.token);
-                    navigate("/main");
+                    navigate("/home");
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
+        } else if (mode === "sign-up") {
+            axios.post(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/sign-up`,
+                {
+                    student_id: studentId,
+                    password: password
+                }
+            ).then((res) => {
+                if (res.data.successful) {
+                    localStorage.setItem("token", res.data.token);
+                    navigate("/home");
                 }
             }).catch((err) => {
                 console.log(err);
