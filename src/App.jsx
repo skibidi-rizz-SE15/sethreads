@@ -16,19 +16,36 @@ function App() {
   const [mode, setMode] = useState("sign-in")
   const [studentId, setStudentId] = useState("");
   const [password, setPassword] = useState("");
-  const [isSuccess, setIsSuccess] = useState(true);
+  const [isSuccess, setIsSuccess] = useState(null);
+  const [studentInfo, setStudentInfo] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
-    if(localStorage.getItem('token')){
+    if (localStorage.getItem('token')) {
       axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/verify`, {
         headers: {
           "x-token": localStorage.getItem('token')
         }
       }).then((res) => {
         setStudentId(res.data.student_id);
+        return axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/student/get-info?student_id=${res.data.student_id}`, {
+          headers: {
+            'x-token': localStorage.getItem('token')
+          }
+        });
+      }).then((res) => {
+        setStudentInfo(res.data);
+      }).catch((err) => {
+        console.error("Error:", err);
+        localStorage.removeItem('token');
+      }).finally(() => {
+        setIsLoading(false);
       });
+    } else {
+      setIsLoading(false);
     }
-  }, [])
+  }, [isSuccess]);
 
 
   function handleLinkClick(e){
@@ -42,19 +59,27 @@ function App() {
   function handlePasswordChange(e) {
       setPassword(e.target.value);
   }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Router>
       <Routes>
         <Route element={<AuthGuard />}>
-        <Route path='/' element={<MainPage studentId={studentId} />}>
-          <Route index element={<Navigate to="/home" />} />
-          <Route path='home' element={<Content />} />
-        </Route>
+          <Route path='/' element={<MainPage studentId={studentId} studentInfo={studentInfo} />}>
+            <Route index element={<Navigate to="/home" />} />
+            <Route path='home' element={<Content />} />
+            {studentInfo && studentInfo.registered_courses.map((course) => (
+              <Route key={course.course_id} path={`course/${course.course_id}`} element={<Content courseId={course.course_id} courseName={course.name} />} />
+            ))}
+          </Route>
         </Route>
         <Route path='/login' element={<LoginPage mode={mode} handleLinkClick={handleLinkClick} handleStudentIdChange={handleStudentIdChange} handlePasswordChange={handlePasswordChange} isSuccess={isSuccess} studentId={studentId} password={password} setIsSuccess={setIsSuccess} />} />
       </Routes>
     </Router>
-  )
+  );
 }
 
 export default App;

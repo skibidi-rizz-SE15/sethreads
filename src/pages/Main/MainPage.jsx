@@ -1,44 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
 import Sidebar from '../../components/sidebar/Sidebar';
-import { Outlet } from 'react-router-dom';
 
-import axios from 'axios';
-
-const MainPage = ({ studentId }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [studentInfo, setStudentInfo] = useState({});
+const MainPage = ({ studentId, studentInfo }) => {
+  const location = useLocation();
   
-  useEffect(() => {
-    if (studentId) {
-      axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/student/get-info?student_id=${studentId}`, {
-        headers: {
-          'x-token': localStorage.getItem('token')
-        }
-      }).then(res => {
-          setStudentInfo(res.data);
-          setIsLoading(false);
-        }).catch(err => {
-          console.log(err)
-        }).finally(() => {
-          setIsLoading(false);
-        });
-    }
-  }, [studentId]);
-
-  if (isLoading) {
-    return (
-      <div>Loading</div> // Bro can add loading or make a loading component to true.
-    )
+  if (!studentInfo) {
+    return <div>Loading student information...</div>;
   }
   
   return (
-    <div className='grid grid-cols-main-page w-screen h-screen'>
+    <div className='grid grid-cols-main-page auto-rows-auto w-screen h-screen'>
       <Navbar />
-      <Sidebar registered_courses={studentInfo.registered_courses} />
+      <Sidebar 
+        registered_courses={studentInfo.registered_courses} 
+        currentPath={location.pathname}
+      />
       <Outlet />
     </div>
-  )
-}
+  );
+};
 
-export default MainPage
+export default MainPage;

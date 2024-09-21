@@ -1,11 +1,11 @@
 import HighlightCard from "./highlightCard/HighlightCard";
 
-const HighlightSection = () => {
-    const highlights = [
-      { title: 'Lorem ipsum dolor sit amet, consector dfgldf dgdlgdf f fdk kffdg dfk fdmgmdfgd ff f d d dllkklm', taName: 'TAs Name' },
-      { title: 'Lorem ipsum dolor sit amet, consector', taName: 'TAs Name' },
-      { title: 'Lorem ipsum dolor sit amet, consector', taName: 'TAs Name' },
-    ];
+const HighlightSection = ({ highlightThreads }) => {
+    // const highlights = [
+    //   { title: 'Lorem ipsum dolor sit amet, consector dfgldf dgdlgdf f fdk kffdg dfk fdmgmdfgd ff f d d dllkklm', taName: 'TAs Name' },
+    //   { title: 'Lorem ipsum dolor sit amet, consector', taName: 'TAs Name' },
+    //   { title: 'Lorem ipsum dolor sit amet, consector', taName: 'TAs Name' },
+    // ];
 
     return (
         <section>
@@ -15,8 +15,8 @@ const HighlightSection = () => {
           </div>    
           <div className="mx-6 max-w-full">   
             <div className="flex gap-5 max-md:flex-col">   
-              {highlights.map((highlight, index) => (  
-                <HighlightCard key={index} {...highlight} className="w-[33%]" />  
+              {highlightThreads.map((thread) => (  
+                <HighlightCard key={thread.thread_id} title={thread.title} taName={thread.author.name} className="w-[33%]" />  
               ))}   
             </div>    
           </div>

@@ -52,6 +52,7 @@ const LoginPage = ({ mode, handleLinkClick, handleStudentIdChange, handlePasswor
             ).then((res) => {
                 if (res.data.successful) {
                     localStorage.setItem("token", res.data.token);
+                    setIsSuccess(true);
                     navigate("/home");
                 }
             }).catch((err) => {
@@ -67,6 +68,7 @@ const LoginPage = ({ mode, handleLinkClick, handleStudentIdChange, handlePasswor
             ).then((res) => {
                 if (res.data.successful) {
                     localStorage.setItem("token", res.data.token);
+                    setIsSuccess(true);
                     navigate("/home");
                 }
             }).catch((err) => {
