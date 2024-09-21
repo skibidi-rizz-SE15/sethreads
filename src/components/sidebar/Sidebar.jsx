@@ -2,17 +2,7 @@ import React from "react";
 import SidebarItem from "./sidebarItem/SidebarItem";
 import Separator from "../separator/Separator";
 
-const Sidebar = () => {
-  const subjects = [
-    { name: "Subject1 your momo hehe haha lol kekw", id: "001" },
-    { name: "Subject2", id: "002" },
-    { name: "Subject3", id: "003" },
-    { name: "Subject4", id: "004" },
-    { name: "dummy subject", id: "005" },
-    { name: "dummy subject", id: "006" },
-    { name: "dummy subject", id: "007" },
-    { name: "dummy subject", id: "008" },
-  ];
+const Sidebar = ({ registered_courses }) => {
 
   return (
     <nav className="flex z-10 flex-col items-start overflow-y-auto px-3 pt-10 max-w-full text-base tracking-wide text-white whitespace-nowrap rounded-none border-r border-r-yellow-600 bg-eerie-black h-full">
@@ -23,8 +13,8 @@ const Sidebar = () => {
       <Separator className="self-stretch mt-11" />
       <h2 className="mt-4 text-2xl font-bold text-neutral-400">Courses</h2>
       <div>
-        {subjects.map((subject) => (
-          <SidebarItem key={subject.id} subject={subject.name} />
+        {registered_courses.map((course) => (
+          <SidebarItem key={course.course_id} subject={course.name} />
         ))}
       </div>
     </nav>

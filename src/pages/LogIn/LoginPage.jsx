@@ -1,20 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SignInBox from "../../components/loginComponents/SignInBox";
 import Logo from "../../components/navbar/logo/Logo";
 import axios from "axios";
 
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
-    const [mode, setMode] = useState("sign-in")
-    const [studentId, setStudentId] = useState("");
-    const [password, setPassword] = useState("");
-    
+const LoginPage = ({ mode, handleLinkClick, handleStudentIdChange, handlePasswordChange, isSuccess, studentId, password, setIsSuccess }) => {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+
     const navigate = useNavigate();
 
-    function handleLinkClick(e){
-        e.preventDefault()
-        setMode((prevMode) => (prevMode === "sign-in" ? "sign-up" : "sign-in"));
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            setIsAuthenticated(false);
+            setIsLoading(false);
+            return;
+        }
+
+        axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/verify`, {
+            headers: {
+                "x-token": token,
+            },
+        })
+            .then((res) => {
+                setIsAuthenticated(res.data.successful);
+            })
+            .catch((err) => {
+                console.error("Authentication error:", err);
+                setIsAuthenticated(false);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
+    }, []);
+
+    if (isLoading) {
+        return <div>Loading...</div>;
     }
 
     function handleLogin(e) {
@@ -33,6 +56,7 @@ const LoginPage = () => {
                 }
             }).catch((err) => {
                 console.log(err);
+                setIsSuccess(false);
             });
         } else if (mode === "sign-up") {
             axios.post(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/sign-up`,
@@ -47,18 +71,12 @@ const LoginPage = () => {
                 }
             }).catch((err) => {
                 console.log(err);
+                setIsSuccess(false);
             });
         }
     }
 
-    function handleStudentIdChange(e) {
-        setStudentId(e.target.value);
-    }
-    function handlePasswordChange(e) {
-        setPassword(e.target.value);
-    }
-
-    return (
+    return isAuthenticated ? <Navigate to="/home" /> : (
         <div className="flex h-screen w-screen overflow-hidden">
             {/* logo and main page */}
             <div className="bg-neutral-900 flex items-center justify-center h-full w-1/2 overflow-hidden">
@@ -74,7 +92,13 @@ const LoginPage = () => {
 
                 {/* white background and form */}
                 <div className="h-full bg-white p-8 flex-grow flex items-center justify-center transform -skew-x-12">
-                    <SignInBox mode={mode} handleLinkClick={handleLinkClick} Login={handleLogin} onStudentIdChange={handleStudentIdChange} onPasswordChange={handlePasswordChange} />
+                    <SignInBox 
+                        mode={mode}
+                        handleLinkClick={handleLinkClick}
+                        Login={handleLogin}
+                        onStudentIdChange={handleStudentIdChange}
+                        onPasswordChange={handlePasswordChange}
+                        onSuccess={isSuccess} />
                 </div>
             </div>
         </div>

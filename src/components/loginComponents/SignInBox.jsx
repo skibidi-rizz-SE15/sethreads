@@ -1,6 +1,6 @@
 import React from "react";
 
-const SignInBox = ({ mode="sign-in", handleLinkClick, Login, onStudentIdChange, onPasswordChange }) => {
+const SignInBox = ({ mode="sign-in", handleLinkClick, Login, onStudentIdChange, onPasswordChange, onSuccess }) => {
     let passwordPlaceholder, modeMessage, modeText, modeTextOpposite;
     if(mode === "sign-up"){
         passwordPlaceholder = "Create Password";
@@ -19,20 +19,25 @@ const SignInBox = ({ mode="sign-in", handleLinkClick, Login, onStudentIdChange, 
             <h1 className="text-2xl font-semibold text-center mb-6">{modeText}</h1>
             <form className="space-y-4">
                 <div>
+                    {onSuccess === false && <p className="text-red-500 text-sm">Invalid student ID or password</p>}
                     <input
                         type="text"
                         placeholder="Student ID"
-                        className="w-full px-4 py-2 rounded-md border border-gray-300 bg-gray-100 placeholder-gray-400 text-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                        className={`w-full px-4 py-2 rounded-md border ${
+                            onSuccess === false ? 'border-red-500' : 'border-gray-300'
+                        } bg-gray-100 placeholder-gray-400 text-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-500`}
                         onChange={onStudentIdChange}
-                    />
+                        />
                 </div>
                 <div>
                     <input
                         type="password"
                         placeholder={passwordPlaceholder}
-                        className="w-full px-4 py-2 rounded-md border border-gray-300 bg-gray-100 placeholder-gray-400 text-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                        className={`w-full px-4 py-2 rounded-md border ${
+                            onSuccess === false ? 'border-red-500' : 'border-gray-300'
+                        } bg-gray-100 placeholder-gray-400 text-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-500`}
                         onChange={onPasswordChange}
-                    />
+                        />
                 </div>
                     <button
                         type="submit"
