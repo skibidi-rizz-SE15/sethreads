@@ -11,7 +11,7 @@ const MainPage = ({ studentId, studentInfo }) => {
   }
   
   return (
-    <div className='grid grid-cols-main-page auto-rows-auto w-screen h-screen'>
+    <div className='grid grid-cols-main-page grid-rows-[min-content_1fr] w-screen h-screen'>
       <Navbar />
       <Sidebar 
         registered_courses={studentInfo.registered_courses} 
