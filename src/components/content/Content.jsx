@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 
 import Header from "./header/Header";
 import HighlightSection from "./highlightSection/HighlightSection";
 import ThreadSection from "./threadSection/ThreadSection";
 import Separator from "../separator/Separator";
+import Thread from "../threadComponents/Thread";
 
-const Content = ({ courseId, courseName }) => {
-  const [threads, setThreads] = useState(null);
+const Content = ({ courseId, courseName, threads, setThreads }) => {
   const [limit, setLimit] = useState(10);
   const [isLoading, setIsLoading] = useState(true);
   const [offset, setOffset] = useState(0);
@@ -35,12 +36,11 @@ const Content = ({ courseId, courseName }) => {
       } catch (err) {
         console.error(err);
       } finally {
-        setIsLoading(true);
+        setIsLoading(false);
       }
     };
 
     fetchData();
-    console.log("Content changed!");
 
     // No need for cleanup function to reset limit and offset
   }, [courseId, courseName]);
@@ -58,10 +58,12 @@ const Content = ({ courseId, courseName }) => {
         highlightThreads={threads.filter(
           (thread) => thread.is_highlight === true
         )}
+        courseId={courseId}
       />
       <Separator className="my-6 w-full max-w-full" />
       <ThreadSection
         threads={threads.filter((thread) => thread.is_highlight === false)}
+        courseId={courseId}
       />
     </main>
   );

@@ -1,6 +1,8 @@
 import HighlightCard from "./highlightCard/HighlightCard";
 
-const HighlightSection = ({ highlightThreads }) => {
+import { Link } from "react-router-dom";
+
+const HighlightSection = ({ highlightThreads, courseId }) => {
     // const highlights = [
     //   { title: 'Lorem ipsum dolor sit amet, consector dfgldf dgdlgdf f fdk kffdg dfk fdmgmdfgd ff f d d dllkklm', taName: 'TAs Name' },
     //   { title: 'Lorem ipsum dolor sit amet, consector', taName: 'TAs Name' },
@@ -13,13 +15,13 @@ const HighlightSection = ({ highlightThreads }) => {
             <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/3117b074e17582b809fc5215b91fa303a269ef8867f5485b6d1dcc4b7fd50eeb?placeholderIfAbsent=true&apiKey=55e9f8a1f064422990695f1eab1a40f5" alt="Highlight Icon" className="object-contain shrink-0 my-auto w-6 aspect-square" />    
             <div className="basis-auto">Highlight</div>   
           </div>    
-          <div className="mx-6 max-w-full">   
-            <div className="flex gap-5 max-md:flex-col">   
-              {highlightThreads.map((thread) => (  
-                <HighlightCard key={thread.thread_id} title={thread.title} taName={thread.author.name} className="w-[33%]" />  
-              ))}   
-            </div>    
-          </div>
+          <div className="flex flex-wrap gap-5 mx-6 max-w-full max-md:flex-col">   
+            {highlightThreads.map((thread) => (
+              <Link to={`/course/${courseId}/thread/${thread.id}`} style={{display: 'contents' }}>  
+                <HighlightCard key={thread.id} title={thread.title} taName={thread.author.name} className="flex-1 w-full min-w-72 max-w-[33%] max-[300px]:max-w-full" /> 
+              </Link>
+            ))}   
+          </div>    
         </section>   
       );  
 }
