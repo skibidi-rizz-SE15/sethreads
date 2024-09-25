@@ -12,7 +12,10 @@ const MainPage = ({ studentId, studentInfo }) => {
   
   return (
     <div className='grid grid-cols-main-page grid-rows-[min-content_1fr] w-screen h-screen'>
-      <Navbar />
+      <Navbar 
+        studentName={studentInfo.name}
+        studentYear={studentInfo.year}
+      />
       <Sidebar 
         registered_courses={studentInfo.registered_courses} 
         currentPath={location.pathname}

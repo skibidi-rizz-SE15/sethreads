@@ -2,7 +2,7 @@ import React from 'react';
 import ThreadCard from './threadCard/ThreadCard';
 import Separator from '../../separator/Separator';
 
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const ThreadSection = ({ threads, courseId }) => {
 // return (

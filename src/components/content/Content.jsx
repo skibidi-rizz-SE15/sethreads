@@ -8,15 +8,10 @@ import ThreadSection from "./threadSection/ThreadSection";
 import Separator from "../separator/Separator";
 import Thread from "../threadComponents/Thread";
 
-const Content = ({ courseId, courseName, threads, setThreads }) => {
+const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
   const [limit, setLimit] = useState(10);
   const [isLoading, setIsLoading] = useState(true);
   const [offset, setOffset] = useState(0);
-
-  // useEffect(() => {
-  //   setLimit((prev) => prev + 10);
-  //   setOffset((prev) => prev + 10);
-  // }, [scroll])
 
   useEffect(() => {
 
@@ -31,7 +26,6 @@ const Content = ({ courseId, courseName, threads, setThreads }) => {
             },
           }
         );
-        console.log(response.data);
         setThreads(response.data);
       } catch (err) {
         console.error(err);
@@ -40,7 +34,11 @@ const Content = ({ courseId, courseName, threads, setThreads }) => {
       }
     };
 
-    fetchData();
+    if (isHome) {
+      setIsLoading(true);
+    } else {
+      fetchData();
+    }
 
     // No need for cleanup function to reset limit and offset
   }, [courseId, courseName]);
@@ -54,17 +52,23 @@ const Content = ({ courseId, courseName, threads, setThreads }) => {
     <main className="flex flex-col overflow-y-auto px-9 pt-10 mx-auto w-full bg-neutral-800">
       <Header courseName={courseName} />
       <Separator className="my-6 w-full max-w-full" />
-      <HighlightSection
-        highlightThreads={threads.filter(
-          (thread) => thread.is_highlight === true
-        )}
-        courseId={courseId}
-      />
-      <Separator className="my-6 w-full max-w-full" />
-      <ThreadSection
-        threads={threads.filter((thread) => thread.is_highlight === false)}
-        courseId={courseId}
-      />
+    {  threads.length === 0 ? (<div className="flex items-center justify-center w-full h-96">
+        <p className="text-lg text-neutral-200">No threads found</p>
+      </div>) : (
+          <div>
+            <HighlightSection
+              highlightThreads={threads.filter(
+                (thread) => thread.is_highlight === true
+              )}
+              courseId={courseId}
+            />
+            <Separator className="my-6 w-full max-w-full" />
+            <ThreadSection
+              threads={threads.filter((thread) => thread.is_highlight === false)}
+              courseId={courseId}
+            />
+          </div>
+    )}
     </main>
   );
 };

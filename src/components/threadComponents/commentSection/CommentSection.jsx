@@ -1,12 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
 import Comment from "./comment/Comment";
 
-const CommentSection = () => {
+const CommentSection = ({ thread_id, setNumComment }) => {
+    const [comments, setComments] = useState([]);
+    const [limit, setLimit] = useState(20);
+    const [offset, setOffset] = useState(0);
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/comment/get-comments?thread_id=${thread_id}&limit=${limit}&offset=${offset}`,{
+            headers: {
+                "x-token": localStorage.getItem("token")
+            }
+        })
+        .then((res) => {
+            setComments(res.data);
+            setNumComment(res.data.length);
+        }).catch((err) => {
+            console.log(err);
+        })
+    }, [thread_id])
+    
     return (
         <div className="mt-4">
-            <Comment />
-            <Comment />
-            <Comment />
+            {comments.map((comment) => {
+                return (
+                    <Comment
+                        key={comment.id}
+                        name={comment.author.name}
+                        body={comment.comment_data}
+                        subcomments={comment.subcomments}
+                    />
+                )
+            })}
         </div>
     )
 }

@@ -16,6 +16,7 @@ import { useParams } from "react-router-dom";
 const Thread = () => {
     const { courseId, threadId } = useParams();
     const [threadData, setThreadData] = useState({});
+    const [numComment, setNumComment] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -47,11 +48,11 @@ const Thread = () => {
                     <TextTitle title={threadData.title} />
                     <TextBody body={threadData.body} />
                 </div>
-                <CommentDisplay />
+                <CommentDisplay number={numComment}/>
                 <Separator className="w-full my-6" />
                 <div className="text-xl text-white">Comments</div>
                 <CommentInput />
-                <CommentSection />
+                <CommentSection thread_id={threadId} setNumComment={setNumComment} />
             </div>
         </div>
         

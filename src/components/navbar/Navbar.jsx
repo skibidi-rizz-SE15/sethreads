@@ -2,15 +2,15 @@ import React from 'react';
 
 import PostBtn from '../button/post/PostBtn';
 import Logo from './logo/Logo';
-import Profile from './profile/Profile';
+import NavBarProfile from './profile/NavBarProfile';
 
-const Navbar = () => {
+const Navbar = ({ studentName, studentYear }) => {
     return (
         <header className='col-span-2 flex justify-between items-center overflow-hidden h-20 px-20 py-1 rounded-b-xl border-b-2 border-yellow-600 border-solid bg-eerie-black max-md:px-5'>
             <Logo />
             <div className='flex items-center'>
                 <PostBtn />
-                <Profile />
+                <NavBarProfile name={studentName} year={studentYear} />
             </div>
         </header>
     );
