@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
 import Sidebar from '../../components/sidebar/Sidebar';
@@ -20,7 +20,7 @@ const MainPage = ({ studentId, studentInfo }) => {
         registered_courses={studentInfo.registered_courses} 
         currentPath={location.pathname}
       />
-      <Outlet />
+      <Outlet location={location}/>
     </div>
   );
 };

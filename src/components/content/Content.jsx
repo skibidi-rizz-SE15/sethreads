@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 
 import Header from "./header/Header";
 import HighlightSection from "./highlightSection/HighlightSection";
 import ThreadSection from "./threadSection/ThreadSection";
 import Separator from "../separator/Separator";
-import Thread from "../threadComponents/Thread";
+import { useLocation, useParams } from "react-router-dom";
 
 const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
   const [limit, setLimit] = useState(10);
   const [isLoading, setIsLoading] = useState(true);
   const [offset, setOffset] = useState(0);
+
+  const location = useLocation();
+  console.log(location);
 
   useEffect(() => {
 
@@ -34,13 +36,12 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
       }
     };
 
-    if (isHome) {
+    if (location.pathname === "/home") {
       setIsLoading(true);
     } else {
       fetchData();
     }
 
-    // No need for cleanup function to reset limit and offset
   }, [courseId, courseName]);
 
 
