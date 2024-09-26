@@ -6,6 +6,7 @@ import MainPage from './pages/Main/MainPage'
 import AuthGuard from './components/auth/AuthGuard';
 import Content from './components/content/Content';
 import Thread from './components/threadComponents/Thread';
+import Home from './components/content/Home';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 
 function App() {
@@ -73,7 +74,7 @@ function App() {
         <Route element={<AuthGuard />}>
           <Route path='/' element={<MainPage studentId={studentId} studentInfo={studentInfo} />}>
             <Route index element={<Navigate to="/home" />} />
-            <Route path='home' element={<Content isHome={true} />} />
+            <Route path='home' element={<Home />} />
             {studentInfo && studentInfo.registered_courses.map((course) => (
               <Route key={course.course_id} path={`course/${course.course_id}`} element={<Content courseId={course.course_id} courseName={course.name} threads={threads} setThreads={setThreads} />} />
             ))}
