@@ -3,13 +3,13 @@ import axios from "axios";
 
 import Comment from "./comment/Comment";
 
-const CommentSection = ({ thread_id, setNumComment }) => {
+const CommentSection = ({ thread_id, setNumComment, isHome }) => {
     const [comments, setComments] = useState([]);
     const [limit, setLimit] = useState(20);
     const [offset, setOffset] = useState(0);
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/comment/get-comments?thread_id=${thread_id}&limit=${limit}&offset=${offset}`,{
+        axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${isHome ? (`home-comment/get-comments?home_id=${thread_id}`) : (`comment/get-comments?thread_id=${thread_id}`)}&limit=${limit}&offset=${offset}`,{
             headers: {
                 "x-token": localStorage.getItem("token")
             }

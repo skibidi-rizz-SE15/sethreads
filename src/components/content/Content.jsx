@@ -36,11 +36,7 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
       }
     };
 
-    if (location.pathname === "/home") {
-      setIsLoading(true);
-    } else {
-      fetchData();
-    }
+    fetchData();
 
   }, [courseId, courseName]);
 
@@ -67,6 +63,7 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
             <ThreadSection
               threads={threads.filter((thread) => thread.is_highlight === false)}
               courseId={courseId}
+              isHomePage={false}
             />
           </div>
     )}

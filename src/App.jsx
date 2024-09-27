@@ -78,7 +78,8 @@ function App() {
             {studentInfo && studentInfo.registered_courses.map((course) => (
               <Route key={course.course_id} path={`course/${course.course_id}`} element={<Content courseId={course.course_id} courseName={course.name} threads={threads} setThreads={setThreads} />} />
             ))}
-            <Route path='course/:courseId/thread/:threadId' element={<Thread />} />
+            <Route path='home/thread/:threadId' element={<Thread fromHome={true} />} />
+            <Route path='course/:courseId/thread/:threadId' element={<Thread fromHome={false} />} />
           </Route>
         </Route>
         <Route path='/login' element={<LoginPage mode={mode} handleLinkClick={handleLinkClick} handleStudentIdChange={handleStudentIdChange} handlePasswordChange={handlePasswordChange} isSuccess={isSuccess} studentId={studentId} password={password} setIsSuccess={setIsSuccess} />} />

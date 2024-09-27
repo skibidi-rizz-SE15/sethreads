@@ -55,10 +55,12 @@ const Home = () => {
                 highlightThreads={threads.filter(
                     (thread) => thread.is_highlight === true
                 )}
+                isHomePage={true}
                 />
                 <Separator className="my-6 w-full max-w-full" />
                 <ThreadSection
                 threads={threads.filter((thread) => thread.is_highlight === false)}
+                isHomePage={true}
                 />
             </div>
         )}
