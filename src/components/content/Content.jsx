@@ -13,7 +13,6 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
   const [offset, setOffset] = useState(0);
 
   const location = useLocation();
-  console.log(location);
 
   useEffect(() => {
 

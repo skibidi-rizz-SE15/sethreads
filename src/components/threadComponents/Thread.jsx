@@ -26,7 +26,6 @@ const Thread = ({ fromHome }) => {
             }
         })
         .then((res) => {
-            console.log(res.data);
             setThreadData(res.data);
         }).catch((err) => {
             console.log(err);

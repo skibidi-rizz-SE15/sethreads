@@ -13,6 +13,7 @@ function App() {
 
   // uncomment this below line to clear the local storage
   // localStorage.clear();
+  // localStorage.removeItem('token');
   // and comment for development
 
   const [mode, setMode] = useState("sign-in")
@@ -23,6 +24,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   const [threads, setThreads] = useState(null);
+  const [taCourse, setTACourse] = useState(null);
 
 
   useEffect(() => {
@@ -40,6 +42,19 @@ function App() {
         });
       }).then((res) => {
         setStudentInfo(res.data);
+        if (res.data.is_ta) {
+          return axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/student/get-courses?course_id=${res.data.ta_course_id}`, {
+            headers: {
+              'x-token': localStorage.getItem('token')
+            }
+          });
+        }
+        return null;
+      }).then((res) => {
+        if (res === null) {
+          return;
+        }
+        setTACourse(res.data);
       }).catch((err) => {
         console.error("Error:", err);
         localStorage.removeItem('token');
@@ -72,12 +87,15 @@ function App() {
     <Router>
       <Routes>
         <Route element={<AuthGuard />}>
-          <Route path='/' element={<MainPage studentId={studentId} studentInfo={studentInfo} />}>
+          <Route path='/' element={<MainPage studentId={studentId} studentInfo={studentInfo} taCourse={taCourse} />}>
             <Route index element={<Navigate to="/home" />} />
             <Route path='home' element={<Home />} />
             {studentInfo && studentInfo.registered_courses.map((course) => (
               <Route key={course.course_id} path={`course/${course.course_id}`} element={<Content courseId={course.course_id} courseName={course.name} threads={threads} setThreads={setThreads} />} />
             ))}
+            {taCourse && (
+              <Route path={`course/${taCourse.course_id}`} element={<Content courseId={taCourse.course_id} courseName={taCourse.name} threads={threads} setThreads={setThreads} />} />
+            )}
             <Route path='home/thread/:threadId' element={<Thread fromHome={true} />} />
             <Route path='course/:courseId/thread/:threadId' element={<Thread fromHome={false} />} />
           </Route>

@@ -24,7 +24,7 @@ const CommentSection = ({ thread_id, setNumComment, isHome }) => {
     
     return (
         <div className="mt-4">
-            {comments.map((comment) => {
+            {comments.length === 0 ? <div className="text-white">No comments yet wanna add some :)</div> : comments.map((comment) => {
                 return (
                     <Comment
                         key={comment.id}
