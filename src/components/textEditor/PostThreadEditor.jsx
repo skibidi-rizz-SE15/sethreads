@@ -21,11 +21,11 @@ import CharacterCount from '@tiptap/extension-character-count';
 import Dropcursor from '@tiptap/extension-dropcursor';
 import FileHandler from '@tiptap-pro/extension-file-handler';
 import Mathematics from '@tiptap-pro/extension-mathematics';
-import DragHandle from '@tiptap-pro/extension-drag-handle-react';
 import { all, createLowlight } from 'lowlight';
 import css from 'highlight.js/lib/languages/css';
 import js from 'highlight.js/lib/languages/javascript';
 import html from 'highlight.js/lib/languages/xml';
+import Placeholder from '@tiptap/extension-placeholder';
 // import 'katex/dist/katex.min.css'
 // import styles from `../../styles/tiptapStyles.module.css`;
 
@@ -63,6 +63,7 @@ const PostThreadEditor = () => {
       CharacterCount,
       Dropcursor,
       Mathematics,
+      Placeholder.configure({ placeholder: "Body" }),
       FileHandler.configure({
         allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
         onDrop: (currentEditor, files, pos) => {
