@@ -23,10 +23,12 @@ import Gapcursor from '@tiptap/extension-gapcursor';
 import FileHandler from '@tiptap-pro/extension-file-handler';
 import Mathematics from '@tiptap-pro/extension-mathematics';
 import DragHandle from '@tiptap-pro/extension-drag-handle-react';
-import { all, createLowlight } from 'lowlight'
-import css from 'highlight.js/lib/languages/css'
-import js from 'highlight.js/lib/languages/javascript'
-import html from 'highlight.js/lib/languages/xml'
+import { all, createLowlight } from 'lowlight';
+import css from 'highlight.js/lib/languages/css';
+import js from 'highlight.js/lib/languages/javascript';
+import html from 'highlight.js/lib/languages/xml';
+import { common } from 'lowlight';
+// import styles from `../../styles/tiptapStyles.module.css`;
 
 const lowlight = createLowlight(all)
 lowlight.register('html', html)
@@ -51,7 +53,11 @@ const PostThreadEditor = () => {
       Bold,
       Code,
       Italic,
-      Link,
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        defaultProtocol: 'https',
+      }),
       Subscript,
       Superscript,
       Underline,
@@ -86,8 +92,18 @@ const PostThreadEditor = () => {
       styles: ''
     },
     {
-      command: () => editor.chain().focus().toggleLink().run(),
+      command: () => {
+        const url = window.prompt('Enter the URL');
+        if (url) {
+          editor.chain().focus().setLink({ href: url }).run();
+        }
+      },
       label: 'Link',
+      styles: ''
+    },
+    {
+      command: () => editor.chain().focus().unsetLink().run(),
+      label: 'Unlink',
       styles: ''
     },
     {
@@ -108,6 +124,11 @@ const PostThreadEditor = () => {
     {
       command: () => editor.chain().focus().toggleCodeBlock().run(),
       label: 'Code Block',
+      styles: ''
+    },
+    {
+      command: () => editor.chain().focus().toggleCode().run(),
+      label: 'Code',
       styles: ''
     },
     {
