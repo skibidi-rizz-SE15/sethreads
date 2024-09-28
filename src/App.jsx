@@ -96,8 +96,8 @@ function App() {
             {taCourse && (
               <Route path={`course/${taCourse.course_id}`} element={<Content courseId={taCourse.course_id} courseName={taCourse.name} threads={threads} setThreads={setThreads} />} />
             )}
-            <Route path='home/thread/:threadId' element={<Thread fromHome={true} />} />
-            <Route path='course/:courseId/thread/:threadId' element={<Thread fromHome={false} />} />
+            <Route path='home/thread/:threadId' element={<Thread fromHome={true} studentId={studentId} />} />
+            <Route path='course/:courseId/thread/:threadId' element={<Thread fromHome={false} studentId={studentId}/>} />
           </Route>
         </Route>
         <Route path='/login' element={<LoginPage mode={mode} handleLinkClick={handleLinkClick} handleStudentIdChange={handleStudentIdChange} handlePasswordChange={handlePasswordChange} isSuccess={isSuccess} studentId={studentId} password={password} setIsSuccess={setIsSuccess} />} />
