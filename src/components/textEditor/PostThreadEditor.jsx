@@ -190,27 +190,33 @@ const PostThreadEditor = () => {
         <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
           <button
             className="px-2 py-1 border rounded hover:bg-gray-200"
-            onClick={() => editor.chain().focus().toggleBold().run()}
+            onClick={buttons.find((button) => button.label === "Bold").command}
           >
             Bold
           </button>
           <button
             className="px-2 py-1 border rounded hover:bg-gray-200"
-            onClick={() => editor.chain().focus().toggleItalic().run()}
+            onClick={buttons.find((button) => button.label === "Italic").command}
           >
             Italic
           </button>
           <button
             className="px-2 py-1 border rounded hover:bg-gray-200"
-            onClick={() => editor.chain().focus().toggleUnderline().run()}
+            onClick={buttons.find((button) => button.label === "Underline").command}
           >
             Underline
           </button>
           <button
             className="px-2 py-1 border rounded hover:bg-gray-200"
-            onClick={() => editor.chain().focus().toggleLink({ href: 'https://example.com' }).run()}
+            onClick={setLink}
           >
             Link
+          </button>
+          <button
+            className="px-2 py-1 border rounded hover:bg-gray-200"
+            onClick={buttons.find((button) => button.label === "Unlink").command}
+          >
+            Unlink
           </button>
         </BubbleMenu>
       )}
