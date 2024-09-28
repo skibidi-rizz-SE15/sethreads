@@ -64,8 +64,90 @@ const PostThreadEditor = () => {
     content: '<p>Hello, world!</p>',
   });
 
+  const buttons = [
+    {
+      command: () => editor.chain().focus().setParagraph().run(),
+      label: 'Paragraph',
+      styles: ''
+    },
+    {
+      command: () => editor.chain().focus().toggleBold().run(),
+      label: 'Bold',
+      styles: ''
+    },
+    {
+      command: () => editor.chain().focus().toggleItalic().run(),
+      label: 'Italic',
+      styles: ''
+    },
+    {
+      command: () => editor.chain().focus().toggleUnderline().run(),
+      label: 'Underline',
+      styles: ''
+    },
+    {
+      command: () => editor.chain().focus().toggleLink().run(),
+      label: 'Link',
+      styles: ''
+    },
+    {
+      command: () => editor.chain().focus().toggleBulletList().run(),
+      label: 'Bullet List',
+      styles: ''
+    },
+    {
+      command: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
+      label: 'Heading 1',
+      styles: ''
+    },
+    {
+      command: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
+      label: 'Heading 2',
+      styles: ''
+    },
+    {
+      command: () => editor.chain().focus().toggleCodeBlock().run(),
+      label: 'Code Block',
+      styles: ''
+    },
+    {
+      command: () => editor.chain().focus().toggleBlockquote().run(),
+      label: 'Blockquote',
+      styles: ''
+    },
+    {
+      command: () => editor.chain().focus().toggleSubscript().run(),
+      label: 'Subscript',
+      styles: ''
+    },
+    {
+      command: () => editor.chain().focus().toggleSuperscript().run(),
+      label: 'Superscript',
+      styles: ''
+    },
+    {
+      command: () => editor.chain().focus().setImage().run(),
+      label: 'Image',
+      styles: ''
+    },
+  ];
+  
+
   return (
-    <div className="max-w-2xl mx-auto my-8 p-4 border rounded shadow">
+    <div className="w-[60rem] mx-auto my-8 p-4 border rounded shadow-lg bg-white">
+      {editor && (
+        <div className="mb-4 flex flex-wrap gap-2 bg-gray-100 p-2 rounded">
+          {buttons.map((button, index) => (
+            <button
+              key={index}
+              className={`px-2 py-1 border rounded hover:bg-gray-300 focus:outline-none ${editor.isActive(button.label.toLowerCase()) ? 'bg-gray-300' : ''} ${button.styles}`}
+              onClick={button.command}
+            >
+              {button.label}
+            </button>
+          ))}
+        </div>
+      )}
       {editor && (
         <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
           <button
@@ -92,10 +174,13 @@ const PostThreadEditor = () => {
           >
             Link
           </button>
-          {/* Add more buttons for other marks and nodes as needed */}
         </BubbleMenu>
       )}
-      <EditorContent editor={editor} className="p-4 border rounded shadow-sm focus:outline-none" />
+      <EditorContent 
+        editor={editor} 
+        className="p-4 border rounded min-h-40 shadow-sm focus:outline-none bg-white" 
+        onClick={() => editor.commands.focus()}
+      />
       {editor && (
         <div className="mt-2 text-sm text-gray-600">
           Character Count: {editor.storage.characterCount.characters()}
