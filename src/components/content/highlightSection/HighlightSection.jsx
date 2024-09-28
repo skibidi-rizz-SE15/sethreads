@@ -2,7 +2,7 @@ import HighlightCard from "./highlightCard/HighlightCard";
 
 import { Link } from "react-router-dom";
 
-const HighlightSection = ({ highlightThreads, courseId }) => {
+const HighlightSection = ({ highlightThreads, courseId, isHomePage }) => {
     // const highlights = [
     //   { title: 'Lorem ipsum dolor sit amet, consector dfgldf dgdlgdf f fdk kffdg dfk fdmgmdfgd ff f d d dllkklm', taName: 'TAs Name' },
     //   { title: 'Lorem ipsum dolor sit amet, consector', taName: 'TAs Name' },
@@ -17,7 +17,7 @@ const HighlightSection = ({ highlightThreads, courseId }) => {
           </div>    
           <div className="flex flex-wrap gap-5 mx-6 max-w-full max-md:flex-col">   
             {highlightThreads.map((thread) => (
-              <Link to={`/course/${courseId}/thread/${thread.id}`} style={{display: 'contents' }} key={thread.id}>  
+              <Link to={`${isHomePage ? `thread/${thread.id}` : `/course/${courseId}/thread/${thread.id}`}`} style={{display: 'contents' }} key={thread.id}>  
                 <HighlightCard key={thread.id} title={thread.title} taName={thread.author.name} comments={thread.comments} className="flex-1 w-full min-w-72 max-w-[33%] max-[300px]:max-w-full" /> 
               </Link>
             ))}   

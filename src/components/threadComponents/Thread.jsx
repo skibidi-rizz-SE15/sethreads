@@ -13,20 +13,19 @@ import BackToCourseBtn from "../button/back/BackToCourseBtn";
 
 import { useParams } from "react-router-dom";
 
-const Thread = () => {
+const Thread = ({ fromHome }) => {
     const { courseId, threadId } = useParams();
     const [threadData, setThreadData] = useState({});
     const [numComment, setNumComment] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/get-thread?thread_id=${threadId}&course_id=${courseId}`, {
+        axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? `home/get-thread?thread_id=${threadId}` : `thread/get-thread?thread_id=${threadId}&course_id=${courseId}`}`, {
             headers: {
                 "x-token": localStorage.getItem("token")
             }
         })
         .then((res) => {
-            console.log(res.data);
             setThreadData(res.data);
         }).catch((err) => {
             console.log(err);
@@ -41,7 +40,7 @@ const Thread = () => {
 
     return (
         <div className="relative flex overflow-y-auto w-full">
-            <BackToCourseBtn />
+            <BackToCourseBtn toHome={fromHome}/>
             <div className="flex flex-col px-9 py-10 mx-auto w-4/5 h-max bg-neutral-800">
                 <div className="w-full">
                     <Profile name={`${threadData.author.name} ${threadData.author.surname}`} time={threadData.create_at} />
@@ -52,7 +51,7 @@ const Thread = () => {
                 <Separator className="w-full my-6" />
                 <div className="text-xl text-white">Comments</div>
                 <CommentInput />
-                <CommentSection thread_id={threadId} setNumComment={setNumComment} />
+                <CommentSection thread_id={threadId} setNumComment={setNumComment} isHome={fromHome} />
             </div>
         </div>
         
