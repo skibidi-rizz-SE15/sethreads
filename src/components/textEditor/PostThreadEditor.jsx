@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useEditor, EditorContent, BubbleMenu } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Blockquote from '@tiptap/extension-blockquote';
@@ -70,6 +70,28 @@ const PostThreadEditor = () => {
     content: '<p>Hello, world!</p>',
   });
 
+  const setLink = useCallback(() => {
+    const previousUrl = editor.getAttributes('link').href
+    const url = window.prompt('URL', previousUrl)
+
+    // cancelled
+    if (url === null) {
+      return
+    }
+
+    // empty
+    if (url === '') {
+      editor.chain().focus().extendMarkRange('link').unsetLink()
+        .run()
+
+      return
+    }
+
+    // update link
+    editor.chain().focus().extendMarkRange('link').setLink({ href: url })
+      .run()
+  }, [editor]);
+
   const buttons = [
     {
       command: () => editor.chain().focus().setParagraph().run(),
@@ -92,12 +114,7 @@ const PostThreadEditor = () => {
       styles: ''
     },
     {
-      command: () => {
-        const url = window.prompt('Enter the URL');
-        if (url) {
-          editor.chain().focus().setLink({ href: url }).run();
-        }
-      },
+      command: setLink,
       label: 'Link',
       styles: ''
     },
