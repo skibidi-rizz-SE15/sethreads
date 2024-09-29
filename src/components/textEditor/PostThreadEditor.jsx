@@ -22,17 +22,11 @@ import Dropcursor from '@tiptap/extension-dropcursor';
 import FileHandler from '@tiptap-pro/extension-file-handler';
 import Mathematics from '@tiptap-pro/extension-mathematics';
 import { all, createLowlight } from 'lowlight';
-import css from 'highlight.js/lib/languages/css';
-import js from 'highlight.js/lib/languages/javascript';
-import html from 'highlight.js/lib/languages/xml';
 import Placeholder from '@tiptap/extension-placeholder';
 import 'katex/dist/katex.min.css'
 import '../../styles/tiptapStyles.css';
 
 const lowlight = createLowlight(all)
-lowlight.register('html', html)
-lowlight.register('css', css)
-lowlight.register('js', js)
 
 const PostThreadEditor = () => {
   const editor = useEditor({
@@ -42,6 +36,7 @@ const PostThreadEditor = () => {
       BulletList,
       CodeBlockLowlight.configure({
         lowlight,
+        defaultLanguage: 'js',
       }),
       Document,
       HardBreak,
