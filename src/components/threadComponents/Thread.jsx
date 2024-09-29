@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { CiMenuKebab } from "react-icons/ci";
+import { GiPin } from "react-icons/gi";
 import axios from "axios";
 
 import Profile from "../card/profile/Profile";
@@ -36,13 +37,16 @@ let useClickOutside = (handler) => {
     return domNode;
 }
 
-const Thread = ({ fromHome, studentId }) => {
+const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
     const { courseId, threadId } = useParams();
     const [threadData, setThreadData] = useState({});
     const [numComment, setNumComment] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [isOpen, setIsOpen] = useState(false);
     const [isAlertOpen, setIsAlertOpen] = useState(false);
+    const [isPin, setIsPin] = useState(false);
+
+    console.log(isTA);
     
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? `home/get-thread?thread_id=${threadId}` : `thread/get-thread?thread_id=${threadId}&course_id=${courseId}`}`, {
@@ -52,6 +56,9 @@ const Thread = ({ fromHome, studentId }) => {
         })
         .then((res) => {
             setThreadData(res.data);
+            if (res.data.is_highlight) {
+                setIsPin(true);
+            }
         }).catch((err) => {
             console.log(err);
         }).finally(() => {
@@ -66,8 +73,20 @@ const Thread = ({ fromHome, studentId }) => {
             }
         })
         .then((res) => {
-            console.log(res);
             window.location.href = fromHome ? "/home" : `/course/${courseId}`;
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+
+    function PinThread() {
+        axios.put(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/update-is-highlight?thread_id=${threadId}`, {}, {
+            headers: {
+                "x-token": localStorage.getItem("token")
+            }
+        })
+        .then((res) => {
+            setIsPin((prev) => !prev);
         }).catch((err) => {
             console.log(err);
         });
@@ -91,7 +110,8 @@ const Thread = ({ fromHome, studentId }) => {
                         <div ref={domNode} className="flex-1 flex justify-end">
                             { studentId === threadData.author.student_id && 
                             (<div>
-                                <div>
+                                <div className="flex">
+                                    { (isTA === true && courseId === TACourseID) && (<GiPin className={`text-xl ${isPin ? "text-software-orange" : "text-white"} cursor-pointer mr-4`} onClick={PinThread} />)}
                                     <CiMenuKebab className="text-xl text-white cursor-pointer" onClick={() => setIsOpen((prev) => !prev)}/>
                                 </div>
                                 {isOpen && (
