@@ -1,0 +1,17 @@
+.tiptap {
+  blockquote {
+    border-left: 3px solid #a16207;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+  }
+
+  a {
+    cursor: pointer;
+    text-decoration: underline;
+
+    &:link { color: #0000EE; }
+    &:visited { color: #551A8B; }
+    &:link:active, &:visited:active { color: #FF0000; }
+    &:hover { color: #6969ec; }
+  }
+}

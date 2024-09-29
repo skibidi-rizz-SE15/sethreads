@@ -26,8 +26,8 @@ import css from 'highlight.js/lib/languages/css';
 import js from 'highlight.js/lib/languages/javascript';
 import html from 'highlight.js/lib/languages/xml';
 import Placeholder from '@tiptap/extension-placeholder';
-// import 'katex/dist/katex.min.css'
-// import styles from `../../styles/tiptapStyles.module.css`;
+import 'katex/dist/katex.min.css'
+import '../../styles/tiptapStyles.css';
 
 const lowlight = createLowlight(all)
 lowlight.register('html', html)
@@ -53,7 +53,7 @@ const PostThreadEditor = () => {
       Code,
       Italic,
       Link.configure({
-        openOnClick: false,
+        openOnClick: true,
         autolink: true,
         defaultProtocol: 'https',
       }),
