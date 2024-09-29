@@ -124,7 +124,7 @@
     max-width: 100%;
 
     &.ProseMirror-selectednode {
-      outline: 3px solid var(--purple);
+      outline: none;
     }
   }
 
