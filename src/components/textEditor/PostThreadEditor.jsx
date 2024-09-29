@@ -124,6 +124,13 @@ const PostThreadEditor = () => {
     editor.chain().focus().extendMarkRange('link').setLink({ href: url })
       .run()
   }, [editor]);
+  const addImage = useCallback(() => {
+    const url = window.prompt('URL')
+
+    if (url) {
+      editor.chain().focus().setImage({ src: url }).run()
+    }
+  }, [editor])
 
   const buttons = [
     {
@@ -197,7 +204,7 @@ const PostThreadEditor = () => {
       styles: ''
     },
     {
-      command: () => editor.chain().focus().setImage().run(),
+      command: addImage,
       label: 'Image',
       styles: ''
     },
