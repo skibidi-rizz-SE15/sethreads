@@ -168,12 +168,12 @@ const PostThreadEditor = () => {
     },
     {
       command: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
-      label: 'Heading 1',
+      label: 'Heading',
       styles: ''
     },
     {
       command: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
-      label: 'Heading 2',
+      label: 'Sub-Heading',
       styles: ''
     },
     {
