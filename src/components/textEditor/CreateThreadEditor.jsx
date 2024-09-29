@@ -28,7 +28,7 @@ import '../../styles/tiptapStyles.css';
 
 const lowlight = createLowlight(all)
 
-const PostThreadEditor = () => {
+const CreateThreadEditor = () => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -274,4 +274,4 @@ const PostThreadEditor = () => {
   );
 };
 
-export default PostThreadEditor;
+export default CreateThreadEditor;
