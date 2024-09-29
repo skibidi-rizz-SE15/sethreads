@@ -1,4 +1,8 @@
 .tiptap {
+  :first-child {
+    margin-top: 0;
+  }
+
   blockquote {
     border-left: 3px solid #a16207;
     margin-bottom: 1rem;
@@ -122,5 +126,9 @@
     &.ProseMirror-selectednode {
       outline: 3px solid var(--purple);
     }
+  }
+
+  p {
+    margin: 1rem 0;
   }
 }
