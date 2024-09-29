@@ -41,7 +41,9 @@ const ThreadBodyEditor = () => {
       Document,
       HardBreak,
       Heading,
-      Image,
+      Image.configure({
+        allowBase64: true,
+      }),
       Paragraph,
       Text,
       Bold,
