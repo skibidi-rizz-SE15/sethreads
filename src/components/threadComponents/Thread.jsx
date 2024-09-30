@@ -64,7 +64,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
         }).finally(() => {
             setIsLoading(false);
         });
-    }, [courseId, threadId]);
+    }, [courseId, threadId, fromHome]);
 
     function deleteThread() {
         axios.delete(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/delete-thread?thread_id=${threadId}`, {
