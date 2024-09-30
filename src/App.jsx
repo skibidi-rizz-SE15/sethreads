@@ -85,26 +85,26 @@ function App() {
   }
 
   return (
-    // <Router>
-    //   <Routes>
-    //     <Route element={<AuthGuard />}>
-    //       <Route path='/' element={<MainPage studentId={studentId} studentInfo={studentInfo} taCourse={taCourse} />}>
-    //         <Route index element={<Navigate to="/home" />} />
-    //         <Route path='home' element={<Home />} />
-    //         {studentInfo && studentInfo.registered_courses.map((course) => (
-    //           <Route key={course.course_id} path={`course/${course.course_id}`} element={<Content courseId={course.course_id} courseName={course.name} threads={threads} setThreads={setThreads} />} />
-    //         ))}
-    //         {taCourse && (
-    //           <Route path={`course/${taCourse.course_id}`} element={<Content courseId={taCourse.course_id} courseName={taCourse.name} threads={threads} setThreads={setThreads} />} />
-    //         )}
-    //         { studentId && (<Route path='home/thread/:threadId' element={<Thread fromHome={true} studentId={studentId} />} />)}
-    //         { (studentInfo && taCourse) && (<Route path='course/:courseId/thread/:threadId' element={<Thread fromHome={false} studentId={studentId} isTA={studentInfo.is_ta} TACourseID={taCourse.course_id} />} />)}
-    //       </Route>
-    //     </Route>
-    //     <Route path='/login' element={<LoginPage mode={mode} handleLinkClick={handleLinkClick} handleStudentIdChange={handleStudentIdChange} handlePasswordChange={handlePasswordChange} isSuccess={isSuccess} studentId={studentId} password={password} setIsSuccess={setIsSuccess} />} />
-    //   </Routes>
-    // </Router>
-    <CreateThread />
+    <Router>
+      <Routes>
+        <Route element={<AuthGuard />}>
+          <Route path='/' element={<MainPage studentId={studentId} studentInfo={studentInfo} taCourse={taCourse} />}>
+            <Route index element={<Navigate to="/home" />} />
+            <Route path='home' element={<Home />} />
+            {studentInfo && studentInfo.registered_courses.map((course) => (
+              <Route key={course.course_id} path={`course/${course.course_id}`} element={<Content courseId={course.course_id} courseName={course.name} threads={threads} setThreads={setThreads} />} />
+            ))}
+            {taCourse && (
+              <Route path={`course/${taCourse.course_id}`} element={<Content courseId={taCourse.course_id} courseName={taCourse.name} threads={threads} setThreads={setThreads} />} />
+            )}
+            { studentId && (<Route path='home/thread/:threadId' element={<Thread fromHome={true} studentId={studentId} />} />)}
+            { (studentInfo && taCourse) && (<Route path='course/:courseId/thread/:threadId' element={<Thread fromHome={false} studentId={studentId} isTA={studentInfo.is_ta} TACourseID={taCourse.course_id} />} />)}
+            {studentInfo && (<Route path='/create-thread' element={<CreateThread registeredCourses={studentInfo.registeredCourses} />} />)}
+          </Route>
+        </Route>
+        <Route path='/login' element={<LoginPage mode={mode} handleLinkClick={handleLinkClick} handleStudentIdChange={handleStudentIdChange} handlePasswordChange={handlePasswordChange} isSuccess={isSuccess} studentId={studentId} password={password} setIsSuccess={setIsSuccess} />} />
+      </Routes>
+    </Router>
   );
 }
 

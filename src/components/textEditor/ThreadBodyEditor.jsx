@@ -214,7 +214,7 @@ const ThreadBodyEditor = () => {
 
 
   return (
-    <div className="flex flex-col w-[60rem] mx-auto my-8 p-4 border rounded shadow-lg text-white">
+    <div className="flex flex-col w-full mx-auto my-8 p-4 border rounded shadow-lg text-white">
       <h1 className="pb-4 text-gray-50 font-semibold text-xl">Content</h1>
       {editor && (
         <div className="mb-4 flex flex-wrap gap-2 p-2 rounded">
