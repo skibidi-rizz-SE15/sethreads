@@ -108,11 +108,11 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
                     <div className="flex">
                         <Profile name={`${threadData.author.name} ${threadData.author.surname}`} time={threadData.create_at} />
                         <div ref={domNode} className="flex-1 flex justify-end">
-                            { studentId === threadData.author.student_id && 
+                            { (studentId === threadData.author.student_id || isTA === true) && 
                             (<div>
                                 <div className="flex">
                                     { (isTA === true && courseId === TACourseID) && (<GiPin className={`text-xl ${isPin ? "text-software-orange" : "text-white"} cursor-pointer mr-4`} onClick={PinThread} />)}
-                                    <CiMenuKebab className="text-xl text-white cursor-pointer" onClick={() => setIsOpen((prev) => !prev)}/>
+                                    { (studentId === threadData.author.student_id) && (<CiMenuKebab className="text-xl text-white cursor-pointer" onClick={() => setIsOpen((prev) => !prev)}/>) }
                                 </div>
                                 {isOpen && (
                                     <div className="absolute right-20 z-10 w-48 mt-2 origin-top-right bg-eerie-black rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
