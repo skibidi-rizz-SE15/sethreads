@@ -5,24 +5,35 @@ import Text from '@tiptap/extension-text'
 import { EditorContent, useEditor } from '@tiptap/react'
 import CharacterCount from '@tiptap/extension-character-count';
 import '../../styles/tiptapStyles.css'
+import Placeholder from '@tiptap/extension-placeholder'
+import History from '@tiptap/extension-history'
+import PreventNewline from '../../tiptapCustomExtensions/PreventNewline'
 
 const ThreadTitleEditor = () => {
+    const limit = 300;
     const editor = useEditor({
         extensions: [
             Document,
             Paragraph,
             Text,
-            CharacterCount,
+            History,
+            PreventNewline,
+            Placeholder.configure({ placeholder: 'Your fancy title' }),
+            CharacterCount.configure({ limit }),
         ],
-        content: `<p>Hello World!</p>`,
+        content: `<p></p>`,
     })
 
     return (
-        <div className="w-[60rem] mx-auto my-8 p-4 border rounded shadow-lg bg-white">
-            <EditorContent editor={editor} />
+        <div className="flex flex-col w-[60rem] mx-auto my-8 p-4 border rounded shadow-lg text-white">
+            <EditorContent
+                editor={editor} 
+                className="flex items-center p-4 border border-neutral-700 rounded shadow-sm focus:outline-none hover:border-neutral-500 hover:bg-neutral-700" 
+                onClick={() => editor.commands.focus()}
+            />
             {editor && (
-                <div className="mt-2 text-sm text-gray-600">
-                    Character Count: {editor.storage.characterCount.characters()}
+                <div className="flex self-end mt-2 mr-2 text-sm text-gray-200">
+                    {editor.storage.characterCount.characters()}/{limit}
                 </div>
             )}
         </div>

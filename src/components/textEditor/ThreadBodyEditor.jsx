@@ -3,7 +3,6 @@ import { useEditor, EditorContent, BubbleMenu } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Blockquote from '@tiptap/extension-blockquote';
 import BulletList from '@tiptap/extension-bullet-list';
-import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import Document from '@tiptap/extension-document';
 import HardBreak from '@tiptap/extension-hard-break';
 import Heading from '@tiptap/extension-heading';
@@ -11,7 +10,6 @@ import Image from '@tiptap/extension-image';
 import Paragraph from '@tiptap/extension-paragraph';
 import Text from '@tiptap/extension-text';
 import Bold from '@tiptap/extension-bold';
-import Code from '@tiptap/extension-code';
 import Italic from '@tiptap/extension-italic';
 import Link from '@tiptap/extension-link';
 import Subscript from '@tiptap/extension-subscript';
@@ -25,16 +23,18 @@ import { all, createLowlight } from 'lowlight';
 import Placeholder from '@tiptap/extension-placeholder';
 import 'katex/dist/katex.min.css'
 import '../../styles/tiptapStyles.css';
-
-const lowlight = createLowlight(all)
+import { CodeWithoutSpellcheck } from '../../tiptapCustomExtensions/CodeWithoutSpellcheck';
+import { CodeBlockWithoutSpellcheck } from '../../tiptapCustomExtensions/CodeBlockWithoutSpellcheck';
 
 const ThreadBodyEditor = () => {
+  const lowlight = createLowlight(all)
+  const limit = 3000;
   const editor = useEditor({
     extensions: [
       StarterKit,
       Blockquote,
       BulletList,
-      CodeBlockLowlight.configure({
+      CodeBlockWithoutSpellcheck.configure({
         lowlight,
         defaultLanguage: 'js',
       }),
@@ -47,7 +47,7 @@ const ThreadBodyEditor = () => {
       Paragraph,
       Text,
       Bold,
-      Code,
+      CodeWithoutSpellcheck,
       Italic,
       Link.configure({
         openOnClick: true,
@@ -57,10 +57,10 @@ const ThreadBodyEditor = () => {
       Subscript,
       Superscript,
       Underline,
-      CharacterCount,
+      CharacterCount.configure({ limit }),
       Dropcursor,
       Mathematics,
-      Placeholder.configure({ placeholder: "Body" }),
+      Placeholder.configure({ placeholder: 'Write something ...' }),
       FileHandler.configure({
         allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
         onDrop: (currentEditor, files, pos) => {
@@ -102,7 +102,7 @@ const ThreadBodyEditor = () => {
         },
       }),
     ],
-    content: '<p>Hello, world!</p>',
+    content: '<p></p>',
   });
 
   const setLink = useCallback(() => {
@@ -211,16 +211,16 @@ const ThreadBodyEditor = () => {
       styles: ''
     },
   ];
-  
+
 
   return (
-    <div className="w-[60rem] mx-auto my-8 p-4 border rounded shadow-lg bg-white">
+    <div className="flex flex-col w-[60rem] mx-auto my-8 p-4 border rounded shadow-lg text-white">
       {editor && (
-        <div className="mb-4 flex flex-wrap gap-2 bg-gray-100 p-2 rounded">
+        <div className="mb-4 flex flex-wrap gap-2 p-2 rounded">
           {buttons.map((button, index) => (
             <button
               key={index}
-              className={`px-2 py-1 border rounded hover:bg-gray-300 focus:outline-none ${editor.isActive(button.label.toLowerCase()) ? 'bg-gray-300' : ''} ${button.styles}`}
+              className={`px-2 py-1 border rounded hover:bg-gray-600 focus:outline-none ${editor.isActive(button.label.toLowerCase()) ? 'bg-gray-700' : ''} ${button.styles}`}
               onClick={button.command}
             >
               {button.label}
@@ -262,14 +262,14 @@ const ThreadBodyEditor = () => {
           </button>
         </BubbleMenu>
       )}
-      <EditorContent 
-        editor={editor} 
-        className="p-4 border rounded min-h-40 shadow-sm focus:outline-none bg-white" 
+      <EditorContent
+        editor={editor}
+        className="p-4 border border-neutral-700 rounded min-h-40 shadow-sm focus:outline-none hover:border-neutral-500 hover:bg-neutral-700"
         onClick={() => editor.commands.focus()}
       />
       {editor && (
-        <div className="mt-2 text-sm text-gray-600">
-          Character Count: {editor.storage.characterCount.characters()}
+        <div className="flex self-end mt-2 mr-2 text-sm text-gray-200">
+          {editor.storage.characterCount.characters()}/{limit}
         </div>
       )}
     </div>
