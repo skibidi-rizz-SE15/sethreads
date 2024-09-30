@@ -25,6 +25,11 @@ import 'katex/dist/katex.min.css'
 import '../../styles/tiptapStyles.css';
 import { CodeWithoutSpellcheck } from '../../tiptapCustomExtensions/CodeWithoutSpellcheck';
 import { CodeBlockWithoutSpellcheck } from '../../tiptapCustomExtensions/CodeBlockWithoutSpellcheck';
+import { RxFontBold, RxFontItalic, RxUnderline, RxLink2, RxLinkBreak2, RxListBullet, RxHeading, RxImage} from "react-icons/rx";
+import { FaHeading, FaCode, FaSubscript, FaSuperscript } from "react-icons/fa6";
+import { BiCodeBlock } from "react-icons/bi";
+import { GrBlockQuote } from "react-icons/gr";
+import { BsTextParagraph } from "react-icons/bs";
 
 const ThreadBodyEditor = () => {
   const lowlight = createLowlight(all)
@@ -137,79 +142,94 @@ const ThreadBodyEditor = () => {
   const buttons = [
     {
       command: () => editor.chain().focus().setParagraph().run(),
+      icon: <BsTextParagraph/>,
       label: 'Paragraph',
       styles: ''
     },
     {
       command: () => editor.chain().focus().toggleBold().run(),
+      icon: <RxFontBold />,
       label: 'Bold',
-      styles: ''
+      styles: '',
     },
     {
       command: () => editor.chain().focus().toggleItalic().run(),
+      icon: <RxFontItalic />,
       label: 'Italic',
       styles: ''
     },
     {
       command: () => editor.chain().focus().toggleUnderline().run(),
+      icon: <RxUnderline />,
       label: 'Underline',
       styles: ''
     },
     {
-      command: setLink,
-      label: 'Link',
-      styles: ''
-    },
-    {
-      command: () => editor.chain().focus().unsetLink().run(),
-      label: 'Unlink',
-      styles: ''
-    },
-    {
       command: () => editor.chain().focus().toggleBulletList().run(),
+      icon: <RxListBullet />,
       label: 'Bullet List',
       styles: ''
     },
     {
       command: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
+      icon: <FaHeading />,
       label: 'Heading',
       styles: ''
     },
     {
       command: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
+      icon: <RxHeading />,
       label: 'Sub-Heading',
       styles: ''
     },
     {
       command: () => editor.chain().focus().toggleCodeBlock().run(),
+      icon: <BiCodeBlock/>,
       label: 'Code Block',
       styles: ''
     },
     {
       command: () => editor.chain().focus().toggleCode().run(),
+      icon: <FaCode />,
       label: 'Code',
       styles: ''
     },
     {
       command: () => editor.chain().focus().toggleBlockquote().run(),
+      icon: <GrBlockQuote/>,
       label: 'Blockquote',
       styles: ''
     },
     {
       command: () => editor.chain().focus().toggleSubscript().run(),
+      icon: <FaSubscript />,
       label: 'Subscript',
       styles: ''
     },
     {
       command: () => editor.chain().focus().toggleSuperscript().run(),
+      icon: <FaSuperscript />,
       label: 'Superscript',
       styles: ''
     },
     {
       command: addImage,
+      icon: <RxImage />,
       label: 'Image',
       styles: ''
     },
+    {
+      command: setLink,
+      icon : <RxLink2 />,
+      label: 'Link',
+      styles: ''
+    },
+    {
+      command: () => editor.chain().focus().unsetLink().run(),
+      icon: <RxLinkBreak2 />,
+      label: 'Unlink',
+      styles: ''
+    }
   ];
 
 
@@ -221,12 +241,21 @@ const ThreadBodyEditor = () => {
           {buttons.map((button, index) => (
             <button
               key={index}
-              className={`px-2 py-1 border rounded hover:bg-gray-600 focus:outline-none ${editor.isActive(button.label.toLowerCase()) ? 'bg-gray-700' : ''} ${button.styles}`}
+              className={`px-2 py-1 border rounded hover:bg-gray-600 focus:outline-none flex items-center gap-2 ${editor.isActive(button.label.toLowerCase()) ? 'bg-gray-700' : ''} ${button.styles}`}
               onClick={button.command}
+              title={button.label}  
             >
-              {button.label}
+              {button.icon && (button.label === 'Link' || button.label === 'Unlink' || button.label === 'Image') ? (
+                <>
+                  {button.icon} 
+                  <span className="pb-0.5">{button.label}</span> 
+                </>
+              ) : (
+                button.icon ? button.icon : <span className="pb-0.5">{button.label}</span> 
+    )}
             </button>
           ))}
+
         </div>
       )}
       <EditorContent
@@ -240,9 +269,9 @@ const ThreadBodyEditor = () => {
         </div>
       )}
       {editor && (
-        <BubbleMenu 
-          editor={editor} 
-          tippyOptions={{ duration: 100 }} 
+        <BubbleMenu
+          editor={editor}
+          tippyOptions={{ duration: 100 }}
           className='flex gap-1 p-2 rounded-lg bg-black'
           shouldShow={({ editor }) => {
             const { state } = editor;
