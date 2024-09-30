@@ -2,6 +2,10 @@
   --code-background: rgb(58, 58, 58);
 }
 
+.ProseMirror {
+  overflow-x: scroll;
+}
+
 .ProseMirror:focus {
   outline: none;
 }

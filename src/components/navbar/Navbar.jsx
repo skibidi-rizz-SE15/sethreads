@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PostBtn from '../button/post/PostBtn';
+import PostBtn from '../button/post/CreateThreadBtn';
 import Logo from './logo/Logo';
 import NavBarProfile from './profile/NavBarProfile';
 

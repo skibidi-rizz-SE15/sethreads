@@ -215,6 +215,7 @@ const ThreadBodyEditor = () => {
 
   return (
     <div className="flex flex-col w-[60rem] mx-auto my-8 p-4 border rounded shadow-lg text-white">
+      <h1 className="pb-4 text-gray-50 font-semibold text-xl">Content</h1>
       {editor && (
         <div className="mb-4 flex flex-wrap gap-2 p-2 rounded">
           {buttons.map((button, index) => (
@@ -228,40 +229,6 @@ const ThreadBodyEditor = () => {
           ))}
         </div>
       )}
-      {editor && (
-        <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
-          <button
-            className="px-2 py-1 border rounded hover:bg-gray-200"
-            onClick={buttons.find((button) => button.label === "Bold").command}
-          >
-            Bold
-          </button>
-          <button
-            className="px-2 py-1 border rounded hover:bg-gray-200"
-            onClick={buttons.find((button) => button.label === "Italic").command}
-          >
-            Italic
-          </button>
-          <button
-            className="px-2 py-1 border rounded hover:bg-gray-200"
-            onClick={buttons.find((button) => button.label === "Underline").command}
-          >
-            Underline
-          </button>
-          <button
-            className="px-2 py-1 border rounded hover:bg-gray-200"
-            onClick={setLink}
-          >
-            Link
-          </button>
-          <button
-            className="px-2 py-1 border rounded hover:bg-gray-200"
-            onClick={buttons.find((button) => button.label === "Unlink").command}
-          >
-            Unlink
-          </button>
-        </BubbleMenu>
-      )}
       <EditorContent
         editor={editor}
         className="p-4 border border-neutral-700 rounded min-h-40 shadow-sm focus:outline-none hover:border-neutral-500 hover:bg-neutral-700"
@@ -271,6 +238,50 @@ const ThreadBodyEditor = () => {
         <div className="flex self-end mt-2 mr-2 text-sm text-gray-200">
           {editor.storage.characterCount.characters()}/{limit}
         </div>
+      )}
+      {editor && (
+        <BubbleMenu 
+          editor={editor} 
+          tippyOptions={{ duration: 100 }} 
+          className='flex gap-1 p-2 rounded-lg bg-black'
+          shouldShow={({ editor }) => {
+            const { state } = editor;
+            const { $from, empty } = state.selection;
+            const parentName = $from.parent.type.name;
+            return !empty && !['codeBlock', 'code', 'image'].includes(parentName);
+          }}
+        >
+          <button
+            className="px-2 py-1 border rounded hover:bg-gray-400"
+            onClick={buttons.find((button) => button.label === "Bold").command}
+          >
+            Bold
+          </button>
+          <button
+            className="px-2 py-1 border rounded hover:bg-gray-400"
+            onClick={buttons.find((button) => button.label === "Italic").command}
+          >
+            Italic
+          </button>
+          <button
+            className="px-2 py-1 border rounded hover:bg-gray-400"
+            onClick={buttons.find((button) => button.label === "Underline").command}
+          >
+            Underline
+          </button>
+          <button
+            className="px-2 py-1 border rounded hover:bg-gray-400"
+            onClick={setLink}
+          >
+            Link
+          </button>
+          <button
+            className="px-2 py-1 border rounded hover:bg-gray-400"
+            onClick={buttons.find((button) => button.label === "Unlink").command}
+          >
+            Unlink
+          </button>
+        </BubbleMenu>
       )}
     </div>
   );

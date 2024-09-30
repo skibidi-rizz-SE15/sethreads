@@ -18,7 +18,7 @@ const ThreadTitleEditor = () => {
             Text,
             History,
             PreventNewline,
-            Placeholder.configure({ placeholder: 'Your fancy title' }),
+            Placeholder.configure({ placeholder: 'Add your title' }),
             CharacterCount.configure({ limit }),
         ],
         content: `<p></p>`,
@@ -26,6 +26,7 @@ const ThreadTitleEditor = () => {
 
     return (
         <div className="flex flex-col w-[60rem] mx-auto my-8 p-4 border rounded shadow-lg text-white">
+            <h1 className="pb-4 text-gray-50 font-semibold text-xl">Title</h1>
             <EditorContent
                 editor={editor} 
                 className="flex items-center p-4 border border-neutral-700 rounded shadow-sm focus:outline-none hover:border-neutral-500 hover:bg-neutral-700" 
