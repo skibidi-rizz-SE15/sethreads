@@ -23,9 +23,19 @@ const CourseDropdown = ({ registeredCourses, setSelectedCourseId }) => {
             {isOpen && (
                 <div className="absolute top-full right-0 z-10 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                        {registeredCourses.map((course) => {
-                            <div onClick={setSelectedCourseId(course.courseId)}>course.name</div>
-                        })}
+                        {console.log(registeredCourses)}
+                        {registeredCourses.map((course) => 
+                            <div 
+                                key={course.course_id}
+                                onClick={() => {
+                                    setSelectedCourseId(course.course_id);
+                                    setIsOpen(false);
+                                }}
+                            >
+                                    {console.log(course.name)}
+                                    {course.name}
+                            </div>
+                        )}
                     </div>
                 </div>
             )}
