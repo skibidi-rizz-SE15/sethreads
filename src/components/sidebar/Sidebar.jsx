@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import SidebarItem from "./sidebarItem/SidebarItem";
 import Separator from "../separator/Separator";
 
-const Sidebar = ({ registered_courses, currentPath, taCourse }) => {
+const Sidebar = ({ registered_courses, currentPath, taCourse, isAdmin }) => {
   return (
     <nav className="flex flex-col items-start overflow-y-auto px-5 pt-10 max-w-full text-base tracking-wide text-white whitespace-nowrap rounded-none border-r border-r-yellow-600 bg-eerie-black h-full">
       <Link to="/home" className={`flex gap-2 px-2.5 py-2.5 w-full font-bold rounded-lg ${currentPath === '/home' ? 'bg-general-highlight' : 'bg-eerie-black hover:bg-general-highlight'}`}>
@@ -18,6 +18,17 @@ const Sidebar = ({ registered_courses, currentPath, taCourse }) => {
             subject={taCourse.name} 
             to={`/course/${taCourse.course_id}`}
             isActive={currentPath === `/course/${taCourse.course_id}`}
+          />
+        </div>
+      )}
+      { isAdmin && (
+        <div>
+          <Separator className="self-stretch mt-11" />
+          <h2 className="mt-4 text-2xl font-bold text-neutral-400">Admin</h2>
+          <SidebarItem 
+            subject="Admin" 
+            to="/admin" 
+            isActive={currentPath === '/admin'}
           />
         </div>
       )}

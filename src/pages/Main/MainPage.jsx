@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
 import Sidebar from '../../components/sidebar/Sidebar';
 
-const MainPage = ({ studentId, studentInfo, taCourse }) => {
+const MainPage = ({ studentId, studentInfo, taCourse, isAdmin }) => {
   const location = useLocation();
   
   if (!studentInfo) {
@@ -20,6 +20,7 @@ const MainPage = ({ studentId, studentInfo, taCourse }) => {
         registered_courses={studentInfo.registered_courses} 
         taCourse={taCourse}
         currentPath={location.pathname}
+        isAdmin={isAdmin}
       />
       <Outlet location={location}/>
     </div>

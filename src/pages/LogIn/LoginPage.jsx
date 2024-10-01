@@ -42,7 +42,6 @@ const LoginPage = ({ mode, handleLinkClick, handleStudentIdChange, handlePasswor
 
     function handleLogin(e) {
         e.preventDefault();
-        console.log(process.env.REACT_APP_SERVER_DOMAIN_NAME);
         if (mode === "sign-in") {
             axios.post(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/sign-in`,
                 {
@@ -53,6 +52,9 @@ const LoginPage = ({ mode, handleLinkClick, handleStudentIdChange, handlePasswor
                 if (res.data.successful) {
                     localStorage.setItem("token", res.data.token); 
                     setIsSuccess(true);
+                    if (res.data.admin) {
+                        navigate("/admin");
+                    }
                     navigate("/home");
                 }
             }).catch((err) => {

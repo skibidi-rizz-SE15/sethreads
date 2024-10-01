@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import LoginPage from './pages/LogIn/LoginPage';
+import AdminPage from './pages/Admin/AdminPage';
 import MainPage from './pages/Main/MainPage'
 import AuthGuard from './components/auth/AuthGuard';
 import Content from './components/content/Content';
@@ -26,6 +27,7 @@ function App() {
 
   const [threads, setThreads] = useState(null);
   const [taCourse, setTACourse] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
 
   useEffect(() => {
@@ -36,6 +38,9 @@ function App() {
         }
       }).then((res) => {
         setStudentId(res.data.student_id);
+        if (res.data.student_id === "admin") {
+          setIsAdmin(true);
+        }
         return axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/student/get-info?student_id=${res.data.student_id}`, {
           headers: {
             'x-token': localStorage.getItem('token')
@@ -88,9 +93,10 @@ function App() {
     <Router>
       <Routes>
         <Route element={<AuthGuard />}>
-          <Route path='/' element={<MainPage studentId={studentId} studentInfo={studentInfo} taCourse={taCourse} />}>
+          <Route path='/' element={<MainPage studentId={studentId} studentInfo={studentInfo} taCourse={taCourse} isAdmin={isAdmin} />}>
             <Route index element={<Navigate to="/home" />} />
             <Route path='home' element={<Home />} />
+            <Route path='admin' element={<AdminPage registeredCourses={studentInfo.registered_courses}/>} />
             {studentInfo && studentInfo.registered_courses.map((course) => (
               <Route key={course.course_id} path={`course/${course.course_id}`} element={<Content courseId={course.course_id} courseName={course.name} threads={threads} setThreads={setThreads} />} />
             ))}
