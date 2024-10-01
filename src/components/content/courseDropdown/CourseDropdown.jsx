@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 const CourseDropdown = ({ registeredCourses, setSelectedCourseId }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [selectedCourse, setSelectedCourse] = useState(null);
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
@@ -14,7 +15,7 @@ const CourseDropdown = ({ registeredCourses, setSelectedCourseId }) => {
                 className="flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 onClick={toggleDropdown}
             >
-                <span className="mr-auto">Select a course</span>
+                <span className="mr-auto">{selectedCourse ? selectedCourse : "select"}</span>
                 <svg className="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fillRule="evenodd" d="M5.293 9.293a1 1 0 011.414 0L10 12.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
@@ -29,8 +30,10 @@ const CourseDropdown = ({ registeredCourses, setSelectedCourseId }) => {
                                 key={course.course_id}
                                 onClick={() => {
                                     setSelectedCourseId(course.course_id);
+                                    setSelectedCourse(course.name);
                                     setIsOpen(false);
                                 }}
+                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem"
                             >
                                     {console.log(course.name)}
                                     {course.name}
