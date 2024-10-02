@@ -4,6 +4,7 @@ import ThreadTitleEditor from "../textEditor/ThreadTitleEditor";
 import CourseDropdown from "./courseDropdown/CourseDropdown";
 
 const CreateThread = ({ registeredCourses }) => {
+    //selectedCourseId can be a course ID or 'home'
     const [selectedCourseId, setSelectedCourseId] = useState(null);
 
     return (
