@@ -11,34 +11,38 @@ const Sidebar = ({ registered_courses, currentPath, taCourse, isAdmin }) => {
         <div className="my-auto basis-auto">Home</div>
       </Link>
       {taCourse && (
-        <div>
-          <Separator className="self-stretch mt-11" />
+        <>
+          <Separator className="self-stretch mt-6" />
           <h2 className="mt-4 text-2xl font-bold text-neutral-400">TA</h2>
-          <SidebarItem 
-            subject={taCourse.name} 
-            to={`/course/${taCourse.course_id}`}
-            isActive={currentPath === `/course/${taCourse.course_id}`}
-          />
-        </div>
+          <div className="w-full">
+            <SidebarItem
+              subject={taCourse.name}
+              to={`/course/${taCourse.course_id}`}
+              isActive={currentPath === `/course/${taCourse.course_id}`}
+            />
+          </div>
+        </>
       )}
-      { isAdmin && (
-        <div>
-          <Separator className="self-stretch mt-11" />
+      {isAdmin && (
+        <>
+          <Separator className="self-stretch mt-6" />
           <h2 className="mt-4 text-2xl font-bold text-neutral-400">Admin</h2>
-          <SidebarItem 
-            subject="Admin" 
-            to="/admin" 
-            isActive={currentPath === '/admin'}
-          />
-        </div>
+          <div className="w-full">
+            <SidebarItem
+              subject="Admin"
+              to="/admin"
+              isActive={currentPath === '/admin'}
+            />
+          </div>
+        </>
       )}
-      <Separator className="self-stretch mt-11" />
+      <Separator className="self-stretch mt-6" />
       <h2 className="mt-4 text-2xl font-bold text-neutral-400">Courses</h2>
-      <div>
+      <div className="w-full">
         {registered_courses.map((course) => (
-          <SidebarItem 
-            key={course.course_id} 
-            subject={course.name} 
+          <SidebarItem
+            key={course.course_id}
+            subject={course.name}
             to={`/course/${course.course_id}`}
             isActive={currentPath === `/course/${course.course_id}`}
           />
