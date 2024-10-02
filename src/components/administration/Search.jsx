@@ -11,10 +11,10 @@ function Search({ registeredCourses, onSelectYear, onSelectCourse, onSearch }) {
           <option value='2' onClick={onSelectYear}>Year 2</option>
           <option value='3' onClick={onSelectYear}>Year 3</option>
           <option value='4' onClick={onSelectYear}>Year 4</option>
-          <option value='all' onClick={onSelectYear}>Every Year</option>
+          <option value='all' onClick={onSelectYear}>All Years</option>
       </select>
       <select className='w-[30rem] min-w-[10rem] h-10 text-white text-center bg-steadfast rounded-md'>
-            <option value='' onClick={onSelectCourse}>Select Courses</option>
+            <option value='' onClick={onSelectCourse}>Select Course</option>
             {registeredCourses.map((course) => (
                 <option key={course.course_id} value={course.course_id} onClick={onSelectCourse}>{course.name}</option>
             ))}

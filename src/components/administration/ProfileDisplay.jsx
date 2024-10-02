@@ -6,7 +6,7 @@ function ProfileDisplay({ studentInfo }) {
   if (studentInfo.length === 0) {
     return (
       <div className='w-full grid grid-cols-3 mt-14 justify-items-center gap-5'>
-        <h1 className='text-white text-center text-4xl mx-auto'>No student found</h1>
+        <h1 className='text-white text-center text-4xl mx-auto'>No students found</h1>
       </div>
     )
   }

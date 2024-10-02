@@ -29,7 +29,7 @@ const Sidebar = ({ registered_courses, currentPath, taCourse, isAdmin }) => {
           <h2 className="mt-4 text-2xl font-bold text-neutral-400">Admin</h2>
           <div className="w-full">
             <SidebarItem
-              subject="Admin"
+              subject="Student Manager"
               to="/admin"
               isActive={currentPath === '/admin'}
             />
