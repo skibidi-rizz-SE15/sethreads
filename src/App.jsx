@@ -96,7 +96,7 @@ function App() {
           <Route path='/' element={<MainPage studentId={studentId} studentInfo={studentInfo} taCourse={taCourse} isAdmin={isAdmin} />}>
             <Route index element={<Navigate to="/home" />} />
             <Route path='home' element={<Home />} />
-            <Route path='admin' element={<AdminPage registeredCourses={studentInfo.registered_courses}/>} />
+            {studentInfo && (<Route path='admin' element={<AdminPage registeredCourses={studentInfo.registered_courses}/>} />)}
             {studentInfo && studentInfo.registered_courses.map((course) => (
               <Route key={course.course_id} path={`course/${course.course_id}`} element={<Content courseId={course.course_id} courseName={course.name} threads={threads} setThreads={setThreads} />} />
             ))}
