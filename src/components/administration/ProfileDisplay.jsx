@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import axios from 'axios';
 import ProfileCard from './ProfileCard';
 import ProfileAlert from './alert/ProfileAlert';
 
@@ -16,14 +16,24 @@ function ProfileDisplay({ studentInfo }) {
   }
 
   function handleCardClick(student) {
+    if (student.is_ta) {
+      axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/student/get-courses?course_id=${student.ta_course_id}`, {
+        headers: {
+          "x-token": localStorage.getItem("token"),
+        },
+      }).then((res) => {
+        setSelectedStudent({ ...student, courseTAInfo: res.data });
+      })
+    } else {
+      setSelectedStudent(student);
+    }
     setIsAlertOpen(true);
-    setSelectedStudent(student);
   }
 
   return (
     <div className='self-stretch grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] mt-14 mx-6 justify-items-center gap-5'>
       {studentInfo.map((student) => (
-          <ProfileCard key={student._id} student={student} onclick={() => handleCardClick(student)} />
+          <ProfileCard key={student.student_id} student={student} onclick={() => handleCardClick(student)} />
       ))}
       <ProfileAlert isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)}>
         {selectedStudent && (selectedStudent)}
