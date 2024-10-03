@@ -7,7 +7,7 @@ function ProfileCard({ student, onclick }) {
     <div className='bg-eerie-black border border-software-orange h-[10rem] p-4 rounded-lg shadow-md grid grid-cols-[auto_1fr] gap-4 w-full items-center' onClick={onclick}>
       <CgProfile className='text-white text-6xl' />
         <div className='flex flex-col h-full'>
-            <p className='text-white text-lg'>{student.student_id}</p>
+            <strong className='text-white text-xl mb-1'>{student.student_id}</strong>
             <p className='text-white text-lg'>{student.name}</p>
             <p className='text-white text-lg text-clip'>{student.surname}</p>
         </div>
