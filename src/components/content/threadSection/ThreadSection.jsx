@@ -19,7 +19,7 @@ const ThreadSection = ({ threads, courseId, isHomePage }) => {
     <section>
       {threads.map((thread, index) => (
         <Link to={isHomePage ? `thread/${thread.id}` : `/course/${courseId}/thread/${thread.id}`} key={thread.id}>
-          <ThreadCard name={thread.author.name} year={thread.author.year} time={thread.create_at} title={thread.title} body={thread.body} comments={thread.comments} className='min-w-96 w-4/5' />
+          <ThreadCard name={`${thread.author.name} ${thread.author.surname}`} year={thread.author.year} time={thread.create_at} title={thread.title} body={thread.body} comments={thread.comments} className='min-w-96 w-4/5' />
           {index < threads.length - 1 && (<Separator className='mx-auto w-4/5 min-w-96' />)}
         </Link>
       ))}

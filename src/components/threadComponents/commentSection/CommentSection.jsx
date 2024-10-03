@@ -28,7 +28,7 @@ const CommentSection = ({ thread_id, setNumComment, isHome }) => {
                 return (
                     <Comment
                         key={comment.id}
-                        name={comment.author.name}
+                        name={`${comment.author.name} ${comment.author.surname}`}
                         year={comment.author.year}
                         body={comment.comment_data}
                         subcomments={comment.subcomments}

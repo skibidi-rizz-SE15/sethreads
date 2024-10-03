@@ -7,7 +7,7 @@ const ReplySection = ({ subcomments }) => {
             {subcomments.map((subcomment) => {
                 return (
                     <Reply
-                        name={subcomment.author.name}
+                        name={`${subcomment.author.name} ${subcomment.author.surname}`}
                         year={subcomment.author.year}
                         body={subcomment.reply_data}
                     />

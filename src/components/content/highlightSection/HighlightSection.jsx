@@ -18,7 +18,7 @@ const HighlightSection = ({ highlightThreads, courseId, isHomePage }) => {
           <div className="flex flex-wrap gap-5 mx-6 max-w-full max-md:flex-col">   
             {highlightThreads.map((thread) => (
               <Link to={`${isHomePage ? `thread/${thread.id}` : `/course/${courseId}/thread/${thread.id}`}`} style={{display: 'contents' }} key={thread.id}>  
-                <HighlightCard key={thread.id} title={thread.title} taName={thread.author.name} comments={thread.comments} className="flex-1 w-full min-w-72 max-w-[33%] max-[300px]:max-w-full" /> 
+                <HighlightCard key={thread.id} title={thread.title} taName={`${thread.author.name} ${thread.author.surname}`} comments={thread.comments} className="flex-1 w-full min-w-72 max-w-[33%] max-[300px]:max-w-full" /> 
               </Link>
             ))}   
           </div>    
