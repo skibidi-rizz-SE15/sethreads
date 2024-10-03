@@ -3,6 +3,7 @@ import axios from 'axios';
 import Details from './Details';
 
 const ProfileAlert = ({ isOpen, onClose, children }) => {
+  console.log(children);
 
   if (!isOpen) {
     return null;

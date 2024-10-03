@@ -23,11 +23,12 @@ function ProfileDisplay({ studentInfo }) {
         },
       }).then((res) => {
         setSelectedStudent({ ...student, courseTAInfo: res.data });
+        setIsAlertOpen(true);
       })
     } else {
       setSelectedStudent(student);
+      setIsAlertOpen(true);
     }
-    setIsAlertOpen(true);
   }
 
   return (
