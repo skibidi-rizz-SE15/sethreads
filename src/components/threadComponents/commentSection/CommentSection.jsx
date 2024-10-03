@@ -24,11 +24,12 @@ const CommentSection = ({ thread_id, setNumComment, isHome }) => {
     
     return (
         <div className="mt-4">
-            {comments.length === 0 ? <div className="text-white">No comments yet wanna add some :)</div> : comments.map((comment) => {
+            {comments.length === 0 ? <div className="text-white">No comments found</div> : comments.map((comment) => {
                 return (
                     <Comment
                         key={comment.id}
                         name={comment.author.name}
+                        year={comment.author.year}
                         body={comment.comment_data}
                         subcomments={comment.subcomments}
                     />

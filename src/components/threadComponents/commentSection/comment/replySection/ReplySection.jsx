@@ -8,6 +8,7 @@ const ReplySection = ({ subcomments }) => {
                 return (
                     <Reply
                         name={subcomment.author.name}
+                        year={subcomment.author.year}
                         body={subcomment.reply_data}
                     />
                 )

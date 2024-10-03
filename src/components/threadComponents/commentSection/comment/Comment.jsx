@@ -5,7 +5,7 @@ import TextBody from "../../../card/textBody/TextBody";
 import ReplyBtn from "../../../button/post/ReplyBtn";
 import ToggleReplyBtn from "../../../button/toggle/ToggleReplyBtn";
 
-const Comment = ({name, body, subcomments}) => {
+const Comment = ({name, year, body, subcomments}) => {
     const [isVisible, setIsVisible] = useState(false);
 
     function handleOnClick() {
