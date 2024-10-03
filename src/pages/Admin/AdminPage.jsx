@@ -48,7 +48,7 @@ function AdminPage({ registeredCourses }) {
       <h1 className='text-white text-center text-4xl mx-auto mt-14'>Administration</h1>
       <Search registeredCourses={selectCourse} onSelectYear={handleSelectYear} onSelectCourse={handleSelectCourse} onSearch={handleSearch} />
       <ProfileDisplay studentInfo={data} />
-        <AlertBox isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)}>
+      <AlertBox isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)}>
         <p>Please select year and courses</p>
       </AlertBox>
     </div>

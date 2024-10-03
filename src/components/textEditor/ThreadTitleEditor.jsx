@@ -37,7 +37,7 @@ const ThreadTitleEditor = () => {
     });
 
     return (
-        <div className="flex flex-col w-full mx-auto my-8 p-4 border rounded shadow-lg text-white">
+        <div className="flex flex-col w-full mx-auto mt-8 rounded text-white">
             <h1 className="pb-4 text-gray-50 font-semibold text-xl">Title</h1>
             <EditorContent
                 editor={editor}
