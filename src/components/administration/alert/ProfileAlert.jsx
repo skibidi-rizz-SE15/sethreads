@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Details from './Details';
 
 const ProfileAlert = ({ isOpen, onClose, children }) => {
+  
   if (!isOpen) {
     return null;
   }
+
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -17,7 +20,7 @@ const ProfileAlert = ({ isOpen, onClose, children }) => {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
-        <p>{children.name} {children.surname}</p>
+        <Details student={children} />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import ProfileCard from './ProfileCard';
-import ProfileAlert from './ProfileAlert';
+import ProfileAlert from './alert/ProfileAlert';
 
 function ProfileDisplay({ studentInfo }) {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
