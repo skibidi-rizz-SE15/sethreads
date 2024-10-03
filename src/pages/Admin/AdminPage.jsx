@@ -44,8 +44,8 @@ function AdminPage({ registeredCourses }) {
   }
 
   return (
-    <div className='flex flex-col items-center'>
-      <h1 className='text-white text-center text-4xl mx-auto mt-14'>Administration</h1>
+    <div className='flex flex-col items-center py-6'>
+      <h1 className='text-white text-center text-4xl mx-auto mt-8'>Administration</h1>
       <Search registeredCourses={selectCourse} onSelectYear={handleSelectYear} onSelectCourse={handleSelectCourse} onSearch={handleSearch} />
       <ProfileDisplay studentInfo={data} />
       <AlertBox isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)}>
