@@ -2,9 +2,9 @@ import React from 'react';
 import { CgProfile } from "react-icons/cg";
 import { FaCheck, FaXmark } from "react-icons/fa6";
 
-function ProfileCard({ student }) {
+function ProfileCard({ student, onclick }) {
   return (
-        <div className='bg-eerie-black border border-software-orange h-40 px-8 rounded-lg shadow-md flex w-full items-center'>
+        <div className='bg-eerie-black border border-software-orange h-40 px-8 rounded-lg shadow-md flex w-full items-center' onClick={onclick} >
             <CgProfile className='text-white text-6xl mr-8' />
             <div className='flex flex-col w-fit'>
                 <p className='text-white text-lg'>{student.student_id}</p>
