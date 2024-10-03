@@ -7,7 +7,7 @@ const Reply = ({ name, time="", body }) => {
     return (
         <article className="flex overflow-hidden flex-col self-center mx-auto mt-2 min-w-96 w-full">
             <Profile name={name} time={time}/>
-            <div className="pl-[2.225rem]">
+            <div className="ml-[2.625rem]">
                 <TextBody body={body} />
                 <ReplyBtn className="self-start" />
             </div>

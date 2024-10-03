@@ -15,7 +15,7 @@ const Comment = ({name, body, subcomments}) => {
     return (
         <div className="mt-2">
             <Profile name={name}/>
-            <div className="pl-[2.225rem]">
+            <div className="ml-[2.625rem]">
                 <TextBody body={body} />
                 <div className="flex gap-1">
                     {(subcomments.length > 0) && <ToggleReplyBtn number={subcomments.length} handleOnClick={handleOnClick} />}
