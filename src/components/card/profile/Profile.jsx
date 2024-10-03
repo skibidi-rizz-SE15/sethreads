@@ -18,7 +18,7 @@ const Profile = ({ name, year=0, time="", className="" }) => {
       default:
         yearBackground = "bg-green-500"
     }
-    
+
     return (
         <div className={`grid grid-cols-[auto,auto] gap-x-2.5 text-sm text-white ${className}`}>
           <img

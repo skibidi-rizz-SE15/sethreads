@@ -14,7 +14,7 @@ const Comment = ({name, year, body, subcomments}) => {
 
     return (
         <div className="mt-2">
-            <Profile name={name}/>
+            <Profile name={name} year={year}/>
             <div className="ml-[2.625rem]">
                 <TextBody body={body} />
                 <div className="flex gap-1">

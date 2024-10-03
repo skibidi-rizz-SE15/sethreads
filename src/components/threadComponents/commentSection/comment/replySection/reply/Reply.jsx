@@ -6,7 +6,7 @@ import ReplyBtn from "../../../../../button/post/ReplyBtn";
 const Reply = ({ name, year, time="", body }) => {
     return (
         <article className="flex overflow-hidden flex-col self-center mx-auto mt-2 min-w-96 w-full">
-            <Profile name={name} time={time}/>
+            <Profile name={name} year={year} time={time}/>
             <div className="ml-[2.625rem]">
                 <TextBody body={body} />
                 <ReplyBtn className="self-start" />

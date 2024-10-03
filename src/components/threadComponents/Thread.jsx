@@ -106,7 +106,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
             <div className="flex flex-col px-9 py-10 mx-auto w-4/5 h-max bg-neutral-800">
                 <div className="w-full">
                     <div className="flex">
-                        <Profile name={`${threadData.author.name} ${threadData.author.surname}`} time={threadData.create_at} />
+                        <Profile name={`${threadData.author.name} ${threadData.author.surname}`} year={threadData.author.year} time={threadData.create_at} />
                         <div ref={domNode} className="flex-1 flex justify-end">
                             { (studentId === threadData.author.student_id || isTA === true) && 
                             (<div>
