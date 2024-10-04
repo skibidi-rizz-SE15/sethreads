@@ -31,7 +31,7 @@ import { BiCodeBlock } from "react-icons/bi";
 import { GrBlockQuote } from "react-icons/gr";
 import { BsTextParagraph } from "react-icons/bs";
 
-const ThreadBodyEditor = () => {
+const ThreadBodyEditor = (onChange) => {
   const lowlight = createLowlight(all)
   const limit = 3000;
   const editor = useEditor({
@@ -105,6 +105,12 @@ const ThreadBodyEditor = () => {
             }
           })
         },
+        onUpdate: ({ editor }) => {
+        const currentContent = editor.getText();
+        if (onChange) {
+            onChange(currentContent);
+        }
+      },
       }),
     ],
     content: '<p></p>',
@@ -231,7 +237,7 @@ const ThreadBodyEditor = () => {
       styles: ''
     }
   ];
-
+    
 
   return (
     <div className="flex flex-col w-full mx-auto mt-8 rounded text-white">

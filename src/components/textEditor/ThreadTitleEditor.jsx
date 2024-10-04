@@ -10,7 +10,7 @@ import Bold from '@tiptap/extension-bold';
 import PreventNewline from '../../tiptapCustomExtensions/PreventNewline';
 import '../../styles/tiptapStyles.css';
 
-const ThreadTitleEditor = () => {
+const ThreadTitleEditor = ({ onChange }) => {
     const limit = 300;
 
     const editor = useEditor({
@@ -32,6 +32,12 @@ const ThreadTitleEditor = () => {
             const isBold = editor.isActive('bold');
             if (!isBold) {
                 editor.commands.setBold();
+            }
+
+            //pass the content of the editor back to the parent
+            const currentContent = editor.getText();
+            if (onChange) {
+                onChange(currentContent);
             }
         },
     });
