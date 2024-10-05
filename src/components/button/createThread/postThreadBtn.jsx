@@ -1,36 +1,76 @@
 import axios from "axios";
 import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const PostThreadBtn = ({ title, body, createdBy, setValidationError }) => {
-    const { courseId } = useParams();
+const PostThreadBtn = ({ title, body, createdBy, courseId, setErrorState }) => {
     const navigate = useNavigate(); // For redirecting after successful post
-    const toHome = () => {
-        navigate('/home');
-      };
+    if(!courseId){
+        setErrorState("emptyCourseId");
+    } else if(title === ""){
+        setErrorState("emptyTitle");
+    } else if(body === ""){
+        setErrorState("emptyBody");
+    }
+    if(!courseId || title === "" || body === ""){
+        return;
+    } 
 
-      function handlePostThread() {
-        if(!courseId){
-            setValidationError("emptyCourseId");
-        } else if(title === ""){
-            setValidationError("emptyTitle");
-        } else if(body === ""){
-            setValidationError("emptyBody");
-        }
-        if(!courseId || title === "" || body === "") return;
+    const formattedDateTime = new Intl.DateTimeFormat('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    }).format(new Date()).replace(',', '');
 
-        setValidationError("");
-        axios.post(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/create-thread`,{
-            "title": title,
-            "body": body,
-            "is_highlight": false,
-            "create_at": new Date().toISOString(), // Automatically set current time
-            "course_id": courseId,
-            "create_by": createdBy, // Creator of the thread
-        })
+    function postToCourse(){
+        return (
+            axios.post(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/create-thread`,
+                {
+                    "title": title,
+                    "body": body,
+                    "is_highlight": false,
+                    "create_at": formattedDateTime, // Automatically set current time
+                    "course_id": courseId,
+                    "create_by": createdBy, // Creator of the thread
+                },
+                {
+                    headers: {
+                        "x-token": localStorage.getItem("token")
+                    }
+                }
+            )
+        )
+    }
+
+    function postToHome(){
+        return (
+            axios.post(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/home/create-thread`,
+                {
+                    "title": title,
+                    "body": body,
+                    "is_highlight": false,
+                    "create_at": formattedDateTime, // Automatically set current time
+                    "create_by": createdBy, // Creator of the thread
+                },
+                {
+                    headers: {
+                        "x-token": localStorage.getItem("token")
+                    }
+                }
+            )
+        )
+    }
+
+    function handlePostThread() {
+        setErrorState("");
+        (
+            () => (courseId === "home") ? postToHome() : postToCourse()
+        )()
         .then(response => {
             if (response.status === 201) {
-                navigate(toHome ? "/home" : `/course/${courseId}`);
+                navigate((courseId === "home") ? "/home" : `/course/${courseId}`);
             }
         })
         .catch(error => {
