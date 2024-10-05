@@ -1,21 +1,55 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+
 import Details from "./Details";
 import Edit from "./Edit";
 import TableCourses from "./TableCourses";
 import Separator from "../../separator/Separator";
 
-const ProfileAlert = ({ isOpen, onClose, children }) => {
-  const [inputTACourse, setInputTACourse] = useState(null);
+const ProfileAlert = ({ isOpen, onClose, children, setStudent }) => {
+  const [inputTACourse, setInputTACourse] = useState("");
   const [isEditCourses, setIsEditCourses] = useState(false);
 
   useEffect(() => {
     if (children) {
       setInputTACourse(children.is_ta ? children.ta_course_id : "N/A");
     }
-  }, [children]);
+    setIsEditCourses(false);
+  }, [children, isOpen, onClose]);
 
   function handleInputTACourse(e) {
     setInputTACourse(e.target.value);
+  }
+
+  function handleSetTA() {
+    axios.put(
+      `${
+        process.env.REACT_APP_SERVER_DOMAIN_NAME
+      }/api/student/update-ta?student_id=${children.student_id}&is_ta=${
+        inputTACourse ? "true" : "false"
+      }&ta_course_id=${inputTACourse ? inputTACourse : "null"}`,
+      {},
+      {
+        headers: {
+          "x-token": localStorage.getItem("token"),
+        },
+      }
+    ).then((res) => {
+      if (res.data.is_ta) {
+        return axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/student/get-courses?course_id=${res.data.ta_course_id}`, {
+          headers: {
+            "x-token": localStorage.getItem("token"),
+          },
+        })
+      }
+      return res;
+    })
+    .then((res) => {
+      setStudent(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   function toggleEditCourses() {
@@ -53,22 +87,32 @@ const ProfileAlert = ({ isOpen, onClose, children }) => {
         </button>
         <div className="grid grid-cols-[repeat(2,1fr)]">
           <Details student={children} />
-          <Edit 
-            student={children} 
+          <Edit
+            student={children}
             inputTACourse={inputTACourse}
             handleInputTACourse={handleInputTACourse}
             isEditCourses={isEditCourses}
-            toggleEditCourses={toggleEditCourses} 
+            toggleEditCourses={toggleEditCourses}
+            handleSetTA={handleSetTA}
           />
-          <Separator className="col-span-2 mt-10"/>
+          <Separator className="col-span-2 mt-10" />
           <h1 className="text-gray-300 text-2xl text-center mt-5 col-span-2">
             Registered Courses
           </h1>
-          <TableCourses 
-            student={children}
-            isEditCourses={isEditCourses}  
-          />
+          <TableCourses student={children} isEditCourses={isEditCourses} />
         </div>
+        {!isEditCourses ? null : (
+          <div className="flex justify-center mt-5 gap-5">
+            <input
+              type="text"
+              className="w-1/5 bg-eerie-black text-white rounded-lg p-2 border border-white outline-none focus:border-software-orange focus:text-white focus:bg-steadfast transition duration-300"
+              placeholder="Course ID"
+            />
+            <button className="bg-software-orange hover:bg-software-orange-hover text-white text-lg font-bold py-2 px-4 rounded-lg">
+              Add
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
