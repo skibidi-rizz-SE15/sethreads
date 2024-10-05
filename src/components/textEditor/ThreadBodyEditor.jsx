@@ -184,13 +184,13 @@ const ThreadBodyEditor = ({ onChange }) => {
       command: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
       icon: <FaHeading />,
       label: 'Heading',
-      styles: ''
+      styles: editor.isActive('heading', { level: 1 }) ? 'bg-gray-700' : ''
     },
     {
       command: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
       icon: <RxHeading />,
       label: 'Sub-Heading',
-      styles: ''
+      styles: editor.isActive('heading', { level: 2 }) ? 'bg-gray-700' : ''
     },
     {
       command: () => editor.chain().focus().toggleCodeBlock().run(),
@@ -251,7 +251,11 @@ const ThreadBodyEditor = ({ onChange }) => {
           {buttons.map((button, index) => (
             <button
               key={index}
-              className={`px-2 py-1 border rounded hover:bg-gray-600 focus:outline-none flex items-center gap-2 ${editor.isActive(button.label.toLowerCase()) ? 'bg-gray-700' : ''} ${button.styles}`}
+              className={`px-2 py-1 border rounded hover:bg-gray-600 focus:outline-none flex items-center gap-2 ${
+                (editor.isActive(button.label.toLowerCase()) && button.label !== "Heading" && button.label !== "Sub-Heading") 
+                ? 'bg-gray-700' 
+                : ''
+              } ${button.styles}`}
               onClick={button.command}
               title={button.label}
             >
