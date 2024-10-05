@@ -4,16 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 const PostThreadBtn = ({ title, body, createdBy, courseId, setErrorState }) => {
     const navigate = useNavigate(); // For redirecting after successful post
-    if(!courseId){
-        setErrorState("emptyCourseId");
-    } else if(title === ""){
-        setErrorState("emptyTitle");
-    } else if(body === ""){
-        setErrorState("emptyBody");
-    }
-    if(!courseId || title === "" || body === ""){
-        return;
-    } 
+    // if(!courseId){
+    //     setErrorState("emptyCourseId");
+    // } else if(title === ""){
+    //     setErrorState("emptyTitle");
+    // } else if(body === ""){
+    //     setErrorState("emptyBody");
+    // }
 
     const formattedDateTime = new Intl.DateTimeFormat('en-GB', {
         day: '2-digit',
@@ -43,7 +40,6 @@ const PostThreadBtn = ({ title, body, createdBy, courseId, setErrorState }) => {
             )
         )
     }
-
     function postToHome(){
         return (
             axios.post(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/home/create-thread`,
@@ -64,7 +60,8 @@ const PostThreadBtn = ({ title, body, createdBy, courseId, setErrorState }) => {
     }
 
     function handlePostThread() {
-        setErrorState("");
+        if(!courseId || title === "" || body === "") return;
+        // setErrorState("");
         (
             () => (courseId === "home") ? postToHome() : postToCourse()
         )()
