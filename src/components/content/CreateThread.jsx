@@ -9,7 +9,7 @@ const CreateThread = ({ registeredCourses, studentId }) => {
     const [selectedCourseId, setSelectedCourseId] = useState(null);
     const [title, setTitle] = useState(""); 
     const [body, setBody] = useState(""); 
-    const [errorState, setErrorState] = useState("");
+    let isValid = title && body && selectedCourseId;
 
     return (
         <main className="flex overflow-y-auto w-full">
@@ -18,7 +18,7 @@ const CreateThread = ({ registeredCourses, studentId }) => {
                 <CourseDropdown registeredCourses={registeredCourses} setSelectedCourseId={setSelectedCourseId} selectedCourseId={selectedCourseId} />
                 <ThreadTitleEditor onChange={setTitle} />
                 <ThreadBodyEditor onChange={setBody} />
-                <PostThreadBtn title={title} body={body} createdBy={studentId} courseId={selectedCourseId} setErrorState={setErrorState} />
+                <PostThreadBtn title={title} body={body} createdBy={studentId} courseId={selectedCourseId} isValid={isValid} />
             </div>
         </main>
     );

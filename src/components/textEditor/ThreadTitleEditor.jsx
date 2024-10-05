@@ -37,7 +37,11 @@ const ThreadTitleEditor = ({ onChange }) => {
             //pass the content of the editor back to the parent
             const currentContent = editor.getHTML();
             if (onChange) {
-                onChange(currentContent);
+                if(!editor.isEmpty){
+                    onChange(currentContent);
+                } else {
+                    onChange("");
+                }
             }
         },
     });

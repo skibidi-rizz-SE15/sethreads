@@ -2,15 +2,8 @@ import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const PostThreadBtn = ({ title, body, createdBy, courseId, setErrorState }) => {
+const PostThreadBtn = ({ title, body, createdBy, courseId, isValid }) => {
     const navigate = useNavigate(); // For redirecting after successful post
-    // if(!courseId){
-    //     setErrorState("emptyCourseId");
-    // } else if(title === ""){
-    //     setErrorState("emptyTitle");
-    // } else if(body === ""){
-    //     setErrorState("emptyBody");
-    // }
 
     const formattedDateTime = new Intl.DateTimeFormat('en-GB', {
         day: '2-digit',
@@ -60,19 +53,19 @@ const PostThreadBtn = ({ title, body, createdBy, courseId, setErrorState }) => {
     }
 
     function handlePostThread() {
-        if(!courseId || title === "" || body === "") return;
-        // setErrorState("");
-        (
-            () => (courseId === "home") ? postToHome() : postToCourse()
-        )()
-        .then(response => {
-            if (response.status === 201) {
-                navigate((courseId === "home") ? "/home" : `/course/${courseId}`);
-            }
-        })
-        .catch(error => {
-            console.error("Error posting thread:", error);
-        });
+        if(isValid){
+           (
+                () => (courseId === "home") ? postToHome() : postToCourse()
+            )()
+            .then(response => {
+                if (response.status === 201) {
+                    navigate((courseId === "home") ? "/home" : `/course/${courseId}`);
+                }
+            })
+            .catch(error => {
+                console.error("Error posting thread:", error);
+            }); 
+        }
     }
 
     return (

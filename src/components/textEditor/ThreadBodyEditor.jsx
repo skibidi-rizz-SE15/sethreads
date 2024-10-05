@@ -111,7 +111,11 @@ const ThreadBodyEditor = ({ onChange }) => {
     onUpdate: ({ editor }) => {
       const currentContent = editor.getHTML();
       if (onChange) {
-        onChange(currentContent);
+        if(!editor.isEmpty){
+            onChange(currentContent);
+        } else {
+            onChange("");
+        }
       }
     },
   });
