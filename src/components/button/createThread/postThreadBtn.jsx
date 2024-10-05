@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-const PostThreadBtn = ({ title, body, createBy }) => {
+const PostThreadBtn = ({ title, body, createdBy, setValidationError }) => {
     const { courseId } = useParams();
     const navigate = useNavigate(); // For redirecting after successful post
     const toHome = () => {
@@ -10,20 +10,24 @@ const PostThreadBtn = ({ title, body, createBy }) => {
       };
 
       function handlePostThread() {
-        axios.post(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/create-thread`, 
-            {
-                "title": title,
-                "body": body,
-                "is_highlight": false,
-                "create_at": new Date().toISOString(), // Automatically set current time
-                "create_by": createBy, // Creator of the thread
-            }, 
-            {
-                headers: { 
-                    "x-token": localStorage.getItem('token') 
-                }
-            }
-        )
+        if(!courseId){
+            setValidationError("emptyCourseId");
+        } else if(title === ""){
+            setValidationError("emptyTitle");
+        } else if(body === ""){
+            setValidationError("emptyBody");
+        }
+        if(!courseId || title === "" || body === "") return;
+
+        setValidationError("");
+        axios.post(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/create-thread`,{
+            "title": title,
+            "body": body,
+            "is_highlight": false,
+            "create_at": new Date().toISOString(), // Automatically set current time
+            "course_id": courseId,
+            "create_by": createdBy, // Creator of the thread
+        })
         .then(response => {
             if (response.status === 201) {
                 navigate(toHome ? "/home" : `/course/${courseId}`);
