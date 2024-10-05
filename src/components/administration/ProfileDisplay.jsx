@@ -31,12 +31,20 @@ function ProfileDisplay({ studentInfo }) {
     }
   }
 
+  function handleOnchangeStudent(data) {
+    if (data.ta_course_id === "null") {
+      setSelectedStudent((prevStudent) => ({ ...prevStudent, is_ta: false }));
+    } else {
+      setSelectedStudent((prevStudent) => ({ ...prevStudent, is_ta: true, courseTAInfo: data }));
+    }
+  }
+
   return (
     <div className='self-stretch grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] mt-14 mx-6 justify-items-center gap-5'>
       {studentInfo.map((student) => (
           <ProfileCard key={student.student_id} student={student} onclick={() => handleCardClick(student)} />
       ))}
-      <ProfileAlert isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)}>
+      <ProfileAlert isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)} setStudent={handleOnchangeStudent} >
         {selectedStudent && (selectedStudent)}
       </ProfileAlert>
     </div>

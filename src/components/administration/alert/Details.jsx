@@ -4,6 +4,11 @@ import { CgProfile } from "react-icons/cg";
 import { FaCheck, FaXmark } from "react-icons/fa6";
 
 function Details({ student }) {
+
+  useEffect(() => {
+    console.log("my prop changed");
+  }, [student]);
+
   return (
     <div className="bg-eerie-black border border-software-orange h-[10rem] p-4 rounded-lg shadow-md grid grid-cols-[auto_1fr] gap-4 w-full items-center">
       <CgProfile className="text-white text-6xl" />

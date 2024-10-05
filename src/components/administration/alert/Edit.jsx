@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 
-const Edit = ({ student, inputTACourse, handleInputTACourse, isEditCourses, toggleEditCourses }) => {
+const Edit = ({ student, inputTACourse, handleInputTACourse, isEditCourses, toggleEditCourses, handleSetTA }) => {
     const [isEditTA, setIsEditTA] = useState(false);
 
     const inputTARef = useRef(null);
@@ -10,8 +10,6 @@ const Edit = ({ student, inputTACourse, handleInputTACourse, isEditCourses, togg
         inputTARef.current.disabled = false;
         inputTARef.current.focus();
     }
-
-    const handleSetTA = () => {}
 
 
     return (
