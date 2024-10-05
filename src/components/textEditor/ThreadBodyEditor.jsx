@@ -25,13 +25,13 @@ import 'katex/dist/katex.min.css'
 import '../../styles/tiptapStyles.css';
 import { CodeWithoutSpellcheck } from '../../tiptapCustomExtensions/CodeWithoutSpellcheck';
 import { CodeBlockWithoutSpellcheck } from '../../tiptapCustomExtensions/CodeBlockWithoutSpellcheck';
-import { RxFontBold, RxFontItalic, RxUnderline, RxLink2, RxLinkBreak2, RxListBullet, RxHeading, RxImage} from "react-icons/rx";
+import { RxFontBold, RxFontItalic, RxUnderline, RxLink2, RxLinkBreak2, RxListBullet, RxHeading, RxImage } from "react-icons/rx";
 import { FaHeading, FaCode, FaSubscript, FaSuperscript } from "react-icons/fa6";
 import { BiCodeBlock } from "react-icons/bi";
 import { GrBlockQuote } from "react-icons/gr";
 import { BsTextParagraph } from "react-icons/bs";
 
-const ThreadBodyEditor = (onChange) => {
+const ThreadBodyEditor = ({ onChange }) => {
   const lowlight = createLowlight(all)
   const limit = 3000;
   const editor = useEditor({
@@ -105,15 +105,15 @@ const ThreadBodyEditor = (onChange) => {
             }
           })
         },
-        onUpdate: ({ editor }) => {
-        const currentContent = editor.getText();
-        if (onChange) {
-            onChange(currentContent);
-        }
-      },
       }),
     ],
     content: '<p></p>',
+    onUpdate: ({ editor }) => {
+      const currentContent = editor.getHTML();
+      if (onChange) {
+        onChange(currentContent);
+      }
+    },
   });
 
   const setLink = useCallback(() => {
@@ -148,7 +148,7 @@ const ThreadBodyEditor = (onChange) => {
   const buttons = [
     {
       command: () => editor.chain().focus().setParagraph().run(),
-      icon: <BsTextParagraph/>,
+      icon: <BsTextParagraph />,
       label: 'Paragraph',
       styles: ''
     },
@@ -190,7 +190,7 @@ const ThreadBodyEditor = (onChange) => {
     },
     {
       command: () => editor.chain().focus().toggleCodeBlock().run(),
-      icon: <BiCodeBlock/>,
+      icon: <BiCodeBlock />,
       label: 'Code Block',
       styles: ''
     },
@@ -202,7 +202,7 @@ const ThreadBodyEditor = (onChange) => {
     },
     {
       command: () => editor.chain().focus().toggleBlockquote().run(),
-      icon: <GrBlockQuote/>,
+      icon: <GrBlockQuote />,
       label: 'Blockquote',
       styles: ''
     },
@@ -226,7 +226,7 @@ const ThreadBodyEditor = (onChange) => {
     },
     {
       command: setLink,
-      icon : <RxLink2 />,
+      icon: <RxLink2 />,
       label: 'Link',
       styles: ''
     },
@@ -237,10 +237,10 @@ const ThreadBodyEditor = (onChange) => {
       styles: ''
     }
   ];
-    
+
 
   return (
-    <div className="flex flex-col w-full mx-auto mt-8 rounded text-white">
+    <div className="flex flex-col w-full mx-auto rounded text-white">
       <h1 className="pb-4 text-gray-50 font-semibold text-xl">Content</h1>
       {editor && (
         <div className="mb-4 flex flex-wrap gap-2 p-2 rounded">
@@ -249,16 +249,16 @@ const ThreadBodyEditor = (onChange) => {
               key={index}
               className={`px-2 py-1 border rounded hover:bg-gray-600 focus:outline-none flex items-center gap-2 ${editor.isActive(button.label.toLowerCase()) ? 'bg-gray-700' : ''} ${button.styles}`}
               onClick={button.command}
-              title={button.label}  
+              title={button.label}
             >
               {button.icon && (button.label === 'Link' || button.label === 'Unlink' || button.label === 'Image') ? (
                 <>
-                  {button.icon} 
-                  <span className="pb-0.5">{button.label}</span> 
+                  {button.icon}
+                  <span className="pb-0.5">{button.label}</span>
                 </>
               ) : (
-                button.icon ? button.icon : <span className="pb-0.5">{button.label}</span> 
-    )}
+                button.icon ? button.icon : <span className="pb-0.5">{button.label}</span>
+              )}
             </button>
           ))}
 

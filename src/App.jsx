@@ -105,7 +105,7 @@ function App() {
             )}
             { studentId && (<Route path='home/thread/:threadId' element={<Thread fromHome={true} studentId={studentId} />} />)}
             { (studentInfo && taCourse) && (<Route path='course/:courseId/thread/:threadId' element={<Thread fromHome={false} studentId={studentId} isTA={studentInfo.is_ta} TACourseID={taCourse.course_id} />} />)}
-            {studentInfo && (<Route path='/create-thread' element={<CreateThread registeredCourses={studentInfo.registered_courses} />} />)}
+            {studentInfo && (<Route path='/create-thread' element={<CreateThread registeredCourses={studentInfo.registered_courses} studentId={studentId} />} />)}
           </Route>
         </Route>
         <Route path='/login' element={<LoginPage mode={mode} handleLinkClick={handleLinkClick} handleStudentIdChange={handleStudentIdChange} handlePasswordChange={handlePasswordChange} isSuccess={isSuccess} studentId={studentId} password={password} setIsSuccess={setIsSuccess} />} />

@@ -35,7 +35,7 @@ const ThreadTitleEditor = ({ onChange }) => {
             }
 
             //pass the content of the editor back to the parent
-            const currentContent = editor.getText();
+            const currentContent = editor.getHTML();
             if (onChange) {
                 onChange(currentContent);
             }
@@ -43,7 +43,7 @@ const ThreadTitleEditor = ({ onChange }) => {
     });
 
     return (
-        <div className="flex flex-col w-full mx-auto mt-8 rounded text-white">
+        <div className="flex flex-col w-full mx-auto rounded text-white">
             <h1 className="pb-4 text-gray-50 font-semibold text-xl">Title</h1>
             <EditorContent
                 editor={editor}
