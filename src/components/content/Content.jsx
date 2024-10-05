@@ -48,24 +48,24 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
     <main className="flex flex-col overflow-y-auto px-9 pt-10 mx-auto w-full bg-neutral-800">
       <Header courseName={courseName} />
       <Separator className="my-6 w-full max-w-full" />
-    {  threads.length === 0 ? (<div className="flex items-center justify-center w-full h-96">
+      {threads.length === 0 ? (<div className="flex items-center justify-center w-full h-96">
         <p className="text-lg text-neutral-200">No threads found</p>
       </div>) : (
-          <div>
-            <HighlightSection
-              highlightThreads={threads.filter(
-                (thread) => thread.is_highlight === true
-              )}
-              courseId={courseId}
-            />
-            <Separator className="my-6 w-full max-w-full" />
-            <ThreadSection
-              threads={threads.filter((thread) => thread.is_highlight === false)}
-              courseId={courseId}
-              isHomePage={false}
-            />
-          </div>
-    )}
+        <div>
+          <HighlightSection
+            highlightThreads={threads.filter(
+              (thread) => thread.is_highlight === true
+            )}
+            courseId={courseId}
+          />
+          <Separator className="my-6 w-full max-w-full" />
+          <ThreadSection
+            threads={threads.filter((thread) => thread.is_highlight === false)}
+            courseId={courseId}
+            isHomePage={false}
+          />
+        </div>
+      )}
     </main>
   );
 };
