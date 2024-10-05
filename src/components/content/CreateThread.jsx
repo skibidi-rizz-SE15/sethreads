@@ -13,8 +13,8 @@ const CreateThread = ({ registeredCourses }) => {
 
     return (
         <main className="flex overflow-y-auto w-full">
-            <div className="flex flex-col px-9 pt-10 mx-auto w-[60rem] bg-neutral-800 border">
-                <h1 className="pb-4 text-center color text-gray-50 font-bold text-2xl">Create Thread</h1>
+            <div className="flex flex-col min-h-full h-max px-16 py-8 mx-auto w-[60rem] bg-neutral-800">
+                <h1 className="mb-12 text-center color text-gray-50 font-bold text-2xl">Create Thread</h1>
                 <CourseDropdown registeredCourses={registeredCourses} setSelectedCourseId={setSelectedCourseId} selectedCourseId={selectedCourseId} />
                 <ThreadTitleEditor />
                 <ThreadBodyEditor />
