@@ -34,9 +34,8 @@
     cursor: pointer;
     text-decoration: underline;
 
-    &:link { color: #0000EE; }
-    &:visited { color: #551A8B; }
-    &:link:active, &:visited:active { color: #FF0000; }
+    &:link { color: #f4a320; }
+    &:visited { color: #808080; }
     &:hover { color: #6969ec; }
   }
 
