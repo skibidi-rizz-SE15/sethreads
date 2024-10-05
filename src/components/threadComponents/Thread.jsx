@@ -103,7 +103,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
     return (
         <div className="relative flex overflow-y-auto w-full">
             <BackToCourseBtn toHome={fromHome}/>
-            <div className="flex flex-col px-9 py-10 mx-auto w-4/5 h-max bg-neutral-800">
+            <div className="flex flex-col px-9 py-10 mx-auto w-4/5 h-full bg-neutral-800">
                 <div className="w-full">
                     <div className="flex">
                         <Profile name={`${threadData.author.name} ${threadData.author.surname}`} year={threadData.author.year} time={threadData.create_at} />
