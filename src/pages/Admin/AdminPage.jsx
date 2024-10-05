@@ -44,7 +44,7 @@ function AdminPage({ registeredCourses }) {
   }
 
   return (
-    <div className='flex flex-col items-center py-6'>
+    <div className='flex flex-col items-center py-6 overflow-y-auto'>
       <h1 className='text-white text-center text-4xl mx-auto mt-8'>Administration</h1>
       <Search registeredCourses={selectCourse} onSelectYear={handleSelectYear} onSelectCourse={handleSelectCourse} onSearch={handleSearch} />
       <ProfileDisplay studentInfo={data} />
