@@ -56,10 +56,17 @@
 
   h1, h2 {
     line-height: 1.1;
+    margin: 1rem 0;
     text-wrap: pretty;
   }
-  h1 { font-size: 1.4rem; }
-  h2 { font-size: 1.2rem; }
+  h1 { 
+    font-size: 1.8rem; 
+    font-weight: 700;
+  }
+  h2 { 
+    font-size: 1.4rem; 
+    font-weight: 600;
+  }
 
   pre {
     background: var(--code-background);
