@@ -284,47 +284,52 @@ const ThreadBodyEditor = ({ onChange }) => {
       )}
       {editor && (
         <BubbleMenu
-          editor={editor}
-          tippyOptions={{ duration: 100 }}
-          className='flex gap-1 p-2 rounded-lg bg-black'
-          shouldShow={({ editor }) => {
-            const { state } = editor;
-            const { $from, empty } = state.selection;
-            const parentName = $from.parent.type.name;
-            return !empty && !['codeBlock', 'code', 'image'].includes(parentName);
-          }}
+        editor={editor}
+        tippyOptions={{ duration: 100 }}
+        className='flex gap-1 p-2 rounded-lg bg-black'
+        shouldShow={({ editor }) => {
+          const { state } = editor;
+          const { $from, empty } = state.selection;
+          const parentName = $from.parent.type.name;
+          return !empty && !['codeBlock', 'code', 'image'].includes(parentName);
+        }}
+      >
+        <button
+          className="px-2 py-1 border rounded hover:bg-gray-400"
+          onClick={buttons.find((button) => button.label === "Bold").command}
+          title='Bold'
         >
-          <button
-            className="px-2 py-1 border rounded hover:bg-gray-400"
-            onClick={buttons.find((button) => button.label === "Bold").command}
-          >
-            Bold
-          </button>
-          <button
-            className="px-2 py-1 border rounded hover:bg-gray-400"
-            onClick={buttons.find((button) => button.label === "Italic").command}
-          >
-            Italic
-          </button>
-          <button
-            className="px-2 py-1 border rounded hover:bg-gray-400"
-            onClick={buttons.find((button) => button.label === "Underline").command}
-          >
-            Underline
-          </button>
-          <button
-            className="px-2 py-1 border rounded hover:bg-gray-400"
-            onClick={setLink}
-          >
-            Link
-          </button>
-          <button
-            className="px-2 py-1 border rounded hover:bg-gray-400"
-            onClick={buttons.find((button) => button.label === "Unlink").command}
-          >
-            Unlink
-          </button>
-        </BubbleMenu>
+          <RxFontBold />
+        </button>
+        <button
+          className="px-2 py-1 border rounded hover:bg-gray-400"
+          onClick={buttons.find((button) => button.label === "Italic").command}
+          title='Italic'
+        >
+          <RxFontItalic />
+        </button>
+        <button
+          className="px-2 py-1 border rounded hover:bg-gray-400"
+          onClick={buttons.find((button) => button.label === "Underline").command}
+          title='Underline'
+        >
+          <RxUnderline />
+        </button>
+        <button
+          className="px-2 py-1 border rounded hover:bg-gray-400"
+          onClick={setLink}
+          title='Link'
+        >
+          <RxLink2 />
+        </button>
+        <button
+          className="px-2 py-1 border rounded hover:bg-gray-400"
+          onClick={buttons.find((button) => button.label === "Unlink").command}
+          title='Unlink'
+        >
+          <RxLinkBreak2 />
+        </button>
+      </BubbleMenu>
       )}
     </div>
   );
