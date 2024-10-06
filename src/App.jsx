@@ -10,6 +10,7 @@ import Thread from './components/threadComponents/Thread';
 import Home from './components/content/Home';
 import CreateThread from './components/content/CreateThread';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
+import './App.css';
 
 function App() {
 
@@ -104,7 +105,7 @@ function App() {
               <Route path={`course/${taCourse.course_id}`} element={<Content courseId={taCourse.course_id} courseName={taCourse.name} threads={threads} setThreads={setThreads} />} />
             )}
             { studentId && (<Route path='home/thread/:threadId' element={<Thread fromHome={true} studentId={studentId} />} />)}
-            { (studentInfo && taCourse) && (<Route path='course/:courseId/thread/:threadId' element={<Thread fromHome={false} studentId={studentId} isTA={studentInfo.is_ta} TACourseID={taCourse.course_id} />} />)}
+            { (studentInfo) && (<Route path='course/:courseId/thread/:threadId' element={<Thread fromHome={false} studentId={studentId} isTA={studentInfo.is_ta} TACourseID={taCourse ? taCourse.course_id : ""} />} />)}
             {studentInfo && (<Route path='/create-thread' element={<CreateThread registeredCourses={studentInfo.registered_courses} studentId={studentId} />} />)}
           </Route>
         </Route>
