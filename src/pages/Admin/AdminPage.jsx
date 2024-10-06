@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import Search from '../../components/administration/Search';
@@ -13,6 +13,14 @@ function AdminPage({ registeredCourses }) {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [selectCourse, setSelectCourse] = useState(registeredCourses);
   const [data, setData] = useState([]);
+  const [update, setUpdate] = useState(false);
+
+  useEffect(() => {
+    if (update) {
+      handleSearch();
+    }
+    setUpdate(false);
+  }, [update])
 
   function handleSelectYear(e) {
     setSelectedYear(e.target.value);
@@ -43,11 +51,15 @@ function AdminPage({ registeredCourses }) {
     }
   }
 
+  function handleOnUpdate() {
+    setUpdate(true);
+  }
+
   return (
     <div className='flex flex-col items-center py-6 overflow-y-auto'>
       <h1 className='text-white text-center text-4xl mx-auto mt-8'>Administration</h1>
       <Search registeredCourses={selectCourse} onSelectYear={handleSelectYear} onSelectCourse={handleSelectCourse} onSearch={handleSearch} />
-      <ProfileDisplay studentInfo={data} />
+      <ProfileDisplay studentInfo={data} handleOnUpdate={handleOnUpdate} />
       <AlertBox isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)}>
         <p>Please select year and courses</p>
       </AlertBox>
