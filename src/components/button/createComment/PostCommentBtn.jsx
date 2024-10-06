@@ -49,7 +49,7 @@ const PostCommentBtn = ({ fromHome, threadId, body, studentId, isValid, classNam
         if (isValid) {
             (fromHome ? postToHome() : postToCourse())
                 .catch(error => {
-                    console.error("Error posting thread:", error);
+                    console.error("Error posting comment:", error);
                 });
         }
     }

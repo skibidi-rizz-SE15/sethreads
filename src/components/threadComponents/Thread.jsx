@@ -43,6 +43,9 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isAlertOpen, setIsAlertOpen] = useState(false);
     const [isPin, setIsPin] = useState(false);
+    const [commentBody, setCommentBody] = useState("");
+
+    const isValidComment = commentBody !== "";
 
     console.log(isTA);
     
@@ -139,7 +142,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
                 </div>
                 <CommentDisplay number={numComment}/>
                 <Separator className="w-full my-6" />
-                <CommentEditor />
+                <CommentEditor onChange={setCommentBody} fromHome={fromHome} threadId={threadId} body={commentBody} studentId={studentId} isValid={isValidComment} />
                 <CommentSection thread_id={threadId} setNumComment={setNumComment} isHome={fromHome} />
             </div>
             <AlertBox isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)}>

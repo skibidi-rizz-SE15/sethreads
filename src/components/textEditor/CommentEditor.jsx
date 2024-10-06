@@ -32,7 +32,7 @@ import { GrBlockQuote } from "react-icons/gr";
 import { BsTextParagraph } from "react-icons/bs";
 import PostCommentBtn from '../button/createComment/PostCommentBtn';
 
-const CommentEditor = ({ onChange }) => {
+const CommentEditor = ({ onChange, fromHome, threadId, body, studentId, isValid }) => {
   const lowlight = createLowlight(all)
   const limit = 1500;
   const editor = useEditor({
@@ -276,7 +276,7 @@ const CommentEditor = ({ onChange }) => {
             <div className={`flex mt-1 ml-4 mr-auto text-sm text-gray-200`}>
                 {editor.storage.characterCount.characters()}/{limit}
             </div>
-            <PostCommentBtn className='mt-2 mr-2' />
+            <PostCommentBtn className='mt-2 mr-2' fromHome={fromHome} threadId={threadId} body={body} studentId={studentId} isValid={isValid} />
         </div>
       )}
       {editor && (
