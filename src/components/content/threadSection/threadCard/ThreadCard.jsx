@@ -3,6 +3,7 @@ import CommentBtn from '../../../button/post/CommentBtn';
 import Profile from '../../../card/profile/Profile';
 import TextBody from '../../../card/textBody/TextBody';
 import TextTitle from '../../../card/textTitle/TextTitle';
+import { getPreviewHTMLString } from '../../../../utilities/HtmlFilter';
 
 const ThreadCard = ({ name, year, time, title, body, comments }) => {
   return (
@@ -10,7 +11,7 @@ const ThreadCard = ({ name, year, time, title, body, comments }) => {
       <div className="flex flex-col items-start mx-6 w-fit ">
         <Profile name={name} year={year} time={time}/>
         <TextTitle title={title} className='line-clamp-6 text-ellipsis' />
-        <TextBody body={body} className='line-clamp-3 text-ellipsis' />
+        <TextBody body={getPreviewHTMLString(body)} className='line-clamp-3 text-ellipsis' />
       </div>
       <CommentBtn number={comments.length} />
     </article>

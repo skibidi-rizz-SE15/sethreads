@@ -1,4 +1,5 @@
 import { domToReact } from "html-react-parser";
+import 'highlight.js/styles/github.css';
 
 const options = {
     replace: (domNode) => {
@@ -14,6 +15,13 @@ const options = {
           <pre style={{ background: 'var(--code-background)', borderRadius: '0.5rem', color: 'white', margin: '1.5rem 0', padding: '0.75rem 1rem' }}>
             {domToReact(domNode.children)}
           </pre>
+        );
+      }
+      if (domNode.name === 'code' && domNode.parent && domNode.parent.name === 'pre') {
+        return (
+          <code style={{ backgroundColor: 'none', color: 'inherit', fontSize: '0.8rem', padding: '0' }} className="hljs">
+            {domToReact(domNode.children)}
+          </code>
         );
       }
       if (domNode.name === 'code') {
@@ -91,6 +99,6 @@ const options = {
       // Fallback to default rendering for other nodes
       return domToReact(domNode.children);
     },
-};
+  };
 
 export default options
