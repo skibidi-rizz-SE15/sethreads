@@ -30,6 +30,7 @@ function ProfileDisplay({ studentInfo, handleOnUpdate }) {
       setSelectedStudent(student);
       setIsAlertOpen(true);
     }
+    setEditCourse(false);
   }
 
   function handleOnchangeStudent(data, mode) {
@@ -43,6 +44,7 @@ function ProfileDisplay({ studentInfo, handleOnUpdate }) {
       }
     } else if (mode === "Course") {
       setSelectedStudent((prevStudent) => ({ ...prevStudent, registered_courses: data.registered_courses }));
+      handleOnUpdate();
       setEditCourse(true);
     }
   }

@@ -20,7 +20,7 @@ const ProfileAlert = ({ isOpen, onClose, children, setStudent, EditCourse }) => 
     } else {
       setIsEditCourses(false);
     }
-  }, [children, isOpen, onClose, EditCourse]);
+  }, [children, isOpen, onClose]);
 
   function handleInputTACourse(e) {
     setInputTACourse(e.target.value);
@@ -72,16 +72,30 @@ const ProfileAlert = ({ isOpen, onClose, children, setStudent, EditCourse }) => 
       }
     })
     .then((res) => {
-      if (res.data.error === "Course already registered") {
-        alert("Course already registered");
-      } else if (res.data.error === "Course not found") {
-        alert("Course not found");
+      if (res.data.error) {
+        alert(res.data.error);
       } else {
         setStudent(res.data, "Course");
-        setInputCourse("");
       }
     })
     .catch((err) => {
+      console.log(err);
+    });
+    setInputCourse("");
+  }
+
+  function handleRemoveCourse(course_id) {
+    axios.delete(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/student/withdraw-course?student_id=${children.student_id}&course_id=${course_id}`, {
+      headers: {
+        "x-token": localStorage.getItem("token"),
+      }
+    }).then((res) => {
+      if (res.data.error) {
+        alert(res.data.error);
+      } else {
+        setStudent(res.data, "Course");
+      }
+    }).catch((err) => {
       console.log(err);
     });
   }
@@ -133,7 +147,7 @@ const ProfileAlert = ({ isOpen, onClose, children, setStudent, EditCourse }) => 
           <h1 className="text-gray-300 text-2xl text-center mt-5 col-span-2">
             Registered Courses
           </h1>
-          <TableCourses student={children} isEditCourses={isEditCourses} />
+          <TableCourses student={children} isEditCourses={isEditCourses} onDelete={handleRemoveCourse} />
         </div>
         {!isEditCourses ? null : (
           <div className="flex justify-center mt-5 gap-5">
