@@ -44,10 +44,6 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
     const [isAlertOpen, setIsAlertOpen] = useState(false);
     const [isPin, setIsPin] = useState(false);
     const [commentBody, setCommentBody] = useState("");
-
-    const isValidComment = commentBody !== "";
-
-    console.log(isTA);
     
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? `home/get-thread?thread_id=${threadId}` : `thread/get-thread?thread_id=${threadId}&course_id=${courseId}`}`, {
@@ -66,6 +62,15 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
             setIsLoading(false);
         });
     }, [courseId, threadId, fromHome]);
+
+    const formattedDateTime = new Intl.DateTimeFormat('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    }).format(new Date()).replace(',', '');
 
     function deleteThread() {
         axios.delete(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/delete-thread?thread_id=${threadId}`, {
@@ -91,6 +96,28 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
         }).catch((err) => {
             console.log(err);
         });
+    }
+
+    function handlePostComment() {
+        console.log("T");
+        if (commentBody) {
+            axios.post(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${ fromHome ? "home-comment" : "comment" }/create-comment`, {
+                "comment_from": threadId,
+                "comment_data": commentBody,
+                "posted_by": studentId,
+                "create_at": formattedDateTime
+            }, {
+                headers: {
+                    "x-token": localStorage.getItem("token")
+                }
+            })
+            .then((res) => {
+                console.log(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        }
     }
 
     let domNode = useClickOutside(() => {
@@ -142,7 +169,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
                 </div>
                 <CommentDisplay number={numComment}/>
                 <Separator className="w-full my-6" />
-                <CommentEditor onChange={setCommentBody} fromHome={fromHome} threadId={threadId} body={commentBody} studentId={studentId} isValid={isValidComment} />
+                <CommentEditor onChange={setCommentBody} commentBody={commentBody} handlePostComment={handlePostComment} />
                 <CommentSection thread_id={threadId} setNumComment={setNumComment} isHome={fromHome} />
             </div>
             <AlertBox isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)}>

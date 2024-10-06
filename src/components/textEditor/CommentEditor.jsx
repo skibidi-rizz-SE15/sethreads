@@ -32,7 +32,7 @@ import { GrBlockQuote } from "react-icons/gr";
 import { BsTextParagraph } from "react-icons/bs";
 import PostCommentBtn from '../button/createComment/PostCommentBtn';
 
-const CommentEditor = ({ onChange, fromHome, threadId, body, studentId, isValid }) => {
+const CommentEditor = ({ onChange, commentBody, handlePostComment }) => {
   const lowlight = createLowlight(all)
   const limit = 1500;
   const editor = useEditor({
@@ -246,7 +246,7 @@ const CommentEditor = ({ onChange, fromHome, threadId, body, studentId, isValid 
   return (
     <div className="flex flex-col w-full mx-auto text-white">
       {editor && (
-        <div className={`flex flex-wrap mb-4 gap-2 p-2 rounded ${editor.isFocused ? "" : "hidden"}`}>
+        <div className={`flex flex-wrap mb-4 gap-2 p-2 rounded ${editor.isFocused ? "" : "hidden"}`} onMouseDown={(e) => e.preventDefault()}>
           {buttons.map((button, index) => (
             <button
               key={index}
@@ -276,7 +276,7 @@ const CommentEditor = ({ onChange, fromHome, threadId, body, studentId, isValid 
             <div className={`flex mt-1 ml-4 mr-auto text-sm text-gray-200`}>
                 {editor.storage.characterCount.characters()}/{limit}
             </div>
-            <PostCommentBtn className='mt-2 mr-2' fromHome={fromHome} threadId={threadId} body={body} studentId={studentId} isValid={isValid} />
+            <PostCommentBtn className='mt-2 mr-2' commentBody={commentBody} handlePostComment={handlePostComment} />
         </div>
       )}
       {editor && (
