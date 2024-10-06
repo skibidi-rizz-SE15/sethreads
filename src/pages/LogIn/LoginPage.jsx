@@ -37,8 +37,19 @@ const LoginPage = ({ mode, handleLinkClick, handleStudentIdChange, handlePasswor
     }, []);
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return (
+            <main className="flex flex-col items-center justify-center overflow-y-auto w-full h-screen bg-neutral-800">
+                <img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/7d8da78db1ff40849a641d3086462423e911d33579caaab958d340cde9701cf2?placeholderIfAbsent=true&apiKey=6c97697ae0354418a18c66f6f8aad447"
+                    alt=""
+                    className="object-contain aspect-[1.87] w-[120px] animate-pulse"
+                />
+                {/* <p className="pt-3 mt-4 text-lg text-gray-300 typing-animation">Loading</p> */}
+            </main>
+        );
     }
+    
 
     function handleLogin(e) {
         e.preventDefault();
@@ -50,7 +61,7 @@ const LoginPage = ({ mode, handleLinkClick, handleStudentIdChange, handlePasswor
                 }
             ).then((res) => {
                 if (res.data.successful) {
-                    localStorage.setItem("token", res.data.token); 
+                    localStorage.setItem("token", res.data.token);
                     setIsSuccess(true);
                     if (res.data.admin) {
                         navigate("/admin");
@@ -96,7 +107,7 @@ const LoginPage = ({ mode, handleLinkClick, handleStudentIdChange, handlePasswor
 
                 {/* white background and form */}
                 <div className="h-full bg-white p-8 flex-grow flex items-center justify-center transform -skew-x-12">
-                    <SignInBox 
+                    <SignInBox
                         mode={mode}
                         handleLinkClick={handleLinkClick}
                         Login={handleLogin}

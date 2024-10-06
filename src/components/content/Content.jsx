@@ -41,8 +41,20 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
 
 
   if (isLoading) {
-    return <main className="flex flex-col overflow-y-auto px-9 pt-10 mx-auto w-full bg-neutral-800"></main>; // Bro you can set loading skeleton here
-  }
+    return (
+        <main className="flex flex-col items-center justify-center overflow-y-auto w-full h-screen bg-neutral-800">
+            <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/7d8da78db1ff40849a641d3086462423e911d33579caaab958d340cde9701cf2?placeholderIfAbsent=true&apiKey=6c97697ae0354418a18c66f6f8aad447"
+                alt=""
+                className="object-contain aspect-[1.87] w-[120px] animate-pulse"
+            />
+            {/* <p className="pt-3 mt-4 text-lg text-gray-300 typing-animation">Loading</p> */}
+        </main>
+    );
+}
+
+
 
   return (
     <main className="flex flex-col overflow-y-auto px-9 pt-10 mx-auto w-full bg-neutral-800">
