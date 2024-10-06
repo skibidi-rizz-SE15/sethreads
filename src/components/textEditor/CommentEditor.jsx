@@ -30,6 +30,7 @@ import { FaHeading, FaCode, FaSubscript, FaSuperscript } from "react-icons/fa6";
 import { BiCodeBlock } from "react-icons/bi";
 import { GrBlockQuote } from "react-icons/gr";
 import { BsTextParagraph } from "react-icons/bs";
+import PostCommentBtn from '../button/createComment/PostCommentBtn';
 
 const CommentEditor = ({ onChange }) => {
   const lowlight = createLowlight(all)
@@ -271,8 +272,11 @@ const CommentEditor = ({ onChange }) => {
         onClick={() => editor.commands.focus()}
       />
       {editor && (
-        <div className={`flex self-end m-2 mr-2 text-sm text-gray-200 ${editor.isFocused ? "" : "hidden"}`}>
-          {editor.storage.characterCount.characters()}/{limit}
+        <div className={`flex w-full ${editor.isFocused ? "" : "hidden"}`}>
+            <div className={`flex mt-1 ml-4 mr-auto text-sm text-gray-200`}>
+                {editor.storage.characterCount.characters()}/{limit}
+            </div>
+            <PostCommentBtn className='mt-2 mr-2' />
         </div>
       )}
       {editor && (
