@@ -6,16 +6,21 @@ import Edit from "./Edit";
 import TableCourses from "./TableCourses";
 import Separator from "../../separator/Separator";
 
-const ProfileAlert = ({ isOpen, onClose, children, setStudent }) => {
+const ProfileAlert = ({ isOpen, onClose, children, setStudent, EditCourse }) => {
   const [inputTACourse, setInputTACourse] = useState("");
+  const [inputCourse, setInputCourse] = useState("");
   const [isEditCourses, setIsEditCourses] = useState(false);
 
   useEffect(() => {
     if (children) {
       setInputTACourse(children.is_ta ? children.ta_course_id : "N/A");
     }
-    setIsEditCourses(false);
-  }, [children, isOpen, onClose]);
+    if (EditCourse) {
+      setIsEditCourses(true);
+    } else {
+      setIsEditCourses(false);
+    }
+  }, [children, isOpen, onClose, EditCourse]);
 
   function handleInputTACourse(e) {
     setInputTACourse(e.target.value);
@@ -45,7 +50,36 @@ const ProfileAlert = ({ isOpen, onClose, children, setStudent }) => {
       return res;
     })
     .then((res) => {
-      setStudent(res.data);
+      if (res.data.error) {
+        alert(res.data.error);
+        return;
+      }
+      setStudent(res.data, "TA");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  function handleRegCourse() {
+    axios.post(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/student/register-course`, {
+      "course_id": inputCourse,
+      "student_id": children.student_id,
+      "year": children.year
+    }, {
+      headers: {
+        "x-token": localStorage.getItem("token"),
+      }
+    })
+    .then((res) => {
+      if (res.data.error === "Course already registered") {
+        alert("Course already registered");
+      } else if (res.data.error === "Course not found") {
+        alert("Course not found");
+      } else {
+        setStudent(res.data, "Course");
+        setInputCourse("");
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -53,7 +87,7 @@ const ProfileAlert = ({ isOpen, onClose, children, setStudent }) => {
   }
 
   function toggleEditCourses() {
-    setIsEditCourses(true);
+    setIsEditCourses(!isEditCourses);
   }
 
   if (!isOpen) {
@@ -107,8 +141,10 @@ const ProfileAlert = ({ isOpen, onClose, children, setStudent }) => {
               type="text"
               className="w-1/5 bg-eerie-black text-white rounded-lg p-2 border border-white outline-none focus:border-software-orange focus:text-white focus:bg-steadfast transition duration-300"
               placeholder="Course ID"
+              value={inputCourse}
+              onChange={(e) => setInputCourse(e.target.value)}
             />
-            <button className="bg-software-orange hover:bg-software-orange-hover text-white text-lg font-bold py-2 px-4 rounded-lg">
+            <button className="bg-software-orange hover:bg-software-orange-hover text-white text-lg font-bold py-2 px-4 rounded-lg" onClick={handleRegCourse}>
               Add
             </button>
           </div>

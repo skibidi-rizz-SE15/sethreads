@@ -3,9 +3,10 @@ import axios from 'axios';
 import ProfileCard from './ProfileCard';
 import ProfileAlert from './alert/ProfileAlert';
 
-function ProfileDisplay({ studentInfo }) {
+function ProfileDisplay({ studentInfo, handleOnUpdate }) {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
+  const [EditCourse, setEditCourse] = useState(false);
   
   if (studentInfo.length === 0) {
     return (
@@ -31,11 +32,18 @@ function ProfileDisplay({ studentInfo }) {
     }
   }
 
-  function handleOnchangeStudent(data) {
-    if (data.ta_course_id === "null") {
-      setSelectedStudent((prevStudent) => ({ ...prevStudent, is_ta: false }));
-    } else {
-      setSelectedStudent((prevStudent) => ({ ...prevStudent, is_ta: true, courseTAInfo: data }));
+  function handleOnchangeStudent(data, mode) {
+    if (mode === "TA") {
+      if (data.ta_course_id === "null" || data.ta_course_id === null) {
+        setSelectedStudent((prevStudent) => ({ ...prevStudent, is_ta: false }));
+        handleOnUpdate();
+      } else {
+        setSelectedStudent((prevStudent) => ({ ...prevStudent, is_ta: true, courseTAInfo: data }));
+        handleOnUpdate();
+      }
+    } else if (mode === "Course") {
+      setSelectedStudent((prevStudent) => ({ ...prevStudent, registered_courses: data.registered_courses }));
+      setEditCourse(true);
     }
   }
 
@@ -44,7 +52,7 @@ function ProfileDisplay({ studentInfo }) {
       {studentInfo.map((student) => (
           <ProfileCard key={student.student_id} student={student} onclick={() => handleCardClick(student)} />
       ))}
-      <ProfileAlert isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)} setStudent={handleOnchangeStudent} >
+      <ProfileAlert isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)} setStudent={handleOnchangeStudent} EditCourse={EditCourse} >
         {selectedStudent && (selectedStudent)}
       </ProfileAlert>
     </div>

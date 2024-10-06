@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { FaTrash } from "react-icons/fa6";
 
 function TableCourses({ student, isEditCourses }) {
+
+    useEffect(() => {
+        console.log(student);
+    }, [student])
 
     return (
         <div className='bg-eerie-black flex flex-col w-full mt-4 rounded-lg col-span-2'>
