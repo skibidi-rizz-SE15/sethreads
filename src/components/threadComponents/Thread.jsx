@@ -8,14 +8,12 @@ import TextTitle from "../card/textTitle/TextTitle";
 import TextBody from "../card/textBody/TextBody";
 import CommentDisplay from "../display/CommentDisplay";
 import Separator from "../separator/Separator";
-import CommentInput from "./commentInput/CommentInput";
+import CommentEditor from "../textEditor/CommentEditor";
 import CommentSection from "./commentSection/CommentSection";
 import BackToCourseBtn from "../button/back/BackToCourseBtn";
 import AlertBox from "../alertbox/AlertBox";
 
-
 import { useParams } from "react-router-dom";
-
 
 let useClickOutside = (handler) => {
     let domNode = useRef();
@@ -131,8 +129,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
                 </div>
                 <CommentDisplay number={numComment}/>
                 <Separator className="w-full my-6" />
-                <div className="text-xl text-white">Comments</div>
-                <CommentInput />
+                <CommentEditor />
                 <CommentSection thread_id={threadId} setNumComment={setNumComment} isHome={fromHome} />
             </div>
             <AlertBox isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)}>
