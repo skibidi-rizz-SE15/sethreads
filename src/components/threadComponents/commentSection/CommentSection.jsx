@@ -20,7 +20,7 @@ const CommentSection = ({ thread_id, setNumComment, isHome }) => {
         }).catch((err) => {
             console.log(err);
         })
-    }, [thread_id, comments])
+    }, [thread_id, comments.length])
     
     return (
         <div className="mt-4">
