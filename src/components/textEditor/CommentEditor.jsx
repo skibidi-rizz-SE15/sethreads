@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useEditor, EditorContent, BubbleMenu } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Blockquote from "@tiptap/extension-blockquote";
@@ -40,7 +40,7 @@ import { BiCodeBlock } from "react-icons/bi";
 import { GrBlockQuote } from "react-icons/gr";
 import { BsTextParagraph } from "react-icons/bs";
 
-const CommentEditor = ({ onChange }) => {
+const CommentEditor = React.forwardRef(({ onChange }, ref) => {
   const lowlight = createLowlight(all);
   const limit = 1500;
   const editor = useEditor({
@@ -262,6 +262,16 @@ const CommentEditor = ({ onChange }) => {
     },
   ];
 
+  useEffect(() => {
+    if (ref) {
+      ref.current = {
+        clearContent: () => {
+          editor.commands.clearContent();
+        },
+      };
+    }
+  }, [editor, ref]);
+
   return (
     <div className="flex flex-col w-full mx-auto text-white">
       {editor && (
@@ -358,6 +368,6 @@ const CommentEditor = ({ onChange }) => {
       )}
     </div>
   );
-};
+});
 
 export default CommentEditor;

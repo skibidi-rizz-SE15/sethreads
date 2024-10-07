@@ -38,6 +38,7 @@ let useClickOutside = (handler) => {
 };
 
 const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
+  const editorRef = useRef(null);
   const { courseId, threadId } = useParams();
   const [threadData, setThreadData] = useState({});
   const [numComment, setNumComment] = useState(0);
@@ -122,6 +123,13 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
       });
   }
 
+  function handleClearCommentEditor() {
+    if (editorRef.current) {
+      editorRef.current.clearContent();
+      setCommentBody("");
+    }
+  };
+
   function handlePostComment() {
     console.log("T");
     if (commentBody) {
@@ -142,6 +150,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
       )
         .then((res) => {
           console.log(res.data);
+          handleClearCommentEditor();
         })
         .catch((err) => {
           console.log(err);
@@ -223,7 +232,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
         </div>
         <CommentDisplay number={numComment} />
         <Separator className="w-full my-6" />
-        <CommentEditor onChange={setCommentBody} />
+        <CommentEditor onChange={setCommentBody} ref={editorRef} />
         <PostCommentBtn handlePostComment={handlePostComment} isValid={commentBody !== ""} className="-mt-3 mr-2" />
         <CommentSection
           thread_id={threadId}
