@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const NavBarProfile = ({ name, year}) => {
+const NavBarProfile = ({ name, year }) => {
+  const [showButton, setShowButton] = useState(false);
+  const imgRef = useRef(null);
+  const buttonRef = useRef(null);
+  const navigate = useNavigate();
+
   let yearBackground;
   switch(year){
     case 1:
@@ -16,21 +22,49 @@ const NavBarProfile = ({ name, year}) => {
       yearBackground = "bg-red-500";
       break;
     default:
-      yearBackground = "bg-green-500"
+      yearBackground = "bg-green-500";
   }
 
-  return (
-    <div className='grid grid-cols-[auto,auto] gap-x-6 gap-y-1 mb-1 h-fit text-white text-right ml-10'>
-        <p>{name}</p>
-        <img
-           loading="lazy" 
-           src="https://cdn.builder.io/api/v1/image/assets/TEMP/da1e4bf63962c141c8657868b117ac6c66f46017effdd8b677ebbc75f8cd98fd?placeholderIfAbsent=true&apiKey=55e9f8a1f064422990695f1eab1a40f5" 
-           alt="User Avatar" 
-           className={`self-center col-start-2 row-start-1 row-end-3 object-contain shrink-0 aspect-square rounded-[100px] w-[2rem]`} 
-        />
-        <p className={`justify-self-end px-3 w-fit text-sm rounded-lg ${yearBackground}`}>Year {year}</p>
-    </div>
-  )
-}
+  const handleClickOutside = (event) => {
+    if (buttonRef && imgRef.current && !imgRef.current.contains(event.target) && buttonRef.current && !buttonRef.current.contains(event.target)) {
+      setShowButton(false);
+    }
+  };
 
-export default NavBarProfile
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <div className='relative grid grid-cols-[auto,auto] gap-x-6 gap-y-1 mb-1 h-fit text-white text-right ml-10'>
+      <p>{name}</p>
+      <img
+        ref={imgRef}
+        loading="lazy"
+        src="https://cdn.builder.io/api/v1/image/assets/TEMP/da1e4bf63962c141c8657868b117ac6c66f46017effdd8b677ebbc75f8cd98fd?placeholderIfAbsent=true&apiKey=55e9f8a1f064422990695f1eab1a40f5"
+        alt="User Avatar"
+        className={`self-center col-start-2 row-start-1 row-end-3 object-contain shrink-0 aspect-square rounded-[100px] w-[2rem]`}
+        onClick={() => setShowButton((prev) => !prev)}
+      />
+      <p className={`justify-self-end px-3 w-fit text-sm rounded-lg ${yearBackground}`}>Year {year}</p>
+      {showButton && (
+        <button
+          ref={buttonRef}
+          className="absolute top-[85%] left-[93%] px-2 py-2 w-fit text-sm text-white text-nowrap rounded-md border border-software-orange bg-eerie-black hover:bg-general-highlight"
+          role="menuitem"
+          onClick={() => { 
+            localStorage.clear();
+            navigate("/login");
+          }}
+        >
+          Log out
+        </button>
+      )}
+    </div>
+  );
+};
+
+export default NavBarProfile;
