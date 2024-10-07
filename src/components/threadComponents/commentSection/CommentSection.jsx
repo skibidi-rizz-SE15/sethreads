@@ -20,7 +20,7 @@ const CommentSection = ({ thread_id, setNumComment, isHome }) => {
         }).catch((err) => {
             console.log(err);
         })
-    }, [thread_id])
+    }, [thread_id, comments])
     
     return (
         <div className="mt-4">
@@ -30,6 +30,7 @@ const CommentSection = ({ thread_id, setNumComment, isHome }) => {
                         key={comment.id}
                         name={`${comment.author.name} ${comment.author.surname}`}
                         year={comment.author.year}
+                        time={comment.create_at}
                         body={comment.comment_data}
                         subcomments={comment.subcomments}
                     />

@@ -5,7 +5,7 @@ import TextBody from "../../../card/textBody/TextBody";
 import ReplyBtn from "../../../button/post/ReplyBtn";
 import ToggleReplyBtn from "../../../button/toggle/ToggleReplyBtn";
 
-const Comment = ({name, year, body, subcomments}) => {
+const Comment = ({name, year, time, body, subcomments}) => {
     const [isVisible, setIsVisible] = useState(false);
 
     function handleOnClick() {
@@ -14,7 +14,7 @@ const Comment = ({name, year, body, subcomments}) => {
 
     return (
         <div className="mt-2">
-            <Profile name={name} year={year}/>
+            <Profile name={name} year={year} time={time} />
             <div className="ml-[2.625rem]">
                 <TextBody body={body} />
                 <div className="flex gap-1">

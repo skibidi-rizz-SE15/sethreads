@@ -49,10 +49,9 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
   useEffect(() => {
     axios
       .get(
-        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${
-          fromHome
-            ? `home/get-thread?thread_id=${threadId}`
-            : `thread/get-thread?thread_id=${threadId}&course_id=${courseId}`
+        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome
+          ? `home/get-thread?thread_id=${threadId}`
+          : `thread/get-thread?thread_id=${threadId}&course_id=${courseId}`
         }`,
         {
           headers: {
@@ -125,23 +124,21 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
   function handlePostComment() {
     console.log("T");
     if (commentBody) {
-      axios
-        .post(
-          `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${
-            fromHome ? "home-comment" : "comment"
-          }/create-comment`,
-          {
-            comment_from: threadId,
-            comment_data: commentBody,
-            posted_by: studentId,
-            create_at: formattedDateTime,
+      axios.post(
+        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? "home-comment" : "comment"
+        }/create-comment`,
+        {
+          comment_from: threadId,
+          comment_data: commentBody,
+          posted_by: studentId,
+          create_at: formattedDateTime,
+        },
+        {
+          headers: {
+            "x-token": localStorage.getItem("token"),
           },
-          {
-            headers: {
-              "x-token": localStorage.getItem("token"),
-            },
-          }
-        )
+        }
+      )
         .then((res) => {
           console.log(res.data);
         })
@@ -183,50 +180,49 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
             <div ref={domNode} className="flex-1 flex justify-end">
               {(studentId === threadData.author.student_id ||
                 isTA === true) && (
-                <div>
-                  <div className="flex">
-                    {isTA === true && courseId === TACourseID && (
-                      <GiPin
-                        className={`text-xl ${
-                          isPin ? "text-software-orange" : "text-white"
-                        } cursor-pointer mr-4`}
-                        onClick={PinThread}
-                      />
-                    )}
-                    {studentId === threadData.author.student_id && (
-                      <CiMenuKebab
-                        className="text-xl text-white cursor-pointer"
-                        onClick={() => setIsOpen((prev) => !prev)}
-                      />
+                  <div>
+                    <div className="flex">
+                      {isTA === true && courseId === TACourseID && (
+                        <GiPin
+                          className={`text-xl ${isPin ? "text-software-orange" : "text-white"
+                            } cursor-pointer mr-4`}
+                          onClick={PinThread}
+                        />
+                      )}
+                      {studentId === threadData.author.student_id && (
+                        <CiMenuKebab
+                          className="text-xl text-white cursor-pointer"
+                          onClick={() => setIsOpen((prev) => !prev)}
+                        />
+                      )}
+                    </div>
+                    {isOpen && (
+                      <div
+                        className="absolute right-20 z-10 w-48 mt-2 origin-top-right bg-eerie-black rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                        role="menu"
+                        aria-orientation="vertical"
+                        aria-labelledby="options-menu"
+                      >
+                        <div className="py-1" role="none">
+                          <button
+                            className="block w-full px-4 py-2 text-sm text-gray-600 text-left"
+                            role="menuitem"
+                            disabled={true}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => setIsAlertOpen(true)}
+                            className="block w-full px-4 py-2 text-sm text-white text-left hover:bg-general-highlight"
+                            role="menuitem"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
                     )}
                   </div>
-                  {isOpen && (
-                    <div
-                      className="absolute right-20 z-10 w-48 mt-2 origin-top-right bg-eerie-black rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                      role="menu"
-                      aria-orientation="vertical"
-                      aria-labelledby="options-menu"
-                    >
-                      <div className="py-1" role="none">
-                        <button
-                          className="block w-full px-4 py-2 text-sm text-gray-600 text-left"
-                          role="menuitem"
-                          disabled={true}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => setIsAlertOpen(true)}
-                          className="block w-full px-4 py-2 text-sm text-white text-left hover:bg-general-highlight"
-                          role="menuitem"
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
+                )}
             </div>
           </div>
           <TextTitle title={threadData.title} />
