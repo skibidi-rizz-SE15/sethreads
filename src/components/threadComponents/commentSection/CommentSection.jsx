@@ -3,7 +3,7 @@ import axios from "axios";
 
 import Comment from "./comment/Comment";
 
-const CommentSection = ({ thread_id, setNumComment, isHome }) => {
+const CommentSection = ({ thread_id, setNumComment, isHome, isPostComment }) => {
     const [comments, setComments] = useState([]);
     const [limit, setLimit] = useState(20);
     const [offset, setOffset] = useState(0);
@@ -20,7 +20,7 @@ const CommentSection = ({ thread_id, setNumComment, isHome }) => {
         }).catch((err) => {
             console.log(err);
         })
-    }, [thread_id, comments.length])
+    }, [thread_id, comments.length, isPostComment])
     
     return (
         <div className="mt-4">

@@ -47,6 +47,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [isPin, setIsPin] = useState(false);
   const [commentBody, setCommentBody] = useState("");
+  const [isPostComment, setIsPostComment] = useState(false);
 
   useEffect(() => {
     axios
@@ -131,7 +132,6 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
   };
 
   function handlePostComment() {
-    console.log("T");
     if (commentBody) {
       axios.post(
         `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? "home-comment" : "comment"
@@ -149,8 +149,8 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
         }
       )
         .then((res) => {
-          console.log(res.data);
           handleClearCommentEditor();
+          setIsPostComment(true);
         })
         .catch((err) => {
           console.log(err);
@@ -238,6 +238,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
           thread_id={threadId}
           setNumComment={setNumComment}
           isHome={fromHome}
+          isPostComment={isPostComment}
         />
       </div>
       <AlertBox isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)}>

@@ -9,6 +9,7 @@ import Loading from "../loading/Loading";
 
 const Home = () => {
   const [limit, setLimit] = useState(10);
+  const [offset, setOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [threads, setThreads] = useState([]);
   const [isAnimating, setIsAnimating] = useState(false); 
@@ -20,7 +21,7 @@ const Home = () => {
 
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/home/get-all?&limit=${limit}`,
+          `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/home/get-all?&limit=${limit}&offset=${offset}`,
           {
             headers: {
               "x-token": localStorage.getItem("token"),

@@ -51,7 +51,7 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
 
   return (
     <main
-      className={`flex flex-col overflow-y-auto px-9 pt-10 mx-auto w-full bg-neutral-800 transition-transform duration-500 ${
+      className={`flex flex-col overflow-y-auto px-9 pt-10 mx-auto w-full bg-neutral-800 transition-transform duration-300 ${
         isAnimating ? "translate-x-full" : "translate-x-0"
       }`}
     >
