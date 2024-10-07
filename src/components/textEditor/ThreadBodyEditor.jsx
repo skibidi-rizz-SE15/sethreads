@@ -55,8 +55,8 @@ const ThreadBodyEditor = ({ onChange }) => {
       CodeWithoutSpellcheck,
       Italic,
       Link.configure({
-        openOnClick: true,
-        autolink: true,
+        openOnClick: false,
+        autolink: false,
         defaultProtocol: 'https',
       }),
       Subscript,

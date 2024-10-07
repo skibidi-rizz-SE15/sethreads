@@ -64,8 +64,8 @@ const CommentEditor = React.forwardRef(({ onChange }, ref) => {
       CodeWithoutSpellcheck,
       Italic,
       Link.configure({
-        openOnClick: true,
-        autolink: true,
+        openOnClick: false,
+        autolink: false,
         defaultProtocol: "https",
       }),
       Subscript,
