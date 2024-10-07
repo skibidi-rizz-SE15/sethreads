@@ -11,6 +11,7 @@ import Separator from "../separator/Separator";
 import CommentEditor from "../textEditor/CommentEditor";
 import CommentSection from "./commentSection/CommentSection";
 import BackToCourseBtn from "../button/back/BackToCourseBtn";
+import PostCommentBtn from "../button/createComment/PostCommentBtn"
 import AlertBox from "../alertbox/AlertBox";
 
 import { useParams } from "react-router-dom";
@@ -233,16 +234,8 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
         </div>
         <CommentDisplay number={numComment} />
         <Separator className="w-full my-6" />
-        <CommentEditor
-          onChange={setCommentBody}
-          commentBody={commentBody}
-        />
-        <button
-          className="w-full px-4 py-2 mt-4 bg-software-orange text-white rounded hover:bg-software-orange-hover"
-          onClick={handlePostComment}
-        >
-          Post Comment
-        </button>
+        <CommentEditor onChange={setCommentBody} />
+        <PostCommentBtn handlePostComment={handlePostComment} isValid={commentBody !== ""} className="-mt-3 mr-2" />
         <CommentSection
           thread_id={threadId}
           setNumComment={setNumComment}

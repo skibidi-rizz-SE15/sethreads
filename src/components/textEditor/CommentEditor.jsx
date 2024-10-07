@@ -39,9 +39,8 @@ import { FaHeading, FaCode, FaSubscript, FaSuperscript } from "react-icons/fa6";
 import { BiCodeBlock } from "react-icons/bi";
 import { GrBlockQuote } from "react-icons/gr";
 import { BsTextParagraph } from "react-icons/bs";
-import PostCommentBtn from "../button/createComment/PostCommentBtn";
 
-const CommentEditor = ({ onChange, commentBody }) => {
+const CommentEditor = ({ onChange }) => {
   const lowlight = createLowlight(all);
   const limit = 1500;
   const editor = useEditor({
