@@ -17,6 +17,8 @@ import AlertBox from "../alertbox/AlertBox";
 import Loading from "../loading/Loading";
 
 import { useParams } from "react-router-dom";
+import ReplyEditor from "../textEditor/ReplyEditor";
+import PostReplyBtn from "../button/createReply/PostReplyBtn";
 
 let useClickOutside = (handler) => {
   let domNode = useRef();
@@ -165,14 +167,14 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
     setIsOpen(false);
   });
 
-    if (isLoading) {
-        return (
-            <Loading/>
-        );
-    }
+  if (isLoading) {
+    return (
+      <Loading />
+    );
+  }
 
   return (
-    <div className="relative flex overflow-y-auto w-full">
+    <div className="relative flex overflow-y-auto w-full min-h-full h-fit">
       <BackToCourseBtn toHome={fromHome} />
       <div className="flex flex-col px-9 py-10 mx-auto w-4/5 min-h-full h-max bg-neutral-800">
         <div className="w-full">
@@ -262,6 +264,10 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
           </button>
         </div>
       </AlertBox>
+      <div className="flex fixed bottom-0 items-center p-4 bg-eerie-black w-[inherit]">
+        <ReplyEditor />
+        <PostReplyBtn className="flex text-white w-fit" />
+      </div>
     </div>
   );
 };
