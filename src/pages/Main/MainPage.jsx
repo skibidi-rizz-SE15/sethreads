@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
 import Sidebar from '../../components/sidebar/Sidebar';
 
-const MainPage = ({ studentId, studentInfo, taCourse, isAdmin }) => {
+const MainPage = ({ studentId, studentInfo, taCourse, isAdmin, resetState }) => {
   const location = useLocation();
   
   if (!studentInfo) {
@@ -15,6 +15,7 @@ const MainPage = ({ studentId, studentInfo, taCourse, isAdmin }) => {
       <Navbar 
         studentName={`${studentInfo.name} ${studentInfo.surname}`}
         studentYear={studentInfo.year}
+        resetState={resetState}
       />
       <Sidebar 
         registered_courses={studentInfo.registered_courses} 

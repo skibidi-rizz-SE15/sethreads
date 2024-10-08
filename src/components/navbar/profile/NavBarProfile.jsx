@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const NavBarProfile = ({ name, year }) => {
+const NavBarProfile = ({ name, year, resetState }) => {
   const [showButton, setShowButton] = useState(false);
   const imgRef = useRef(null);
   const buttonRef = useRef(null);
@@ -57,6 +57,7 @@ const NavBarProfile = ({ name, year }) => {
           role="menuitem"
           onClick={() => { 
             localStorage.clear();
+            resetState();
             navigate("/login");
           }}
         >

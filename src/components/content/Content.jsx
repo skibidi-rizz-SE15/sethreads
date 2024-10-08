@@ -1,25 +1,53 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-
 import Header from "./header/Header";
 import HighlightSection from "./highlightSection/HighlightSection";
 import ThreadSection from "./threadSection/ThreadSection";
 import Separator from "../separator/Separator";
 import Loading from "../loading/Loading";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
-  const [limit, setLimit] = useState(10);
+  const [limit] = useState(10);
   const [isLoading, setIsLoading] = useState(true);
-  const [offset, setOffset] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [offset] = useState(0);
+  const [animationState, setAnimationState] = useState("entered");
+  const [localThreads, setLocalThreads] = useState([]);
+  const [displayedCourseName, setDisplayedCourseName] = useState(courseName); // New state to control displayed course name
+  const animationTimeoutRef = useRef(null);
 
   const location = useLocation();
 
   useEffect(() => {
+    return () => {
+      if (animationTimeoutRef.current) {
+        clearTimeout(animationTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const getAnimationStyles = () => {
+    switch (animationState) {
+      case "entering":
+        return "translate-x-full opacity-0"; 
+      case "exiting":
+        return "translate-x-full opacity-0";
+      case "entered":
+        return "translate-x-0 opacity-100";
+      default:
+        return "translate-x-0 opacity-100";
+    }
+  };
+
+  useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
-      setIsAnimating(true); 
+      if (animationTimeoutRef.current) {
+        clearTimeout(animationTimeoutRef.current);
+      }
+
+      if (!isLoading) {
+        setAnimationState("exiting");
+      }
 
       try {
         const response = await axios.get(
@@ -30,51 +58,81 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
             },
           }
         );
-        setThreads(response.data);
+
+        const newThreads = response.data || [];
+
+        if (isLoading) {
+          setLocalThreads(newThreads);
+          setThreads(newThreads);
+          setDisplayedCourseName(courseName);  // Set the course name immediately on the first load
+          setAnimationState("entered");
+          setIsLoading(false);
+          return;
+        }
+
+        // Exit animation (content moves right)
+        animationTimeoutRef.current = setTimeout(() => {
+          setLocalThreads(newThreads);
+          setThreads(newThreads);
+
+          // Change course name right before the new content enters
+          setDisplayedCourseName(courseName);
+
+          // Start entering animation
+          setAnimationState("entering");
+
+          // Enter animation (content moves to center)
+          animationTimeoutRef.current = setTimeout(() => {
+            setAnimationState("entered");
+          }, 200);
+        }, 200);
+
       } catch (err) {
         console.error(err);
+        setLocalThreads([]);
+        setThreads([]);
       } finally {
-        setIsLoading(false);
+        if (isLoading) {
+          setIsLoading(false);
+        }
       }
-
-      setTimeout(() => {
-        setIsAnimating(false);
-      }, 500); 
     };
 
     fetchData();
-  }, [courseId, courseName]);
+  }, [courseId, limit, offset, setThreads, isLoading, courseName]);
 
   if (isLoading) {
     return <Loading />;
   }
 
+  const threadsToShow = localThreads || [];
+
   return (
     <main
-      className={`flex flex-col overflow-y-auto px-9 pt-10 mx-auto w-full bg-neutral-800 transition-transform duration-300 ${
-        isAnimating ? "translate-x-full" : "translate-x-0"
-      }`}
+      className={`
+        flex flex-col 
+        overflow-y-auto 
+        px-9 pt-10 
+        mx-auto 
+        w-full 
+        bg-neutral-800 
+        transition-all 
+        duration-300 
+        ease-in-out
+        ${getAnimationStyles()}
+      `}
     >
-      <Header courseName={courseName} />
+      <Header courseName={displayedCourseName} /> {/* Use displayedCourseName */}
       <Separator className="my-6 w-full max-w-full" />
-      {threads.length === 0 ? (
+      {threadsToShow.length === 0 ? (
         <div className="flex items-center justify-center w-full h-96">
           <p className="text-lg text-neutral-200">No threads found</p>
         </div>
       ) : (
         <div>
-          <HighlightSection
-            highlightThreads={threads.filter(
-              (thread) => thread.is_highlight === true
-            )}
-            courseId={courseId}
-          />
+          <HighlightSection highlightThreads={threadsToShow.filter( (thread) => thread.is_highlight === true)} courseId={courseId} />
           <Separator className="my-6 w-full max-w-full" />
-          <ThreadSection
-            threads={threads.filter((thread) => thread.is_highlight === false)}
-            courseId={courseId}
-            isHomePage={false}
-          />
+          <ThreadSection threads={threadsToShow.filter((thread) => thread.is_highlight === false)} courseId={courseId} isHomePage={false}/>
         </div>
       )}
     </main>
@@ -82,4 +140,3 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
 };
 
 export default Content;
-  
