@@ -1,4 +1,4 @@
-import parse, { domToReact } from "html-react-parser";
+import { domToReact } from "html-react-parser";
 import 'highlight.js/styles/github.css';
 
 const options = {
@@ -62,6 +62,7 @@ const options = {
             style={{ cursor: 'pointer', textDecoration: 'underline', color: '#f4a320' }}
             onMouseOver={(e) => (e.currentTarget.style.color = '#6969ec')}
             onMouseOut={(e) => (e.currentTarget.style.color = '#f4a320')}
+            target="_blank"
           >
             {domToReact(domNode.children)}
           </a>
