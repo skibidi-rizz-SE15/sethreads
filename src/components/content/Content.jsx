@@ -84,8 +84,8 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
           // Enter animation (content moves to center)
           animationTimeoutRef.current = setTimeout(() => {
             setAnimationState("entered");
-          }, 300);
-        }, 300);
+          }, 200);
+        }, 200);
 
       } catch (err) {
         console.error(err);
