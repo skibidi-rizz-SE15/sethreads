@@ -87,6 +87,15 @@ function App() {
       setPassword(e.target.value);
   }
 
+  function resetState() {
+    setStudentId("");
+    setStudentInfo(null);
+    setPassword("");
+    setIsSuccess(null);
+    setTACourse(null);
+    setIsAdmin(false);
+  }
+
   if (isLoading) {
     return (
        <Loading/>
@@ -97,7 +106,7 @@ function App() {
     <Router>
       <Routes>
         <Route element={<AuthGuard />}>
-          <Route path='/' element={<MainPage studentId={studentId} studentInfo={studentInfo} taCourse={taCourse} isAdmin={isAdmin} />}>
+          <Route path='/' element={<MainPage studentId={studentId} studentInfo={studentInfo} taCourse={taCourse} isAdmin={isAdmin} resetState={resetState} />}>
             <Route index element={<Navigate to="/home" />} />
             <Route path='home' element={<Home />} />
             {studentInfo && (<Route path='admin' element={<AdminPage registeredCourses={studentInfo.registered_courses}/>} />)}
