@@ -3,7 +3,7 @@ import parse from 'html-react-parser';
 import options from "../../../utilities/TiptapContentDisplay";
 
 const TextBody = ({ body, className="" }) => {
-    return <p className={`overflow-hidden mt-2 text-sm text-clip text-stone-300 ${className}`}>{parse(body, options)}</p>
+    return (<div className={`overflow-hidden mt-2 text-sm text-clip text-stone-300 ${className}`}>{parse(body, options)}</div>)
 }
 
 export default TextBody

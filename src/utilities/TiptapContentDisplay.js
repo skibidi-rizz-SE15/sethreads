@@ -1,8 +1,9 @@
-import { domToReact } from "html-react-parser";
+import parse, { domToReact } from "html-react-parser";
 import 'highlight.js/styles/github.css';
 
 const options = {
     replace: (domNode) => {
+      console.log(domNode);
       if (domNode.name === 'blockquote') {
         return (
           <blockquote style={{ borderLeft: '3px solid #a16207', marginBottom: '1rem', paddingLeft: '1rem' }}>
@@ -10,70 +11,63 @@ const options = {
           </blockquote>
         );
       }
-      if (domNode.name === 'pre') {
+      else if (domNode.name === 'pre') {
         return (
           <pre style={{ background: 'var(--code-background)', borderRadius: '0.5rem', color: 'white', margin: '1.5rem 0', padding: '0.75rem 1rem' }}>
             {domToReact(domNode.children)}
           </pre>
         );
       }
-      if (domNode.name === 'code' && domNode.parent && domNode.parent.name === 'pre') {
+      else if (domNode.name === 'code' && domNode.parent && domNode.parent.name === 'pre') {
         return (
           <code style={{ backgroundColor: 'none', color: 'inherit', fontSize: '0.8rem', padding: '0' }} className="hljs">
             {domToReact(domNode.children)}
           </code>
         );
       }
-      if (domNode.name === 'code') {
+      else if (domNode.name === 'code') {
         return (
           <code style={{ backgroundColor: 'var(--code-background)', borderRadius: '0.4rem', color: 'white', fontSize: '0.85rem', padding: '0.25em 0.3em' }}>
             {domToReact(domNode.children)}
           </code>
         );
       }
-      if (domNode.name === 'h1') {
+      else if (domNode.name === 'h1') {
         return (
           <h1 style={{ fontSize: '1.8rem', fontWeight: 700, lineHeight: 1.1, margin: '1rem 0' }}>
             {domToReact(domNode.children)}
           </h1>
         );
       }
-      if (domNode.name === 'h2') {
+      else if (domNode.name === 'h2') {
         return (
           <h2 style={{ fontSize: '1.4rem', fontWeight: 600, lineHeight: 1.1, margin: '1rem 0' }}>
             {domToReact(domNode.children)}
           </h2>
         );
       }
-      if (domNode.name === 'p') {
-        return (
-          <p style={{ margin: '1rem 0' }}>
-            {domToReact(domNode.children)}
-          </p>
-        );
-      }
-      if (domNode.name === 'ul') {
+      else if (domNode.name === 'ul') {
         return (
           <ul style={{ padding: '0 1rem', margin: '1.25rem 1rem 1.25rem 0.4rem', listStyleType: 'disc' }}>
             {domToReact(domNode.children)}
           </ul>
         );
       }
-      if (domNode.name === 'ol') {
+      else if (domNode.name === 'ol') {
         return (
           <ol style={{ padding: '0 1rem', margin: '1.25rem 1rem 1.25rem 0.4rem', listStyleType: 'decimal-leading-zero' }}>
             {domToReact(domNode.children)}
           </ol>
         );
       }
-      if (domNode.name === 'li') {
+      else if (domNode.name === 'li') {
         return (
           <li style={{ margin: '0.25em 0' }}>
             {domToReact(domNode.children)}
           </li>
         );
       }
-      if (domNode.name === 'img') {
+      else if (domNode.name === 'img') {
         return (
           <img
             src={domNode.attribs.src}
@@ -83,7 +77,7 @@ const options = {
         );
       }
       // Handle links
-      if (domNode.name === 'a') {
+      else if (domNode.name === 'a') {
         return (
           <a
             href={domNode.attribs.href}
@@ -96,9 +90,17 @@ const options = {
         );
       }
 
+      else if (domNode.name === 'p') {
+        return (
+          <p style={{ margin: '1rem 0' }}>
+            {domToReact(domNode.children, options)}
+          </p>
+        );
+      }
+
       // Fallback to default rendering for other nodes
-      return domToReact(domNode.children);
-    },
+      return domToReact(domNode);
+    }
   };
 
 export default options
