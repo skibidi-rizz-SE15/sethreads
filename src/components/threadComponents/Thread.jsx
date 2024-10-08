@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import hljs from "highlight.js";
 import { CiMenuKebab } from "react-icons/ci";
 import { GiPin } from "react-icons/gi";
 import axios from "axios";
@@ -48,6 +49,8 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
   const [isPin, setIsPin] = useState(false);
   const [commentBody, setCommentBody] = useState("");
   const [isPostComment, setIsPostComment] = useState(false);
+
+  hljs.highlightAll();
 
   useEffect(() => {
     axios

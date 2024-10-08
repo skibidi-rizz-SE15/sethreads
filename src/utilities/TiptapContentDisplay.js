@@ -45,13 +45,6 @@ const options = {
           </h2>
         );
       }
-      if (domNode.name === 'p') {
-        return (
-          <p style={{ margin: '1rem 0' }}>
-            {domToReact(domNode.children)}
-          </p>
-        );
-      }
       if (domNode.name === 'ul') {
         return (
           <ul style={{ padding: '0 1rem', margin: '1.25rem 1rem 1.25rem 0.4rem', listStyleType: 'disc' }}>
@@ -84,6 +77,7 @@ const options = {
       }
       // Handle links
       if (domNode.name === 'a') {
+        console.log("A-Train");
         return (
           <a
             href={domNode.attribs.href}
@@ -95,9 +89,18 @@ const options = {
           </a>
         );
       }
+      // if (domNode.name === 'p') {
+      //   console.log("T");
+      //   return (
+      //     <p style={{ margin: '1rem 0' }}>
+      //       {domToReact(domNode.children)}
+      //     </p>
+      //   );
+      // }
+      
 
       // Fallback to default rendering for other nodes
-      return domToReact(domNode.children);
+      return domToReact(domNode);
     },
   };
 
