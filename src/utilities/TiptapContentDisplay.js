@@ -3,33 +3,11 @@ import 'highlight.js/styles/github.css';
 
 const options = {
     replace: (domNode) => {
-      console.log(domNode);
       if (domNode.name === 'blockquote') {
         return (
           <blockquote style={{ borderLeft: '3px solid #a16207', marginBottom: '1rem', paddingLeft: '1rem' }}>
             {domToReact(domNode.children)}
           </blockquote>
-        );
-      }
-      else if (domNode.name === 'pre') {
-        return (
-          <pre style={{ background: 'var(--code-background)', borderRadius: '0.5rem', color: 'white', margin: '1.5rem 0', padding: '0.75rem 1rem' }}>
-            {domToReact(domNode.children)}
-          </pre>
-        );
-      }
-      else if (domNode.name === 'code' && domNode.parent && domNode.parent.name === 'pre') {
-        return (
-          <code style={{ backgroundColor: 'none', color: 'inherit', fontSize: '0.8rem', padding: '0' }} className="hljs">
-            {domToReact(domNode.children)}
-          </code>
-        );
-      }
-      else if (domNode.name === 'code') {
-        return (
-          <code style={{ backgroundColor: 'var(--code-background)', borderRadius: '0.4rem', color: 'white', fontSize: '0.85rem', padding: '0.25em 0.3em' }}>
-            {domToReact(domNode.children)}
-          </code>
         );
       }
       else if (domNode.name === 'h1') {
