@@ -16,14 +16,14 @@ const PostThreadBtn = ({ title, body, createdBy, courseId, isValid }) => {
     .format(new Date())
     .replace(",", "");
 
-  function modifyCodeTagWithDOM(htmlString) {
+  function setLanguage(htmlString, lang) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlString, "text/html");
 
     const codeElements = doc.querySelectorAll("code");
 
     codeElements.forEach((code) => {
-      code.setAttribute("classname", "language-javascript");
+      code.setAttribute("classname",`language-${lang ? lang : "javascript"}`);
     });
 
     return doc.body.innerHTML;
@@ -34,7 +34,7 @@ const PostThreadBtn = ({ title, body, createdBy, courseId, isValid }) => {
       `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/create-thread`,
       {
         title: title,
-        body: modifyCodeTagWithDOM(body),
+        body: setLanguage(body),
         is_highlight: false,
         create_at: formattedDateTime,
         course_id: courseId,
