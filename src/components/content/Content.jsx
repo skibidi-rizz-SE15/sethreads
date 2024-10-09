@@ -13,8 +13,9 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
   const [offset] = useState(0);
   const [animationState, setAnimationState] = useState("entered");
   const [localThreads, setLocalThreads] = useState([]);
-  const [displayedCourseName, setDisplayedCourseName] = useState(courseName); // New state to control displayed course name
+  const [displayedCourseName, setDisplayedCourseName] = useState(courseName);
   const animationTimeoutRef = useRef(null);
+  const [firstEntered, setFirstEntered] = useState(true);
 
   const location = useLocation();
 
@@ -31,7 +32,7 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
       case "entering":
         return "translate-x-full opacity-0"; 
       case "exiting":
-        return "translate-x-full opacity-0";
+        return firstEntered ? "translate-x-full opacity-0" : "translate-x-full opacity-0";
       case "entered":
         return "translate-x-0 opacity-100";
       default:
@@ -45,7 +46,7 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
         clearTimeout(animationTimeoutRef.current);
       }
 
-      if (!isLoading) {
+      if (!isLoading && !firstEntered) {
         setAnimationState("exiting");
       }
 
@@ -61,11 +62,18 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
 
         const newThreads = response.data || [];
 
-        if (isLoading) {
+        if (isLoading || firstEntered) {
+          // first load or coming from another page
           setLocalThreads(newThreads);
           setThreads(newThreads);
-          setDisplayedCourseName(courseName);  // Set the course name immediately on the first load
-          setAnimationState("entered");
+          setDisplayedCourseName(courseName);
+          setAnimationState("entering");
+          
+          animationTimeoutRef.current = setTimeout(() => {
+            setAnimationState("entered");
+            setFirstEntered(false); // set firstEntered to false after initial animation
+          }, 200);
+          
           setIsLoading(false);
           return;
         }
@@ -74,8 +82,6 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
         animationTimeoutRef.current = setTimeout(() => {
           setLocalThreads(newThreads);
           setThreads(newThreads);
-
-          // Change course name right before the new content enters
           setDisplayedCourseName(courseName);
 
           // Start entering animation
@@ -99,7 +105,7 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
     };
 
     fetchData();
-  }, [courseId, limit, offset, setThreads, isLoading, courseName]);
+  }, [courseId, limit, offset, setThreads, isLoading, courseName, firstEntered]);
 
   if (isLoading) {
     return <Loading />;
@@ -122,7 +128,7 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
         ${getAnimationStyles()}
       `}
     >
-      <Header courseName={displayedCourseName} /> {/* Use displayedCourseName */}
+      <Header courseName={displayedCourseName} />
       <Separator className="my-6 w-full max-w-full" />
       {threadsToShow.length === 0 ? (
         <div className="flex items-center justify-center w-full h-96">
@@ -130,7 +136,7 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
         </div>
       ) : (
         <div>
-          <HighlightSection highlightThreads={threadsToShow.filter( (thread) => thread.is_highlight === true)} courseId={courseId} />
+          <HighlightSection highlightThreads={threadsToShow.filter((thread) => thread.is_highlight === true)} courseId={courseId} />
           <Separator className="my-6 w-full max-w-full" />
           <ThreadSection threads={threadsToShow.filter((thread) => thread.is_highlight === false)} courseId={courseId} isHomePage={false}/>
         </div>
