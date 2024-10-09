@@ -9,7 +9,7 @@ const NavBarProfile = ({ name, year, resetState }) => {
 
   let yearBackground;
   switch(year){
-    case 0:
+    case -1:
       yearBackground = "bg-red-500";
       break;
     case 1:
@@ -52,7 +52,7 @@ const NavBarProfile = ({ name, year, resetState }) => {
         className={`self-center col-start-2 row-start-1 row-end-3 object-contain shrink-0 aspect-square rounded-[100px] w-[2rem]`}
         onClick={() => setShowButton((prev) => !prev)}
       />
-      <p className={`justify-self-end px-3 w-fit text-sm rounded-lg ${yearBackground}`}>Year {year}</p>
+      {(year === -1 || year) && (<p className={`justify-self-end px-3 w-fit text-sm rounded-lg ${yearBackground}`}>{(year === -1) ? `ADMIN` : `Year ${year}`}</p>)}
       {showButton && (
         <button
           ref={buttonRef}

@@ -3,7 +3,7 @@ import React from "react";
 const Profile = ({ name, year=0, time="", className="" }) => {
     let yearBackground;
     switch(year){
-      case 0:
+      case -1:
         yearBackground = "bg-red-500";
         break;
       case 1:
@@ -34,8 +34,8 @@ const Profile = ({ name, year=0, time="", className="" }) => {
             <div className="grow">{name}</div>
             { time && <div className="text-neutral-400">{time}</div> }
           </div>
-          {year !== 0 && year && (
-            <div className={`w-fit rounded-lg text-xs px-3 ${yearBackground}`}>Year {year}</div>
+          {(year === -1 || year) && (
+            <div className={`w-fit rounded-lg text-xs px-3 ${yearBackground}`}>{(year === -1) ? `ADMIN` : `Year ${year}`}</div>
           )}
         </div>
     )
