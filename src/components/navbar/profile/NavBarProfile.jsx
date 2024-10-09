@@ -53,7 +53,7 @@ const NavBarProfile = ({ name, year, resetState }) => {
       {showButton && (
         <button
           ref={buttonRef}
-          className="absolute top-[85%] left-[93%] px-2 py-2 w-fit text-sm text-white text-nowrap rounded-md border border-software-orange bg-eerie-black hover:bg-general-highlight"
+          className="absolute top-[85%] left-[93%] px-2 py-2 z-10 w-fit text-sm text-white text-nowrap rounded-md border border-software-orange bg-eerie-black hover:bg-general-highlight"
           role="menuitem"
           onClick={() => { 
             localStorage.clear();
