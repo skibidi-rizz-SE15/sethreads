@@ -9,7 +9,6 @@ const Reply = ({ name, year, time="", body }) => {
             <Profile name={name} year={year} time={time}/>
             <div className="ml-[2.625rem]">
                 <TextBody body={body} />
-                <ReplyBtn className="self-start" />
             </div>
         </article>
     )

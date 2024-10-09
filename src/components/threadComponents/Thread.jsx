@@ -17,8 +17,6 @@ import AlertBox from "../alertbox/AlertBox";
 import Loading from "../loading/Loading";
 
 import { useParams } from "react-router-dom";
-import ReplyEditor from "../textEditor/ReplyEditor";
-import PostReplyBtn from "../button/createReply/PostReplyBtn";
 
 let useClickOutside = (handler) => {
   let domNode = useRef();
@@ -237,8 +235,10 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
         </div>
         <CommentDisplay number={numComment} />
         <Separator className="w-full my-6" />
-        <CommentEditor onChange={setCommentBody} ref={editorRef} />
-        <PostCommentBtn handlePostComment={handlePostComment} isValid={commentBody !== ""} className="-mt-3 mr-2" />
+        <div className="flex flex-col w-full">
+            <CommentEditor onChange={setCommentBody} ref={editorRef} />
+            <PostCommentBtn handlePostComment={handlePostComment} isValid={commentBody !== ""} className="mt-2 mr-2" />
+        </div>
         <CommentSection
           thread_id={threadId}
           setNumComment={setNumComment}
@@ -264,10 +264,6 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
           </button>
         </div>
       </AlertBox>
-      <div className="flex fixed bottom-0 items-center p-4 bg-eerie-black w-[inherit]">
-        <ReplyEditor />
-        <PostReplyBtn className="flex text-white w-fit" />
-      </div>
     </div>
   );
 };

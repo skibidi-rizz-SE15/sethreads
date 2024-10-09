@@ -10,7 +10,7 @@ import PreventNewline from '../../tiptapCustomExtensions/PreventNewline';
 import '../../styles/tiptapStyles.css';
 
 const ReplyEditor = ({ onChange }) => {
-    const limit = 200;
+    const limit = 500;
 
     const editor = useEditor({
         extensions: [
@@ -36,14 +36,14 @@ const ReplyEditor = ({ onChange }) => {
     });
 
     return (
-        <div className="flex items-center text-white">
+        <div className="relative flex flex-1 items-center text-white">
             <EditorContent
                 editor={editor}
-                className="flex items-center p-4 border border-neutral-700 rounded-3xl shadow-sm focus:outline-none hover:border-neutral-500 hover:bg-neutral-700"
+                className="flex flex-1 items-center p-4 rounded-3xl border border-neutral-700 hover:bg-neutral-700 shadow-sm focus:outline-none"
                 onClick={() => editor.commands.focus()}
             />
             {editor && (
-                <div className="flex mt-2 mr-2 text-sm text-gray-200">
+                <div className="absolute top-full right-0 flex mr-2 text-sm text-gray-200">
                     {editor.storage.characterCount.characters()}/{limit}
                 </div>
             )}

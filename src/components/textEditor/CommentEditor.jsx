@@ -273,7 +273,7 @@ const CommentEditor = React.forwardRef(({ onChange }, ref) => {
   }, [editor, ref]);
 
   return (
-    <div className="flex flex-col w-full mx-auto text-white">
+    <div className="relative flex flex-col w-full mx-auto text-white">
       {editor && (
         <div className={`flex flex-wrap mb-4 gap-2 p-2 rounded`}>
           {buttons.map((button, index) => (
@@ -304,10 +304,8 @@ const CommentEditor = React.forwardRef(({ onChange }, ref) => {
         className="p-4 rounded-3xl border border-neutral-700 hover:bg-neutral-700 shadow-sm focus:outline-none"
         onClick={() => editor.commands.focus()}
       />
-      <div className={`flex w-full`}>
-        <div className={`flex mt-1 ml-4 mr-auto text-sm text-gray-200`}>
-          {editor.storage.characterCount.characters()}/{limit}
-        </div>
+      <div className={`absolute top-full left-0 flex mt-1 ml-4 mr-auto text-sm text-gray-200`}>
+        {editor.storage.characterCount.characters()}/{limit}
       </div>
       {editor && (
         <BubbleMenu
