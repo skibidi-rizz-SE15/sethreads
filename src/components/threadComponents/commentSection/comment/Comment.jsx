@@ -7,7 +7,7 @@ import ToggleReplyBtn from "../../../button/toggle/ToggleReplyBtn";
 import ReplyEditor from "../../../textEditor/ReplyEditor";
 import PostReplyBtn from "../../../button/createReply/PostReplyBtn";
 
-const Comment = ({name, year, time, body, subcomments}) => {
+const Comment = ({comment_id, name, year, time, body, subcomments}) => {
     const [isVisible, setIsVisible] = useState(false);
 
     function handleOnClick() {

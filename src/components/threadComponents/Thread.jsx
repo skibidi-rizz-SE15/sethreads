@@ -172,7 +172,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
   }
 
   return (
-    <div className="relative flex overflow-y-auto w-full min-h-full h-fit">
+    <div className="relative flex overflow-y-auto w-full">
       <BackToCourseBtn toHome={fromHome} />
       <div className="flex flex-col px-9 py-10 mx-auto w-4/5 min-h-full h-max bg-neutral-800">
         <div className="w-full">
