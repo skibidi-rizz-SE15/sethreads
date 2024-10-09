@@ -8,7 +8,7 @@ import ToggleReplyBtn from "../../../button/toggle/ToggleReplyBtn";
 import ReplyEditor from "../../../textEditor/ReplyEditor";
 import PostReplyBtn from "../../../button/createReply/PostReplyBtn";
 
-const Comment = ({commentId, name, year, time, body, subcomments, fromHome, studentId}) => {
+const Comment = ({commentId, name, year, time, body, subcomments, fromHome, studentId, onPostReply}) => {
     const [isVisible, setIsVisible] = useState(false);
     const [replyBody, setReplyBody] = useState("");
 
@@ -45,8 +45,7 @@ const Comment = ({commentId, name, year, time, body, subcomments, fromHome, stud
             }
           )
             .then((res) => {
-            //   handleClearCommentEditor();
-            //   setIsPostComment(true);
+                onPostReply(res.data);
             })
             .catch((err) => {
               console.log(err);

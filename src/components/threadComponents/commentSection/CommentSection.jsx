@@ -21,6 +21,19 @@ const CommentSection = ({ thread_id, setNumComment, isHome, isPostComment, stude
             console.log(err);
         })
     }, [thread_id, comments.length, isPostComment])
+
+    function handlePostReply(newSubcomment) {
+        setComments(prevComments => 
+            prevComments.map(comment => 
+              comment.id === newSubcomment.reply_of 
+                ? {
+                    ...comment,
+                    subcomments: [...comment.subcomments, newSubcomment]
+                  }
+                : comment
+            )
+          );
+    }
     
     return (
         <div className="mt-4">
@@ -36,6 +49,7 @@ const CommentSection = ({ thread_id, setNumComment, isHome, isPostComment, stude
                         subcomments={comment.subcomments}
                         fromHome={isHome}
                         studentId={studentId}
+                        onPostReply={handlePostReply}
                     />
                 )
             })}
