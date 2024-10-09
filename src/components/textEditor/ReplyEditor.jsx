@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Document from '@tiptap/extension-document';
 import Paragraph from '@tiptap/extension-paragraph';
 import Text from '@tiptap/extension-text';
@@ -9,7 +9,7 @@ import History from '@tiptap/extension-history';
 import PreventNewline from '../../tiptapCustomExtensions/PreventNewline';
 import '../../styles/tiptapStyles.css';
 
-const ReplyEditor = ({ onChange }) => {
+const ReplyEditor = React.forwardRef(({ onChange }, ref) => {
     const limit = 500;
 
     const editor = useEditor({
@@ -35,6 +35,16 @@ const ReplyEditor = ({ onChange }) => {
         },
     });
 
+    useEffect(() => {
+        if (ref) {
+          ref.current = {
+            clearContent: () => {
+              editor.commands.clearContent();
+            },
+          };
+        }
+      }, [editor, ref]);
+
     return (
         <div className="relative flex flex-1 items-center text-white">
             <EditorContent
@@ -49,6 +59,6 @@ const ReplyEditor = ({ onChange }) => {
             )}
         </div>
     );
-};
+});
 
 export default ReplyEditor;

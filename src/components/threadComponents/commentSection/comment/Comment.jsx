@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import ReplySection from "./replySection/ReplySection";
 import Profile from "../../../card/profile/Profile";
@@ -9,7 +9,9 @@ import ReplyEditor from "../../../textEditor/ReplyEditor";
 import PostReplyBtn from "../../../button/createReply/PostReplyBtn";
 
 const Comment = ({commentId, name, year, time, body, subcomments, fromHome, studentId, onPostReply}) => {
-    const [isVisible, setIsVisible] = useState(false);
+    const editorRef = useRef(null);
+    const [isRepliesVisible, setIsRepliesVisible] = useState(false);
+    const [isReplyEditorVisible, setIsReplyEditorVisible] = useState(false);
     const [replyBody, setReplyBody] = useState("");
 
     const formattedDateTime = new Intl.DateTimeFormat("en-GB", {
@@ -24,8 +26,15 @@ const Comment = ({commentId, name, year, time, body, subcomments, fromHome, stud
         .replace(",", "");
 
     function handleOnClick() {
-        setIsVisible(!isVisible);
+        setIsRepliesVisible(!isRepliesVisible);
     }
+
+    function handleClearReplyEditor() {
+        if (editorRef.current) {
+          editorRef.current.clearContent();
+          setReplyBody("");
+        }
+      };
 
     function handlePostReply() {
         if (replyBody) {
@@ -46,6 +55,7 @@ const Comment = ({commentId, name, year, time, body, subcomments, fromHome, stud
           )
             .then((res) => {
                 onPostReply(res.data);
+                handleClearReplyEditor();
             })
             .catch((err) => {
               console.log(err);
@@ -60,13 +70,13 @@ const Comment = ({commentId, name, year, time, body, subcomments, fromHome, stud
                 <TextBody body={body} />
                 <div className="flex gap-1">
                     {(subcomments.length > 0) && <ToggleReplyBtn number={subcomments.length} handleOnClick={handleOnClick} />}
-                    <ReplyBtn />
+                    <ReplyBtn handleClick={() => setIsReplyEditorVisible((prev) => !prev)} />
                 </div>
-                <div className="flex gap-4 w-full items-center">
-                    <ReplyEditor onChange={setReplyBody} />
+                {isReplyEditorVisible && (<div className="flex gap-4 my-4 w-full items-center">
+                    <ReplyEditor onChange={setReplyBody} ref={editorRef} />
                     <PostReplyBtn isValid={replyBody} handlePostReply={handlePostReply} className="flex text-white w-fit self-end mb-2" />
-                </div>
-                {isVisible && <ReplySection subcomments={subcomments} />}
+                </div>)}
+                {isRepliesVisible && <ReplySection subcomments={subcomments} />}
             </div>
         </div>
     )
