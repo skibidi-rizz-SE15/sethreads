@@ -7,17 +7,15 @@ import Separator from "../separator/Separator";
 import Loading from "../loading/Loading";
 import { useLocation } from "react-router-dom";
 
-const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
-  const [limit] = useState(10);
+const Content = ({ courseId, courseName, threads, setThreads, location }) => {
+  const [limit, setLimit] = useState(10);
   const [isLoading, setIsLoading] = useState(true);
-  const [offset] = useState(0);
+  const [offset, setOffset] = useState(0);
   const [animationState, setAnimationState] = useState("entered");
-  const [localThreads, setLocalThreads] = useState([]);
   const [displayedCourseName, setDisplayedCourseName] = useState(courseName);
   const animationTimeoutRef = useRef(null);
   const [firstEntered, setFirstEntered] = useState(true);
   const slideTime = 50;
-  const location = useLocation();
 
   useEffect(() => {
     return () => {
@@ -64,8 +62,9 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
 
         if (isLoading || firstEntered) {
           // first load or coming from another page
-          setLocalThreads(newThreads);
           setThreads(newThreads);
+          setLimit(10);
+          setOffset(10);
           setDisplayedCourseName(courseName);
           setAnimationState("entering");
           
@@ -80,7 +79,6 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
 
         // Exit animation (content moves right)
         animationTimeoutRef.current = setTimeout(() => {
-          setLocalThreads(newThreads);
           setThreads(newThreads);
           setDisplayedCourseName(courseName);
 
@@ -95,7 +93,6 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
 
       } catch (err) {
         console.error(err);
-        setLocalThreads([]);
         setThreads([]);
       } finally {
         if (isLoading) {
@@ -104,14 +101,39 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
       }
     };
 
+    function resetState() {
+      setLimit(10);
+      setOffset(0);
+    }
+    resetState();
     fetchData();
-  }, [courseId, limit, offset, setThreads, isLoading, courseName, firstEntered]);
+  }, [courseId, courseName]);
+  
+  function handleScroll(e) {
+    const bottom = e.target.scrollHeight - e.target.scrollTop < e.target.clientHeight;
+    if (bottom) {
+      axios.get(
+        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/get-all?course_id=${courseId}&limit=${limit}&offset=${offset}`,
+        {
+          headers: {
+            "x-token": localStorage.getItem("token"),
+          },
+        }
+      ).then((res) => {
+        if (res.data.length === 0) {
+          return;
+        }
+        setThreads((prevThreads) => [...prevThreads, ...res.data]);
+        setOffset((prevOffset) => prevOffset + 10);
+      }).catch((err) => {
+        console.error(err);
+      });
+    }
+  }
 
   if (isLoading) {
     return <Loading />;
   }
-
-  const threadsToShow = localThreads || [];
 
   return (
     <main
@@ -127,18 +149,19 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
         ease-in-out
         ${getAnimationStyles()}
       `}
+      onScroll={handleScroll}
     >
       <Header courseName={displayedCourseName} />
       <Separator className="my-6 w-full max-w-full" />
-      {threadsToShow.length === 0 ? (
+      {threads.length === 0 ? (
         <div className="flex items-center justify-center w-full h-96">
           <p className="text-lg text-neutral-200">No threads found</p>
         </div>
       ) : (
         <div>
-          <HighlightSection highlightThreads={threadsToShow.filter((thread) => thread.is_highlight === true)} courseId={courseId} />
+          <HighlightSection highlightThreads={threads.filter((thread) => thread.is_highlight === true)} courseId={courseId} />
           <Separator className="my-6 w-full max-w-full" />
-          <ThreadSection threads={threadsToShow.filter((thread) => thread.is_highlight === false)} courseId={courseId} isHomePage={false}/>
+          <ThreadSection threads={threads.filter((thread) => thread.is_highlight === false)} courseId={courseId} isHomePage={false}/>
         </div>
       )}
     </main>

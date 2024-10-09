@@ -153,7 +153,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
       )
         .then((res) => {
           handleClearCommentEditor();
-          setIsPostComment(true);
+          setIsPostComment(!isPostComment);
         })
         .catch((err) => {
           console.log(err);
