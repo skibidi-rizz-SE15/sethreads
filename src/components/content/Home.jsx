@@ -35,7 +35,7 @@ const Home = () => {
         setIsLoading(false);
         setTimeout(() => {
           setIsAnimating(false);
-        }, 500); 
+        }, 50); 
       }
     };
 

@@ -16,7 +16,7 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
   const [displayedCourseName, setDisplayedCourseName] = useState(courseName);
   const animationTimeoutRef = useRef(null);
   const [firstEntered, setFirstEntered] = useState(true);
-
+  const slideTime = 50;
   const location = useLocation();
 
   useEffect(() => {
@@ -72,7 +72,7 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
           animationTimeoutRef.current = setTimeout(() => {
             setAnimationState("entered");
             setFirstEntered(false); // set firstEntered to false after initial animation
-          }, 200);
+          }, slideTime);
           
           setIsLoading(false);
           return;
@@ -90,8 +90,8 @@ const Content = ({ isHome, courseId, courseName, threads, setThreads }) => {
           // Enter animation (content moves to center)
           animationTimeoutRef.current = setTimeout(() => {
             setAnimationState("entered");
-          }, 200);
-        }, 200);
+          }, slideTime);
+        }, slideTime);
 
       } catch (err) {
         console.error(err);
