@@ -64,13 +64,13 @@ const Comment = ({commentId, name, year, time, body, subcomments, fromHome, stud
       }
 
     return (
-        <div className="mt-2">
+        <div className="mt-4">
             <Profile name={name} year={year} time={time} />
             <div className="ml-[2.625rem]">
-                <TextBody body={body} />
-                <div className="flex gap-1">
+                <TextBody body={body} className="-mt-1" />
+                <div className="flex gap-1 items-center -mt-[0.75rem]">
                     {(subcomments.length > 0) && <ToggleReplyBtn number={subcomments.length} handleOnClick={handleOnClick} />}
-                    <ReplyBtn handleClick={() => setIsReplyEditorVisible((prev) => !prev)} />
+                    <ReplyBtn handleClick={() => setIsReplyEditorVisible((prev) => !prev)} className="" />
                 </div>
                 {isReplyEditorVisible && (<div className="flex gap-4 my-4 w-full items-center">
                     <ReplyEditor onChange={setReplyBody} ref={editorRef} />
