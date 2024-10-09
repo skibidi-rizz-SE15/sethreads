@@ -3,7 +3,7 @@ import axios from "axios";
 
 import Comment from "./comment/Comment";
 
-const CommentSection = ({ thread_id, setNumComment, isHome, isPostComment }) => {
+const CommentSection = ({ thread_id, setNumComment, isHome, isPostComment, studentId }) => {
     const [comments, setComments] = useState([]);
     const [limit, setLimit] = useState(20);
     const [offset, setOffset] = useState(0);
@@ -28,11 +28,14 @@ const CommentSection = ({ thread_id, setNumComment, isHome, isPostComment }) => 
                 return (
                     <Comment
                         key={comment.id}
+                        commentId={comment.id}
                         name={`${comment.author.name} ${comment.author.surname}`}
                         year={comment.author.year}
                         time={comment.create_at}
                         body={comment.comment_data}
                         subcomments={comment.subcomments}
+                        fromHome={isHome}
+                        studentId={studentId}
                     />
                 )
             })}

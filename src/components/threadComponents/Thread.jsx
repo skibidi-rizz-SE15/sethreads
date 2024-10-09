@@ -244,6 +244,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
           setNumComment={setNumComment}
           isHome={fromHome}
           isPostComment={isPostComment}
+          studentId={studentId}
         />
       </div>
       <AlertBox isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)}>
