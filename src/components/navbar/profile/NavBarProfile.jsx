@@ -9,6 +9,9 @@ const NavBarProfile = ({ name, year, resetState }) => {
 
   let yearBackground;
   switch(year){
+    case 0:
+      yearBackground = "bg-red-500";
+      break;
     case 1:
       yearBackground = "bg-purple-500";
       break;
@@ -19,10 +22,10 @@ const NavBarProfile = ({ name, year, resetState }) => {
       yearBackground = "bg-yellow-500";
       break;
     case 4:
-      yearBackground = "bg-red-500";
+      yearBackground = "bg-green-500";
       break;
     default:
-      yearBackground = "bg-green-500";
+      yearBackground = "bg-teal-500";
   }
 
   const handleClickOutside = (event) => {

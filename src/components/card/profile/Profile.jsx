@@ -3,6 +3,9 @@ import React from "react";
 const Profile = ({ name, year=0, time="", className="" }) => {
     let yearBackground;
     switch(year){
+      case 0:
+        yearBackground = "bg-red-500";
+        break;
       case 1:
         yearBackground = "bg-purple-500";
         break;
@@ -13,10 +16,10 @@ const Profile = ({ name, year=0, time="", className="" }) => {
         yearBackground = "bg-yellow-500";
         break;
       case 4:
-        yearBackground = "bg-red-500";
+        yearBackground = "bg-green-500";
         break;
       default:
-        yearBackground = "bg-green-500"
+        yearBackground = "bg-teal-500";
     }
 
     return (
