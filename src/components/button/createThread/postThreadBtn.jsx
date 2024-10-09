@@ -82,7 +82,7 @@ const PostThreadBtn = ({ title, body, createdBy, courseId, isValid }) => {
 
   return (
     <button
-      className={`flex self-end px-7 py-2 text-lg w-min tracking-normal leading-5 text-white rounded-lg font-semibold ${
+      className={`absolute right-0 flex self-end px-7 py-2 text-lg w-min tracking-normal leading-5 text-white rounded-lg font-semibold ${
         !isValid
           ? "opacity-50 cursor-not-allowed bg-neutral-500"
           : "bg-software-orange hover:bg-software-orange-hover"
