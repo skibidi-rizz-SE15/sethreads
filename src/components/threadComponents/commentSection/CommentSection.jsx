@@ -3,10 +3,29 @@ import axios from "axios";
 
 import Comment from "./comment/Comment";
 
-const CommentSection = ({ thread_id, setNumComment, isHome, isPostComment, studentId }) => {
+const CommentSection = ({ thread_id, setNumComment, isHome, isPostComment, studentId, triggerFetch }) => {
     const [comments, setComments] = useState([]);
     const [limit, setLimit] = useState(20);
     const [offset, setOffset] = useState(0);
+
+    useEffect(() => {
+        resetState();
+        const fetchData = async () => {
+            axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${isHome ? (`home-comment/get-comments?home_id=${thread_id}`) : (`comment/get-comments?thread_id=${thread_id}`)}&limit=${limit}&offset=${offset}`,{
+                headers: {
+                    "x-token": localStorage.getItem("token")
+                }
+            })
+            .then((res) => {
+                setComments(res.data);
+                setNumComment(res.data.length);
+                setOffset(20);
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+        fetchData();
+    }, [thread_id, isPostComment]);
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${isHome ? (`home-comment/get-comments?home_id=${thread_id}`) : (`comment/get-comments?thread_id=${thread_id}`)}&limit=${limit}&offset=${offset}`,{
@@ -15,12 +34,18 @@ const CommentSection = ({ thread_id, setNumComment, isHome, isPostComment, stude
             }
         })
         .then((res) => {
-            setComments(res.data);
-            setNumComment(res.data.length);
-        }).catch((err) => {
+            setComments((prev) => [...prev, ...res.data]);
+            setOffset((prev) => prev + 20);
+        })
+        .catch((err) => {
             console.log(err);
         })
-    }, [thread_id, comments.length, isPostComment])
+    }, [triggerFetch]);
+
+    function resetState() {
+        setLimit(20);
+        setOffset(0);
+    }
 
     function handlePostReply(newSubcomment) {
         setComments(prevComments => 

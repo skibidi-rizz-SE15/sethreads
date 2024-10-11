@@ -5,9 +5,9 @@ import HighlightSection from "./highlightSection/HighlightSection";
 import ThreadSection from "./threadSection/ThreadSection";
 import Separator from "../separator/Separator";
 import Loading from "../loading/Loading";
-import { useLocation } from "react-router-dom";
 
-const Content = ({ courseId, courseName, threads, setThreads, location }) => {
+const Content = ({ courseId, courseName, location }) => {
+  const [threads, setThreads] = useState([]);
   const [limit, setLimit] = useState(10);
   const [isLoading, setIsLoading] = useState(true);
   const [offset, setOffset] = useState(0);
@@ -39,7 +39,15 @@ const Content = ({ courseId, courseName, threads, setThreads, location }) => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    setIsLoading(true);
+    setOffset(0);
+    setLimit(10);
+    
+    fetchData(0);
+  }, [courseId]);
+
+  useEffect(() => {
+    async function animation() {
       if (animationTimeoutRef.current) {
         clearTimeout(animationTimeoutRef.current);
       }
@@ -48,66 +56,50 @@ const Content = ({ courseId, courseName, threads, setThreads, location }) => {
         setAnimationState("exiting");
       }
 
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/get-all?course_id=${courseId}&limit=${limit}&offset=${offset}`,
-          {
-            headers: {
-              "x-token": localStorage.getItem("token"),
-            },
-          }
-        );
+      if (isLoading || firstEntered) {
+        setDisplayedCourseName(courseName);
+        setAnimationState("entering");
 
-        const newThreads = response.data || [];
-
-        if (isLoading || firstEntered) {
-          // first load or coming from another page
-          setThreads(newThreads);
-          setLimit(10);
-          setOffset(10);
-          setDisplayedCourseName(courseName);
-          setAnimationState("entering");
-          
-          animationTimeoutRef.current = setTimeout(() => {
-            setAnimationState("entered");
-            setFirstEntered(false); // set firstEntered to false after initial animation
-          }, slideTime);
-          
-          setIsLoading(false);
-          return;
-        }
-
-        // Exit animation (content moves right)
         animationTimeoutRef.current = setTimeout(() => {
-          setThreads(newThreads);
-          setDisplayedCourseName(courseName);
-
-          // Start entering animation
-          setAnimationState("entering");
-
-          // Enter animation (content moves to center)
-          animationTimeoutRef.current = setTimeout(() => {
-            setAnimationState("entered");
-          }, slideTime);
+          setAnimationState("entered");
+          setFirstEntered(false);
         }, slideTime);
-
-      } catch (err) {
-        console.error(err);
-        setThreads([]);
-      } finally {
-        if (isLoading) {
-          setIsLoading(false);
-        }
+        
+        setIsLoading(false);
+        return;
       }
-    };
 
-    function resetState() {
-      setLimit(10);
-      setOffset(0);
+      animationTimeoutRef.current = setTimeout(() => {
+        setDisplayedCourseName(courseName);
+        setAnimationState("entering");
+
+        animationTimeoutRef.current = setTimeout(() => {
+          setAnimationState("entered");
+        }, slideTime);
+      }, slideTime);
     }
-    resetState();
-    fetchData();
-  }, [courseId, courseName]);
+
+    animation();
+  }, [courseName, isLoading, firstEntered]);
+
+  const fetchData = async (currentOffset) => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/get-all?course_id=${courseId}&limit=${limit}&offset=${currentOffset}`,
+        {
+          headers: {
+            "x-token": localStorage.getItem("token"),
+          },
+        }
+      );
+      setThreads(res.data);
+      setIsLoading(false);
+      setOffset(currentOffset + 10);
+    } catch (err) {
+      console.error(err);
+      setIsLoading(false);
+    }
+  };
   
   function handleScroll(e) {
     const bottom = e.target.scrollHeight - e.target.scrollTop < e.target.clientHeight;

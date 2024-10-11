@@ -27,7 +27,6 @@ function App() {
   const [studentInfo, setStudentInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const [threads, setThreads] = useState(null);
   const [taCourse, setTACourse] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -106,15 +105,15 @@ function App() {
     <Router>
       <Routes>
         <Route element={<AuthGuard />}>
-          <Route path='/' element={<MainPage studentId={studentId} studentInfo={studentInfo} taCourse={taCourse} isAdmin={isAdmin} resetState={resetState} />}>
+          <Route path='/' element={<MainPage studentInfo={studentInfo} taCourse={taCourse} isAdmin={isAdmin} resetState={resetState} />}>
             <Route index element={<Navigate to="/home" />} />
             <Route path='home' element={<Home />} />
             {studentInfo && (<Route path='admin' element={<AdminPage registeredCourses={studentInfo.registered_courses}/>} />)}
             {studentInfo && studentInfo.registered_courses.map((course) => (
-              <Route key={course.course_id} path={`course/${course.course_id}`} element={<Content courseId={course.course_id} courseName={course.name} threads={threads} setThreads={setThreads} />} />
+              <Route key={course.course_id} path={`course/${course.course_id}`} element={<Content courseId={course.course_id} courseName={course.name} />} />
             ))}
             {taCourse && (
-              <Route path={`course/${taCourse.course_id}`} element={<Content courseId={taCourse.course_id} courseName={taCourse.name} threads={threads} setThreads={setThreads} />} />
+              <Route path={`course/${taCourse.course_id}`} element={<Content courseId={taCourse.course_id} courseName={taCourse.name} />} />
             )}
             { studentId && (<Route path='home/thread/:threadId' element={<Thread fromHome={true} studentId={studentId} />} />)}
             { (studentInfo) && (<Route path='course/:courseId/thread/:threadId' element={<Thread fromHome={false} studentId={studentId} isTA={studentInfo.is_ta} TACourseID={taCourse ? taCourse.course_id : ""} />} />)}

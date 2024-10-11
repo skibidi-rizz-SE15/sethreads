@@ -49,6 +49,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
   const [isPin, setIsPin] = useState(false);
   const [commentBody, setCommentBody] = useState("");
   const [isPostComment, setIsPostComment] = useState(false);
+  const [isBottom, setIsBottom] = useState(false);
 
   hljs.highlightAll();
 
@@ -66,6 +67,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
         }
       )
       .then((res) => {
+        console.log(res.data);
         setThreadData(res.data);
         if (res.data.is_highlight) {
           setIsPin(true);
@@ -161,6 +163,13 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
     }
   }
 
+  function handleScroll(e) {
+    const bottom = e.target.scrollHeight - e.target.scrollTop < e.target.clientHeight;
+    if (bottom) {
+      setIsBottom(!isBottom);
+    }
+  }
+
   let domNode = useClickOutside(() => {
     setIsOpen(false);
   });
@@ -172,7 +181,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
   }
 
   return (
-    <div className="relative flex overflow-y-auto w-full">
+    <div className="relative flex overflow-y-auto w-full" onScroll={handleScroll}>
       <BackToCourseBtn toHome={fromHome} />
       <div className="flex flex-col px-9 py-10 mx-auto w-4/5 min-h-full h-max bg-neutral-800">
         <div className="w-full">
@@ -245,6 +254,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
           isHome={fromHome}
           isPostComment={isPostComment}
           studentId={studentId}
+          triggerFetch={isBottom}
         />
       </div>
       <AlertBox isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)}>
