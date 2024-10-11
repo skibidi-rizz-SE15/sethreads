@@ -67,7 +67,6 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
         }
       )
       .then((res) => {
-        console.log(res.data);
         setThreadData(res.data);
         if (res.data.is_highlight) {
           setIsPin(true);

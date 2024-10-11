@@ -9,7 +9,6 @@ const CommentSection = ({ thread_id, setNumComment, isHome, isPostComment, stude
     const [offset, setOffset] = useState(0);
 
     useEffect(() => {
-        resetState();
         const fetchData = async () => {
             axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${isHome ? (`home-comment/get-comments?home_id=${thread_id}`) : (`comment/get-comments?thread_id=${thread_id}`)}&limit=${limit}&offset=${offset}`,{
                 headers: {
@@ -19,33 +18,12 @@ const CommentSection = ({ thread_id, setNumComment, isHome, isPostComment, stude
             .then((res) => {
                 setComments(res.data);
                 setNumComment(res.data.length);
-                setOffset(20);
             }).catch((err) => {
                 console.log(err);
             });
         }
         fetchData();
     }, [thread_id, isPostComment]);
-
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${isHome ? (`home-comment/get-comments?home_id=${thread_id}`) : (`comment/get-comments?thread_id=${thread_id}`)}&limit=${limit}&offset=${offset}`,{
-            headers: {
-                "x-token": localStorage.getItem("token")
-            }
-        })
-        .then((res) => {
-            setComments((prev) => [...prev, ...res.data]);
-            setOffset((prev) => prev + 20);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-    }, [triggerFetch]);
-
-    function resetState() {
-        setLimit(20);
-        setOffset(0);
-    }
 
     function handlePostReply(newSubcomment) {
         setComments(prevComments => 
