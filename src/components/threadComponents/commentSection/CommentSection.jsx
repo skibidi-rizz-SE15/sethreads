@@ -73,7 +73,7 @@ const CommentSection = ({ thread_id, isHome, isPostComment, studentId, triggerFe
 
     const handlefetchDataOnPost = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/comment/get-last-comment?thread_id=${thread_id}`, {
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${isHome ? (`home-comment/get-last-comment?thread_id=${thread_id}`) : (`comment/get-last-comment?thread_id=${thread_id}`)}`, {
                 headers: {
                     "x-token": localStorage.getItem("token")
                 }

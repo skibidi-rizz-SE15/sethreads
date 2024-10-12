@@ -6,7 +6,7 @@ import ThreadSection from "./threadSection/ThreadSection";
 import Separator from "../separator/Separator";
 import Loading from "../loading/Loading";
 
-const Content = ({ courseId, courseName, location }) => {
+const Content = ({ courseId, courseName }) => {
   const [threads, setThreads] = useState([]);
   const [limit, setLimit] = useState(10);
   const [isLoading, setIsLoading] = useState(true);
