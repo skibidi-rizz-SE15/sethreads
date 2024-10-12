@@ -205,18 +205,17 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
               time={threadData.create_at}
             />
             <div ref={domNode} className="flex-1 flex justify-end">
-              {(studentId === threadData.author.student_id ||
-                isTA === true) || (isAdmin) && (
+              {((studentId === threadData.author.student_id || isTA === true) || (isAdmin)) && (
                   <div>
                     <div className="flex">
-                      {(isTA === true && courseId === TACourseID) || (isAdmin) && (
+                      {((isTA === true && courseId === TACourseID) || (isAdmin)) && (
                         <GiPin
                           className={`text-xl ${isPin ? "text-software-orange" : "text-white"
                             } cursor-pointer mr-4`}
                           onClick={PinThread}
                         />
                       )}
-                      {(studentId === threadData.author.student_id) || (isAdmin) && (
+                      {((studentId === threadData.author.student_id) || (isAdmin)) && (
                         <CiMenuKebab
                           className="text-xl text-white cursor-pointer"
                           onClick={() => setIsOpen((prev) => !prev)}

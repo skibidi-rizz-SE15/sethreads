@@ -77,13 +77,15 @@ function App() {
   function handleLinkClick(e){
     e.preventDefault()
     setMode((prevMode) => (prevMode === "sign-in" ? "sign-up" : "sign-in"));
+    setStudentId("");
+    setPassword("");
   }
 
-  function handleStudentIdChange(e) {
-      setStudentId(e.target.value);
+  function handleStudentIdChange(e) { 
+    setStudentId(e.target.value);
   }
   function handlePasswordChange(e) {
-      setPassword(e.target.value);
+    setPassword(e.target.value);
   }
 
   function resetState() {

@@ -102,6 +102,8 @@ const LoginPage = ({ mode, handleLinkClick, handleStudentIdChange, handlePasswor
                 <div className="h-full bg-white p-8 flex-grow flex items-center justify-center transform -skew-x-12">
                     <SignInBox
                         mode={mode}
+                        studentId={studentId}
+                        password={password}
                         handleLinkClick={handleLinkClick}
                         Login={handleLogin}
                         onStudentIdChange={handleStudentIdChange}

@@ -1,6 +1,6 @@
 import React from "react";
 
-const SignInBox = ({ mode="sign-in", handleLinkClick, Login, onStudentIdChange, onPasswordChange, onSuccess }) => {
+const SignInBox = ({ mode="sign-in", handleLinkClick, Login, onStudentIdChange, onPasswordChange, onSuccess, studentId, password}) => {
     let passwordPlaceholder, modeMessage, modeText, modeTextOpposite;
     if(mode === "sign-up"){
         passwordPlaceholder = "Create Password";
@@ -26,6 +26,7 @@ const SignInBox = ({ mode="sign-in", handleLinkClick, Login, onStudentIdChange, 
                         className={`w-full px-4 py-2 rounded-md border ${
                             onSuccess === false ? 'border-red-500' : 'border-gray-300'
                         } bg-gray-100 placeholder-gray-400 text-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-500`}
+                        value={studentId}
                         onChange={onStudentIdChange}
                         />
                 </div>
@@ -36,6 +37,7 @@ const SignInBox = ({ mode="sign-in", handleLinkClick, Login, onStudentIdChange, 
                         className={`w-full px-4 py-2 rounded-md border ${
                             onSuccess === false ? 'border-red-500' : 'border-gray-300'
                         } bg-gray-100 placeholder-gray-400 text-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-500`}
+                        value={password}
                         onChange={onPasswordChange}
                         />
                 </div>
