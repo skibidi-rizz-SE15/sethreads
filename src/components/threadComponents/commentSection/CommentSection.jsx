@@ -3,7 +3,7 @@ import axios from "axios";
 
 import Comment from "./comment/Comment";
 
-const CommentSection = ({ thread_id, setNumComment, isHome, isPostComment, studentId, triggerFetch, isBottom, onPost, onPostCleanup, onBottomCleanup }) => {
+const CommentSection = ({ thread_id, isHome, isPostComment, studentId, triggerFetch, isBottom, onPost, onPostCleanup, onBottomCleanup }) => {
     const [comments, setComments] = useState([]);
     const [limit, setLimit] = useState(20);
     const [offset, setOffset] = useState(0);
@@ -13,7 +13,6 @@ const CommentSection = ({ thread_id, setNumComment, isHome, isPostComment, stude
             try {
                 const response = await fetchData();
                 setComments(response.data);
-                setNumComment(response.data.length);
                 setOffset(response.data.length);   
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -26,8 +25,8 @@ const CommentSection = ({ thread_id, setNumComment, isHome, isPostComment, stude
         async function fetchDataOnPost() {
             try {
                 if (isPostComment) {
-                    const response = await fetchData();
-                    setComments((prev) => [response.data[0], ...prev]);
+                    const response = await handlefetchDataOnPost();
+                    setComments((prev) => [response.data, ...prev]);
                     setOffset((prev) => prev + 1);
                 }
             } catch (error) {
@@ -71,6 +70,20 @@ const CommentSection = ({ thread_id, setNumComment, isHome, isPostComment, stude
             throw error;
         }
     };
+
+    const handlefetchDataOnPost = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/comment/get-last-comment?thread_id=${thread_id}`, {
+                headers: {
+                    "x-token": localStorage.getItem("token")
+                }
+            });
+            return response
+        } catch (error) {
+            console.error("Error in fetchDataOnPost:", error);
+            throw error;
+        }
+    }
 
     function handlePostReply(newSubcomment) {
         setComments(prevComments => 

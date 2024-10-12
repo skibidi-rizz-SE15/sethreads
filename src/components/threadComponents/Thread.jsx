@@ -70,6 +70,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
       )
       .then((res) => {
         setThreadData(res.data);
+        setNumComment(res.data.comments.length)
         if (res.data.is_highlight) {
           setIsPin(true);
         }
@@ -156,6 +157,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
       )
         .then((res) => {
           handleClearCommentEditor();
+          setNumComment((prev) => prev + 1);
           setIsPostComment(true);
           setOnPost(!onPost);
         })
@@ -261,7 +263,6 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
         </div>
         <CommentSection
           thread_id={threadId}
-          setNumComment={setNumComment}
           isHome={fromHome}
           isPostComment={isPostComment}
           studentId={studentId}
