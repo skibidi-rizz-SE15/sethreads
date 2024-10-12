@@ -4,7 +4,7 @@ import ThreadTitleEditor from "../textEditor/ThreadTitleEditor";
 import CourseDropdown from "./courseDropdown/CourseDropdown";
 import PostThreadBtn from "../button/createThread/postThreadBtn";
 
-const CreateThread = ({ registeredCourses, studentId }) => {
+const CreateThread = ({ registeredCourses, ta_course, studentId }) => {
     const [selectedCourseId, setSelectedCourseId] = useState(null);
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
@@ -45,7 +45,7 @@ const CreateThread = ({ registeredCourses, studentId }) => {
                 </h1>
     
                 <div className={`transform transition-all duration-500 ease-out ${showComponents.dropdown ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>
-                    <CourseDropdown registeredCourses={registeredCourses} setSelectedCourseId={setSelectedCourseId} selectedCourseId={selectedCourseId} />
+                    <CourseDropdown registeredCourses={[...registeredCourses, ta_course]} setSelectedCourseId={setSelectedCourseId} selectedCourseId={selectedCourseId} />
                 </div>
     
                 <div className={`transform transition-all duration-500 ease-out ${showComponents.threadTitle ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>

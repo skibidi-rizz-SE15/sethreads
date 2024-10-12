@@ -38,7 +38,7 @@ let useClickOutside = (handler) => {
   return domNode;
 };
 
-const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
+const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
   const editorRef = useRef(null);
   const { courseId, threadId } = useParams();
   const [threadData, setThreadData] = useState({});
@@ -115,7 +115,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
   function PinThread() {
     axios
       .put(
-        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/update-is-highlight?thread_id=${threadId}`,
+        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? "home" : "thread"}/update-is-highlight?thread_id=${threadId}`,
         {},
         {
           headers: {
@@ -206,17 +206,17 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
             />
             <div ref={domNode} className="flex-1 flex justify-end">
               {(studentId === threadData.author.student_id ||
-                isTA === true) && (
+                isTA === true) || (isAdmin) && (
                   <div>
                     <div className="flex">
-                      {isTA === true && courseId === TACourseID && (
+                      {(isTA === true && courseId === TACourseID) || (isAdmin) && (
                         <GiPin
                           className={`text-xl ${isPin ? "text-software-orange" : "text-white"
                             } cursor-pointer mr-4`}
                           onClick={PinThread}
                         />
                       )}
-                      {studentId === threadData.author.student_id && (
+                      {(studentId === threadData.author.student_id) || (isAdmin) && (
                         <CiMenuKebab
                           className="text-xl text-white cursor-pointer"
                           onClick={() => setIsOpen((prev) => !prev)}

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 const CourseDropdown = ({ registeredCourses, setSelectedCourseId }) => {
     const [selectedCourse, setSelectedCourse] = useState(null);
-
     return (
         <select
             type="button"
