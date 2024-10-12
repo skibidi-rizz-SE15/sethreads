@@ -45,7 +45,7 @@ const CreateThread = ({ registeredCourses, ta_course, studentId }) => {
                 </h1>
     
                 <div className={`transform transition-all duration-500 ease-out ${showComponents.dropdown ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>
-                    <CourseDropdown registeredCourses={[...registeredCourses, ta_course]} setSelectedCourseId={setSelectedCourseId} selectedCourseId={selectedCourseId} />
+                    <CourseDropdown registeredCourses={ta_course ? [...registeredCourses, ta_course] : registeredCourses} setSelectedCourseId={setSelectedCourseId} selectedCourseId={selectedCourseId} />
                 </div>
     
                 <div className={`transform transition-all duration-500 ease-out ${showComponents.threadTitle ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>
