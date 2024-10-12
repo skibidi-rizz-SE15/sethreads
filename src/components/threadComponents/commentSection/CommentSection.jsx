@@ -3,27 +3,74 @@ import axios from "axios";
 
 import Comment from "./comment/Comment";
 
-const CommentSection = ({ thread_id, setNumComment, isHome, isPostComment, studentId, triggerFetch }) => {
+const CommentSection = ({ thread_id, setNumComment, isHome, isPostComment, studentId, triggerFetch, isBottom, onPost, onPostCleanup, onBottomCleanup }) => {
     const [comments, setComments] = useState([]);
     const [limit, setLimit] = useState(20);
     const [offset, setOffset] = useState(0);
 
     useEffect(() => {
-        const fetchData = async () => {
-            axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${isHome ? (`home-comment/get-comments?home_id=${thread_id}`) : (`comment/get-comments?thread_id=${thread_id}`)}&limit=${limit}&offset=${offset}`,{
+        async function fetchDataFirst() {
+            try {
+                const response = await fetchData();
+                setComments(response.data);
+                setNumComment(response.data.length);
+                setOffset(response.data.length);   
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchDataFirst();
+    }, [thread_id]);
+
+    useEffect(() => {
+        async function fetchDataOnPost() {
+            try {
+                if (isPostComment) {
+                    const response = await fetchData();
+                    setComments((prev) => [response.data[0], ...prev]);
+                    setOffset((prev) => prev + 1);
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchDataOnPost();
+        return () => {
+            onPostCleanup();
+        }
+    }, [onPost]);
+
+    useEffect(() => {
+        async function fetchDataOnBottom() {
+            try {
+                if (isBottom) {
+                    const response = await fetchData();
+                    setComments((prev) => [...prev, ...response.data]);
+                    setOffset((prev) => prev + response.data.length);
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        fetchDataOnBottom();
+        return () => {
+            onBottomCleanup();
+        }
+    }, [triggerFetch]);
+    
+    const fetchData = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${isHome ? (`home-comment/get-comments?home_id=${thread_id}`) : (`comment/get-comments?thread_id=${thread_id}`)}&limit=${limit}&offset=${offset}`, {
                 headers: {
                     "x-token": localStorage.getItem("token")
                 }
-            })
-            .then((res) => {
-                setComments(res.data);
-                setNumComment(res.data.length);
-            }).catch((err) => {
-                console.log(err);
             });
+            return response;
+        } catch (error) {
+            console.error("Error in fetchData:", error);
+            throw error;
         }
-        fetchData();
-    }, [thread_id, isPostComment]);
+    };
 
     function handlePostReply(newSubcomment) {
         setComments(prevComments => 

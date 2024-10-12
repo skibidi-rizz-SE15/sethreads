@@ -96,13 +96,13 @@ const Content = ({ courseId, courseName, location }) => {
       setIsLoading(false);
       setOffset(currentOffset + 10);
     } catch (err) {
-      console.error(err);
+      console.error(err); 
       setIsLoading(false);
     }
   };
   
   function handleScroll(e) {
-    const bottom = e.target.scrollHeight - e.target.scrollTop < e.target.clientHeight;
+    const bottom = e.target.scrollHeight - e.target.scrollTop == e.target.clientHeight;
     if (bottom) {
       axios.get(
         `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/get-all?course_id=${courseId}&limit=${limit}&offset=${offset}`,

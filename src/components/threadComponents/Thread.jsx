@@ -50,6 +50,8 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
   const [commentBody, setCommentBody] = useState("");
   const [isPostComment, setIsPostComment] = useState(false);
   const [isBottom, setIsBottom] = useState(false);
+  const [onPost, setOnPost] = useState(false);
+  const [onBottom, setOnBottom] = useState(false);
 
   hljs.highlightAll();
 
@@ -154,19 +156,29 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
       )
         .then((res) => {
           handleClearCommentEditor();
-          setIsPostComment(!isPostComment);
+          setIsPostComment(true);
+          setOnPost(!onPost);
         })
         .catch((err) => {
           console.log(err);
         });
     }
   }
+  function handlePostCleanup() {
+    setIsPostComment(false);
+    setOnPost(null);
+  }
 
   function handleScroll(e) {
-    const bottom = e.target.scrollHeight - e.target.scrollTop < e.target.clientHeight;
+    const bottom = e.target.scrollHeight - e.target.scrollTop == e.target.clientHeight;
     if (bottom) {
-      setIsBottom(!isBottom);
+      setIsBottom(true);
+      setOnBottom(!onBottom);
     }
+  }
+  function handleBottomCleanup() {
+    setIsBottom(false);
+    setOnBottom(null);
   }
 
   let domNode = useClickOutside(() => {
@@ -253,7 +265,11 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID }) => {
           isHome={fromHome}
           isPostComment={isPostComment}
           studentId={studentId}
-          triggerFetch={isBottom}
+          triggerFetch={onBottom}
+          isBottom={isBottom}
+          onBottomCleanup={handleBottomCleanup}
+          onPost={onPost}
+          onPostCleanup={handlePostCleanup}
         />
       </div>
       <AlertBox isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)}>
