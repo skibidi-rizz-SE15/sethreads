@@ -56,6 +56,7 @@ const Comment = ({commentId, name, year, time, body, subcomments, fromHome, stud
             .then((res) => {
                 onPostReply(res.data);
                 handleClearReplyEditor();
+                setIsReplyEditorVisible(false);
             })
             .catch((err) => {
               console.log(err);
