@@ -81,7 +81,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [courseId, threadId, fromHome]);
+  }, [courseId, threadId, fromHome, isPostComment]);
 
   const formattedDateTime = new Intl.DateTimeFormat("en-GB", {
     day: "2-digit",
