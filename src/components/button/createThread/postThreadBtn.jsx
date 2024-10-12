@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const PostThreadBtn = ({ title, body, createdBy, courseId, isValid }) => {
+const PostThreadBtn = ({ title, body, createdBy, courseId, isValid, className="" }) => {
   const navigate = useNavigate();
 
   const formattedDateTime = new Intl.DateTimeFormat("en-GB", {
@@ -82,11 +82,11 @@ const PostThreadBtn = ({ title, body, createdBy, courseId, isValid }) => {
 
   return (
     <button
-      className={`absolute right-0 flex self-end px-7 py-2 text-lg w-min tracking-normal leading-5 text-white rounded-lg font-semibold ${
+      className={`right-0 flex self-end px-7 py-2 text-lg w-min tracking-normal leading-5 text-white rounded-lg font-semibold ${
         !isValid
           ? "opacity-50 cursor-not-allowed bg-neutral-500"
           : "bg-software-orange hover:bg-software-orange-hover"
-      }`}
+      } ${className}`}
       onClick={handlePostThread}
       disabled={!isValid}
     >

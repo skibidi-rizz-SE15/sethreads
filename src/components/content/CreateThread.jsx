@@ -56,8 +56,8 @@ const CreateThread = ({ registeredCourses, ta_course, studentId }) => {
                     <ThreadBodyEditor onChange={setBody} />
                 </div>
     
-                <div className={`relative transform transition-all duration-500 ease-out ${showComponents.button ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>
-                    <PostThreadBtn title={title} body={body} createdBy={studentId} courseId={selectedCourseId} isValid={isValid} />
+                <div className={`transform transition-all duration-500 ease-out ${showComponents.button ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>
+                    <PostThreadBtn title={title} body={body} createdBy={studentId} courseId={selectedCourseId} isValid={isValid} className="ml-auto" />
                 </div>
             </div>
         </main>
