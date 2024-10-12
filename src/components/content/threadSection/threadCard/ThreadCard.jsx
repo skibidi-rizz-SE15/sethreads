@@ -10,8 +10,8 @@ const ThreadCard = ({ name, year, time, title, body, comments }) => {
     <article className="flex overflow-hidden flex-col self-center pt-6 pb-3.5 mx-auto my-1 rounded-3xl bg-neutral-800 hover:bg-general-highlight min-w-96 w-4/5 max-md:mt-10">
       <div className="flex flex-col items-start mx-6 w-fit ">
         <Profile name={name} year={year} time={time}/>
-        <TextTitle title={title} className='line-clamp-6 text-ellipsis' />
-        <TextBody body={getPreviewHTMLString(body)} className='line-clamp-3 text-ellipsis' />
+        <TextTitle title={title} className='mt-3 line-clamp-6 text-ellipsis' />
+        <TextBody body={getPreviewHTMLString(body)} className='mt-2 line-clamp-3 text-ellipsis' />
       </div>
       <CommentBtn number={comments.length} />
     </article>

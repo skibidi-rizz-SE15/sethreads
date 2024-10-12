@@ -251,8 +251,8 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
                 )}
             </div>
           </div>
-          <TextTitle title={threadData.title} />
-          <TextBody body={threadData.body} />
+          <TextTitle title={threadData.title} className="mt-3" />
+          <TextBody body={threadData.body} className="mt-2" />
         </div>
         <CommentDisplay number={numComment} />
         <Separator className="w-full my-6" />

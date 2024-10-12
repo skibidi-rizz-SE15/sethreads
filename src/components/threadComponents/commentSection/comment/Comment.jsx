@@ -68,7 +68,7 @@ const Comment = ({commentId, name, year, time, body, subcomments, fromHome, stud
         <div className="mt-4">
             <Profile name={name} year={year} time={time} />
             <div className="ml-[2.625rem]">
-                <TextBody body={body} className="-mt-2" />
+                <TextBody body={body} className="-mt-1" />
                 <div className="flex gap-1 items-center -mt-[0.75rem]">
                     {(subcomments.length > 0) && <ToggleReplyBtn number={subcomments.length} handleOnClick={handleOnClick} />}
                     <ReplyBtn handleClick={() => setIsReplyEditorVisible((prev) => !prev)} className="" />
