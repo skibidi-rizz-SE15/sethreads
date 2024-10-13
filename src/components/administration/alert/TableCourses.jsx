@@ -18,7 +18,7 @@ function TableCourses({ student, isEditCourses, onDelete }) {
                         <tr key={course.course_id} className='bg-gray-300 even:bg-gray-400 hover:bg-software-orange-hover'>
                             <td className='text-gray-900 text-lg px-2 text-center'>{course.course_id}</td>
                             <td className='text-gray-900 text-lg px-2'>{course.name}</td>
-                            <td className={`text-gray-900 text-lg px-2 text-center flex justify-center items-center ${ isEditCourses ? "" : "hidden" }`}><FaTrash className='text-red-500 text-center hover:cursor-pointer' onClick={() => onDelete(course.course_id)} /></td>
+                            <td className={`text-gray-900 text-lg px-2 text-center ${ isEditCourses ? "" : "hidden" }`}><FaTrash className='text-red-500 mx-auto hover:cursor-pointer' onClick={() => onDelete(course.course_id)} /></td>
                         </tr>
                     )
                 }) }
