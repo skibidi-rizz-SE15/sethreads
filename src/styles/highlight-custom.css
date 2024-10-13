@@ -4,7 +4,7 @@ pre {
     color: white;
     font-family: 'JetBrainsMono', monospace;
     margin: 1.5rem 0;
-    padding: 0.75rem 1rem;
+    /* padding: 0.75rem 1rem; */
 }
 
 code {
@@ -12,7 +12,8 @@ code {
     border-radius: 0.4rem;
     color: white;
     font-size: 0.85rem;
-    padding: 0.25em 0.3em;
+    padding: 0.25rem 0.3rem;
+    overflow-x: auto;
 }
 
 .hljs {
