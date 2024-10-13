@@ -111,7 +111,7 @@ const ProfileAlert = ({ isOpen, onClose, children, setStudent, EditCourse }) => 
         className="absolute inset-0 bg-black opacity-50"
         onClick={onClose}
       ></div>
-      <div className="relative z-10 h-[70%] min-h-[40rem] bg-eerie-black text-white p-10 m-4 rounded-lg shadow-xl w-[50rem]">
+      <div className="relative z-10 overflow-hidden h-[80%] bg-eerie-black text-white py-10 px-8 m-4 rounded-lg shadow-xl w-[50rem]">
         <button
           className="absolute top-2 right-2 text-software-orange hover:text-software-orange-hover"
           onClick={onClose}
@@ -130,36 +130,38 @@ const ProfileAlert = ({ isOpen, onClose, children, setStudent, EditCourse }) => 
             />
           </svg>
         </button>
-        <div className="grid grid-cols-[repeat(2,1fr)] gap-x-4">
-          <Details student={children} />
-          <Edit
-            student={children}
-            inputTACourse={inputTACourse}
-            handleInputTACourse={handleInputTACourse}
-            isEditCourses={isEditCourses}
-            toggleEditCourses={toggleEditCourses}
-            handleSetTA={handleSetTA}
-          />
-          <Separator className="col-span-2 mt-10" />
-          <h1 className="text-gray-300 text-2xl text-center mt-5 col-span-2">
-            Registered Courses
-          </h1>
-          <TableCourses student={children} isEditCourses={isEditCourses} onDelete={handleRemoveCourse} />
-        </div>
-        {!isEditCourses ? null : (
-          <div className="flex justify-center mt-5 gap-5">
-            <input
-              type="text"
-              className="w-1/5 bg-eerie-black text-white rounded-lg p-2 border border-white outline-none focus:border-software-orange focus:text-white focus:bg-steadfast transition duration-300"
-              placeholder="Course ID"
-              value={inputCourse}
-              onChange={(e) => setInputCourse(e.target.value)}
-            />
-            <button className="bg-software-orange hover:bg-software-orange-hover text-white text-lg font-bold py-2 px-4 rounded-lg" onClick={handleRegCourse}>
-              Add
-            </button>
+          <div className="overflow-y-auto h-full px-2">
+            <div className="grid grid-cols-[repeat(2,1fr)] gap-x-4">
+              <Details student={children} />
+              <Edit
+                student={children}
+                inputTACourse={inputTACourse}
+                handleInputTACourse={handleInputTACourse}
+                isEditCourses={isEditCourses}
+                toggleEditCourses={toggleEditCourses}
+                handleSetTA={handleSetTA}
+              />
+            </div>
+            <Separator className="col-span-2 mt-10" />
+            <h1 className="text-gray-300 text-2xl text-center mt-5 col-span-2">
+              Registered Courses
+            </h1>
+            <TableCourses student={children} isEditCourses={isEditCourses} onDelete={handleRemoveCourse} />
+            {!isEditCourses ? null : (
+            <div className="col-span-2 flex justify-center mt-5 gap-5 h-fit">
+              <input
+                type="text"
+                className="w-1/5 bg-eerie-black text-white rounded-lg p-2 border border-white outline-none focus:border-software-orange focus:text-white focus:bg-steadfast transition duration-300"
+                placeholder="Course ID"
+                value={inputCourse}
+                onChange={(e) => setInputCourse(e.target.value)}
+              />
+              <button className="bg-software-orange hover:bg-software-orange-hover text-white text-lg font-bold py-2 px-4 rounded-lg" onClick={handleRegCourse}>
+                Add
+              </button>
+            </div>
+            )}
           </div>
-        )}
       </div>
     </div>
   );
