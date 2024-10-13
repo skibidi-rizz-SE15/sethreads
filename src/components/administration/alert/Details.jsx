@@ -18,13 +18,13 @@ function Details({ student }) {
         Year {student.year}
       </p>
       <div className="flex h-full justify-end items-center">
-        <p className="text-white text-sm mr-2">TA Status: </p>
+        <p className="text-white text-sm mr-2 text-nowrap w-fit">TA Status: </p>
         {student.is_ta ? (
           <FaCheck className="text-green-check" />
         ) : (
           <FaXmark className="text-red-600" />
         )}
-        { student.is_ta && (<p className="text-white text-sm ml-2">[{student.courseTAInfo.name}]</p>) }
+        { student.is_ta && (<p className="text-white text-sm ml-4">[{student.courseTAInfo.name}]</p>) }
       </div>
     </div>
   );
