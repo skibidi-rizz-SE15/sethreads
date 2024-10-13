@@ -10,6 +10,7 @@ const ReplySection = ({ subcomments }) => {
                         name={`${subcomment.author.name} ${subcomment.author.surname}`}
                         year={subcomment.author.year}
                         body={subcomment.reply_data}
+                        time={subcomment.create_at}
                     />
                 )
             })}
