@@ -11,7 +11,7 @@ const ThreadCard = ({ name, year, time, title, body, comments }) => {
       <div className="flex flex-col items-start mx-6 w-fit ">
         <Profile name={name} year={year} time={time}/>
         <TextTitle title={title} className='mt-3 line-clamp-6 text-ellipsis' />
-        <TextBody body={getPreviewHTMLString(body)} className='mt-2 line-clamp-3 text-ellipsis' />
+        <TextBody body={getPreviewHTMLString(body)} className='mt-2' />
       </div>
       <CommentBtn number={comments.length} />
     </article>

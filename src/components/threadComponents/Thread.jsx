@@ -53,7 +53,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
   const [onPost, setOnPost] = useState(false);
   const [onBottom, setOnBottom] = useState(false);
 
-  hljs.highlightAll();
+  // hljs.highlightAll();
 
   useEffect(() => {
     axios
