@@ -53,7 +53,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
   const [onPost, setOnPost] = useState(false);
   const [onBottom, setOnBottom] = useState(false);
 
-  hljs.highlightAll();
+  // hljs.highlightAll();
 
   useEffect(() => {
     axios
@@ -97,7 +97,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
   function deleteThread() {
     axios
       .delete(
-        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/delete-thread?thread_id=${threadId}`,
+        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? "home" : "thread"}/delete-thread?thread_id=${threadId}`,
         {
           headers: {
             "x-token": localStorage.getItem("token"),

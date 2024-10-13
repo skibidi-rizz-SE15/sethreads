@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import hljs from "highlight.js";
 import axios from "axios";
 
 import Comment from "./comment/Comment";
@@ -7,6 +8,10 @@ const CommentSection = ({ thread_id, isHome, isPostComment, studentId, triggerFe
     const [comments, setComments] = useState([]);
     const [limit, setLimit] = useState(20);
     const [offset, setOffset] = useState(0);
+
+    useEffect(() => {
+        hljs.highlightAll();
+    }, []);
 
     useEffect(() => {
         async function fetchDataFirst() {
@@ -42,7 +47,7 @@ const CommentSection = ({ thread_id, isHome, isPostComment, studentId, triggerFe
     useEffect(() => {
         async function fetchDataOnBottom() {
             try {
-                if (isBottom) {
+                if (isBottom && !isPostComment) {
                     const response = await fetchData();
                     setComments((prev) => [...prev, ...response.data]);
                     setOffset((prev) => prev + response.data.length);
