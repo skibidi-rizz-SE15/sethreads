@@ -12,9 +12,6 @@ const ProfileAlert = ({ isOpen, onClose, children, setStudent, EditCourse }) => 
   const [isEditCourses, setIsEditCourses] = useState(false);
 
   useEffect(() => {
-    if (children) {
-      setInputTACourse(children.is_ta ? children.ta_course_id : "N/A");
-    }
     if (EditCourse) {
       setIsEditCourses(true);
     } else {
@@ -114,7 +111,7 @@ const ProfileAlert = ({ isOpen, onClose, children, setStudent, EditCourse }) => 
         className="absolute inset-0 bg-black opacity-50"
         onClick={onClose}
       ></div>
-      <div className="relative z-10 bg-eerie-black text-white p-6 rounded-lg shadow-xl w-[70rem]">
+      <div className="relative z-10 h-[70%] min-h-[40rem] bg-eerie-black text-white p-10 m-4 rounded-lg shadow-xl w-[50rem]">
         <button
           className="absolute top-2 right-2 text-software-orange hover:text-software-orange-hover"
           onClick={onClose}
@@ -133,7 +130,7 @@ const ProfileAlert = ({ isOpen, onClose, children, setStudent, EditCourse }) => 
             />
           </svg>
         </button>
-        <div className="grid grid-cols-[repeat(2,1fr)]">
+        <div className="grid grid-cols-[repeat(2,1fr)] gap-x-4">
           <Details student={children} />
           <Edit
             student={children}
