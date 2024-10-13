@@ -11,7 +11,7 @@ const MainPage = ({ studentInfo, taCourse, isAdmin, resetState }) => {
   }
   
   return (
-    <div className='grid grid-cols-main-page grid-rows-[min-content_1fr] w-screen h-screen'>
+    <div className='grid grid-cols-main-page grid-rows-[min-content_1fr] w-screen h-screen min-w-[775px]'>
       <Navbar 
         studentName={`${studentInfo.name} ${studentInfo.surname}`}
         studentYear={studentInfo.year}

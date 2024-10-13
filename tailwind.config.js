@@ -16,7 +16,7 @@ module.exports = {
         "general-selected": "rgb(82 82 91)",
       },
       gridTemplateColumns: {
-        "main-page": "clamp(10rem, 20%, 15rem) 1fr"
+        "main-page": "clamp(12rem, 20%, 15rem) 1fr"
       },
     },
   },
