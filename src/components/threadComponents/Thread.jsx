@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { CiMenuKebab } from "react-icons/ci";
 import { GiPin } from "react-icons/gi";
 import axios from "axios";
-import hljs from "highlight.js";
+import { Bounce, Slide, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Profile from "../card/profile/Profile";
 import TextTitle from "../card/textTitle/TextTitle";
@@ -83,6 +84,32 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
       });
   }, [courseId, threadId, fromHome, isPostComment]);
 
+  function notify(isHighlight) {
+    if (isHighlight) {
+      toast("Thread PINNED!", {
+        position: "top-right",
+        autoClose: 500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        theme: "dark",
+        transition: Bounce,
+      });
+    } else {
+      toast("Thread UNPINNED!", {
+        position: "top-right",
+        autoClose: 500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        theme: "dark",
+        transition: Bounce,
+      });
+    }
+  }
+
   const formattedDateTime = new Intl.DateTimeFormat("en-GB", {
     day: "2-digit",
     month: "2-digit",
@@ -125,6 +152,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
       )
       .then((res) => {
         setIsPin((prev) => !prev);
+        notify(res.data.is_highlight);
       })
       .catch((err) => {
         console.log(err);
@@ -195,6 +223,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
 
   return (
     <div className="relative flex overflow-y-auto w-full" onScroll={handleScroll}>
+      <ToastContainer />
       <BackToCourseBtn toHome={fromHome} />
       <div className="flex flex-col px-9 py-10 mx-auto w-4/5 min-h-full h-max bg-neutral-800">
         <div className="w-full">
