@@ -9,6 +9,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 const LoginPage = ({ mode, handleLinkClick, handleStudentIdChange, handlePasswordChange, isSuccess, studentId, password, setIsSuccess }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [toggleAnimation, setToggleAnimation] = useState(false);
 
     const navigate = useNavigate();
 
@@ -64,6 +65,7 @@ const LoginPage = ({ mode, handleLinkClick, handleStudentIdChange, handlePasswor
             }).catch((err) => {
                 console.log(err);
                 setIsSuccess(false);
+                setToggleAnimation(!toggleAnimation);
             });
         } else if (mode === "sign-up") {
             axios.post(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/sign-up`,
@@ -80,6 +82,7 @@ const LoginPage = ({ mode, handleLinkClick, handleStudentIdChange, handlePasswor
             }).catch((err) => {
                 console.log(err);
                 setIsSuccess(false);
+                setToggleAnimation(!toggleAnimation);
             });
         }
     }
@@ -108,6 +111,7 @@ const LoginPage = ({ mode, handleLinkClick, handleStudentIdChange, handlePasswor
                         Login={handleLogin}
                         onStudentIdChange={handleStudentIdChange}
                         onPasswordChange={handlePasswordChange}
+                        triggerAnimation={toggleAnimation}
                         onSuccess={isSuccess} />
                 </div>
             </div>

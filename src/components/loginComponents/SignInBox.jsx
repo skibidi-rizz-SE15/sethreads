@@ -1,6 +1,6 @@
 import React from "react";
 
-const SignInBox = ({ mode="sign-in", handleLinkClick, Login, onStudentIdChange, onPasswordChange, onSuccess, studentId, password}) => {
+const SignInBox = ({ mode="sign-in", handleLinkClick, Login, onStudentIdChange, onPasswordChange, onSuccess, triggerAnimation, studentId, password}) => {
     let passwordPlaceholder, modeMessage, modeText, modeTextOpposite;
     if(mode === "sign-up"){
         passwordPlaceholder = "Create Password";
@@ -19,7 +19,7 @@ const SignInBox = ({ mode="sign-in", handleLinkClick, Login, onStudentIdChange, 
             <h1 className="text-2xl font-semibold text-center mb-6">{modeText}</h1>
             <form className="space-y-4">
                 <div>
-                    {onSuccess === false && <p className="text-red-500 text-sm">Invalid student ID or password</p>}
+                    {(onSuccess === false) && <p key={triggerAnimation} className="text-red-500 text-sm animate-wiggle">Invalid student ID or password</p>}
                     <input
                         type="text"
                         placeholder="Student ID"

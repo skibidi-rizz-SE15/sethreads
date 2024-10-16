@@ -18,6 +18,17 @@ module.exports = {
       gridTemplateColumns: {
         "main-page": "clamp(12rem, 20%, 15rem) 1fr"
       },
+      animation: {
+        'wiggle': 'wiggle 0.25s ease-in-out',
+      },
+      keyframes: {
+        wiggle: {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '25%': { transform: 'translateX(5px)' },
+          '50%': { transform: 'translateX(-5px)' },
+          '75%': { transform: 'translateX(5px)' },
+        }
+      },
     },
   },
 }
