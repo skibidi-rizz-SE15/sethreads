@@ -4,6 +4,7 @@ import { GiPin } from "react-icons/gi";
 import axios from "axios";
 import { Bounce, Slide, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "../../styles/custom-toastify.css";
 
 import Profile from "../card/profile/Profile";
 import TextTitle from "../card/textTitle/TextTitle";
@@ -86,26 +87,26 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
 
   function notify(isHighlight) {
     if (isHighlight) {
-      toast("Thread PINNED!", {
+      toast.info("Thread PINNED!", {
         position: "top-right",
-        autoClose: 500,
+        autoClose: 1000,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: false,
         draggable: false,
         theme: "dark",
-        transition: Bounce,
+        transition: Slide,
       });
     } else {
-      toast("Thread UNPINNED!", {
+      toast.info("Thread UNPINNED!", {
         position: "top-right",
-        autoClose: 500,
+        autoClose: 1000,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: false,
         draggable: false,
         theme: "dark",
-        transition: Bounce,
+        transition: Slide,
       });
     }
   }
