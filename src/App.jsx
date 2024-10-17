@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
 
 import LoginPage from './pages/LogIn/LoginPage';
 import AdminPage from './pages/Admin/AdminPage';
@@ -125,6 +126,7 @@ function App() {
         </Route>
         <Route path='/login' element={<LoginPage mode={mode} handleLinkClick={handleLinkClick} handleStudentIdChange={handleStudentIdChange} handlePasswordChange={handlePasswordChange} isSuccess={isSuccess} studentId={studentId} password={password} setIsSuccess={setIsSuccess} />} />
       </Routes>
+      <ToastContainer />
     </Router>
   );
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import SignInBox from "../../components/loginComponents/SignInBox";
 import Logo from "../../components/navbar/logo/Logo";
 import axios from "axios";
+import { Bounce, Slide, toast } from 'react-toastify';
 import Loading from "../../components/loading/Loading";
 
 import { Navigate, useNavigate } from "react-router-dom";
@@ -48,42 +49,121 @@ const LoginPage = ({ mode, handleLinkClick, handleStudentIdChange, handlePasswor
     function handleLogin(e) {
         e.preventDefault();
         if (mode === "sign-in") {
-            axios.post(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/sign-in`,
+            const minDelay = 1000; // Minimum delay in milliseconds
+    
+            toast.promise(
+                new Promise((resolve, reject) => {
+                    const startTime = Date.now();
+                    axios.post(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/sign-in`, {
+                        student_id: studentId,
+                        password: password
+                    })
+                    .then(res => {
+                        const elapsedTime = Date.now() - startTime;
+                        const remainingDelay = Math.max(0, minDelay - elapsedTime);
+                        
+                        setTimeout(() => resolve(res), remainingDelay);
+                    })
+                    .catch(err => {
+                        const elapsedTime = Date.now() - startTime;
+                        const remainingDelay = Math.max(0, minDelay - elapsedTime);
+                        
+                        setTimeout(() => reject(err), remainingDelay);
+                    });
+                }),
                 {
-                    student_id: studentId,
-                    password: password
-                }
-            ).then((res) => {
-                if (res.data.successful) {
-                    localStorage.setItem("token", res.data.token);
-                    setIsSuccess(true);
-                    if (res.data.admin) {
-                        navigate("/admin");
+                    pending: 'Signing in...',
+                    success: {
+                        render({data}) {
+                            if (data.data.successful) {
+                                localStorage.setItem("token", data.data.token);
+                                setIsSuccess(true);
+                                if (data.data.admin) {
+                                    navigate("/admin");
+                                } else {
+                                    navigate("/home");
+                                }
+                                return 'Signed in successfully!';
+                            } else {
+                                setIsSuccess(false);
+                                setToggleAnimation(prev => !prev);
+                                throw new Error('Login failed');
+                            }
+                        },
+                    },
+                    error: {
+                        render({data}) {
+                            setIsSuccess(false);
+                            setToggleAnimation(prev => !prev);
+                            console.error(data);
+                            return 'Failed to sign in. Please check your credentials.';
+                        }
                     }
-                    navigate("/home");
-                }
-            }).catch((err) => {
-                console.log(err);
-                setIsSuccess(false);
-                setToggleAnimation(!toggleAnimation);
-            });
-        } else if (mode === "sign-up") {
-            axios.post(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/sign-up`,
+                },
                 {
-                    student_id: studentId,
-                    password: password
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
                 }
-            ).then((res) => {
-                if (res.data.successful) {
-                    localStorage.setItem("token", res.data.token);
-                    setIsSuccess(true);
-                    navigate("/home");
+            );
+        } else if (mode === "sign-up") {
+            const minDelay = 1000; // Minimum delay in milliseconds
+    
+            toast.promise(
+                new Promise((resolve, reject) => {
+                    const startTime = Date.now();
+                    axios.post(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/sign-up`, {
+                        student_id: studentId,
+                        password: password
+                    })
+                    .then(res => {
+                        const elapsedTime = Date.now() - startTime;
+                        const remainingDelay = Math.max(0, minDelay - elapsedTime);
+                        
+                        setTimeout(() => resolve(res), remainingDelay);
+                    })
+                    .catch(err => {
+                        const elapsedTime = Date.now() - startTime;
+                        const remainingDelay = Math.max(0, minDelay - elapsedTime);
+                        
+                        setTimeout(() => reject(err), remainingDelay);
+                    });
+                }),
+                {
+                    pending: 'Signing up...',
+                    success: {
+                        render({data}) {
+                            if (data.data.successful) {
+                                localStorage.setItem("token", data.data.token);
+                                setIsSuccess(true);
+                                navigate("/home");
+                                return 'Signed up successfully!';
+                            } else {
+                                setIsSuccess(false);
+                                setToggleAnimation(prev => !prev);
+                                throw new Error('Login failed');
+                            }
+                        },
+                    },
+                    error: {
+                        render({data}) {
+                            setIsSuccess(false);
+                            setToggleAnimation(prev => !prev);
+                            console.error(data);
+                            return 'Failed to sign up. Please check your credentials.';
+                        }
+                    }
+                },
+                {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
                 }
-            }).catch((err) => {
-                console.log(err);
-                setIsSuccess(false);
-                setToggleAnimation(!toggleAnimation);
-            });
+            );
         }
     }
 

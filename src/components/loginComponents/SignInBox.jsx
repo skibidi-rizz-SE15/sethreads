@@ -30,7 +30,7 @@ const SignInBox = ({ mode="sign-in", handleLinkClick, Login, onStudentIdChange, 
             <div className={`transition-transform duration-300 ease-in-out ${slideDirection}`}>
                 <h1 className="text-2xl font-semibold text-center mb-6">{modeText}</h1>
                 <form className="space-y-4">
-                    <div>
+                    <div className='hover:cursor-text'>
                         {(onSuccess === false) && <p key={triggerAnimation} className="text-red-500 text-sm animate-wiggle">Invalid student ID or password</p>}
                         <input
                             type="text"
