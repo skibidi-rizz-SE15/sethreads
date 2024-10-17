@@ -79,6 +79,7 @@ function App() {
     setMode((prevMode) => (prevMode === "sign-in" ? "sign-up" : "sign-in"));
     setStudentId("");
     setPassword("");
+    setIsSuccess(null);
   }
 
   function handleStudentIdChange(e) { 

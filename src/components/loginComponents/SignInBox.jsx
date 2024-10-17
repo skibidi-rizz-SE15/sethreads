@@ -25,7 +25,7 @@ const SignInBox = ({ mode="sign-in", handleLinkClick, Login, onStudentIdChange, 
                         placeholder="Student ID"
                         className={`w-full px-4 py-2 rounded-md border ${
                             onSuccess === false ? 'border-red-500' : 'border-gray-300'
-                        } bg-gray-100 placeholder-gray-400 text-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-500`}
+                        } bg-gray-100 placeholder-gray-400 text-gray-600 focus:outline-none ${onSuccess === false ? '' : 'focus:ring-2 focus:ring-yellow-500 transition duration-300'}`}
                         value={studentId}
                         onChange={onStudentIdChange}
                         />
@@ -36,7 +36,7 @@ const SignInBox = ({ mode="sign-in", handleLinkClick, Login, onStudentIdChange, 
                         placeholder={passwordPlaceholder}
                         className={`w-full px-4 py-2 rounded-md border ${
                             onSuccess === false ? 'border-red-500' : 'border-gray-300'
-                        } bg-gray-100 placeholder-gray-400 text-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-500`}
+                        } bg-gray-100 placeholder-gray-400 text-gray-600 focus:outline-none ${onSuccess === false ? '' : 'focus:ring-2 focus:ring-yellow-500 transition duration-300'}`}
                         value={password}
                         onChange={onPasswordChange}
                         />
