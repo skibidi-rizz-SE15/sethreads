@@ -42,7 +42,7 @@ const Content = ({ courseId, courseName }) => {
     setIsLoading(true);
     setOffset(0);
     setLimit(10);
-    
+
     fetchData(0);
   }, [courseId]);
 
@@ -97,7 +97,7 @@ const Content = ({ courseId, courseName }) => {
       setOffset(currentOffset + 10);
     } catch (err) {
       console.error(err); 
-      setIsLoading(false);
+      setIsLoading(true);
     }
   };
   

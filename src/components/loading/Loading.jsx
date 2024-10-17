@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { TailSpin } from "react-loading-icons";
 
 const Loading = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -19,7 +20,9 @@ const Loading = () => {
                 alt="Loading"
                 className="object-contain aspect-[1.87] w-[120px] animate-pulse"
             />
-            {/* <p className="pt-3 mt-4 text-lg text-gray-300 typing-animation">Loading</p> */}
+            <div className="flex flex-col justify-center items-center mt-4">
+                <TailSpin stroke="#c6c6c6" speed={1.5} />
+            </div>
         </main>
     );
 }
