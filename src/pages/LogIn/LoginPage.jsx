@@ -101,7 +101,7 @@ const LoginPage = ({ mode, handleLinkClick, handleStudentIdChange, handlePasswor
                     }
                 },
                 {
-                    position: "top-right",
+                    position: "top-center",
                     autoClose: 2000,
                     hideProgressBar: false,
                     closeOnClick: true,
@@ -157,7 +157,7 @@ const LoginPage = ({ mode, handleLinkClick, handleStudentIdChange, handlePasswor
                     }
                 },
                 {
-                    position: "top-right",
+                    position: "top-center",
                     autoClose: 2000,
                     hideProgressBar: false,
                     closeOnClick: true,
