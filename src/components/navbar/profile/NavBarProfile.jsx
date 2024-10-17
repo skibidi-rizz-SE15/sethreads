@@ -49,7 +49,7 @@ const NavBarProfile = ({ name, year, resetState }) => {
         loading="lazy"
         src="https://cdn.builder.io/api/v1/image/assets/TEMP/da1e4bf63962c141c8657868b117ac6c66f46017effdd8b677ebbc75f8cd98fd?placeholderIfAbsent=true&apiKey=55e9f8a1f064422990695f1eab1a40f5"
         alt="User Avatar"
-        className={`self-center col-start-2 row-start-1 row-end-3 object-contain shrink-0 aspect-square rounded-[100px] w-[2rem]`}
+        className={`self-center col-start-2 row-start-1 row-end-3 object-contain shrink-0 aspect-square rounded-[100px] w-[2rem] hover:cursor-pointer`}
         onClick={() => setShowButton((prev) => !prev)}
       />
       {(year === -1 || year) && (<p className={`justify-self-end px-3 w-fit text-sm rounded-lg ${yearBackground}`}>{(year === -1) ? `ADMIN` : `Year ${year}`}</p>)}

@@ -50,7 +50,7 @@ const LoginPage = ({ mode, handleLinkClick, handleStudentIdChange, handlePasswor
         e.preventDefault();
         if (mode === "sign-in") {
             const minDelay = 1000; // Minimum delay in milliseconds
-    
+
             toast.promise(
                 new Promise((resolve, reject) => {
                     const startTime = Date.now();
