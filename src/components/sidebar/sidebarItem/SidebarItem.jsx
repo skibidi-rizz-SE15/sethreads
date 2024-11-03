@@ -1,10 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const SidebarItem = ({ subject }) => {
+const SidebarItem = ({ subject, to, isActive }) => {
   return (
-    <div className="text-wrap px-2.5 py-3 mt-6 rounded-lg bg-neutral-800 hover:bg-general-highlight">
-      {subject}
-    </div>
+    <Link to={to} className="">
+      <div className={`text-wrap px-2.5 py-3 mt-6 rounded-lg border border-general-highlight ${isActive ? 'bg-general-highlight' : 'hover:bg-general-highlight'} transition duration-200`}>
+        {subject}
+      </div>
+    </Link>
   );
 }
 

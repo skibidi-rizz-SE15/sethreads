@@ -1,12 +1,19 @@
 import React from "react";
 import Reply from "./reply/Reply";
 
-const ReplySection = () => {
+const ReplySection = ({ subcomments }) => {
     return (
         <div>
-            <Reply name={"dummy user"} body={"bla bla reply bla"} />
-            <Reply name={"michael jackson"} body={"hee reply hee hee hee"} />
-            <Reply name={"skibidop"} body={"dop dop yes yes hehehe ha"} />
+            {subcomments.map((subcomment) => {
+                return (
+                    <Reply
+                        name={`${subcomment.author.name} ${subcomment.author.surname}`}
+                        year={subcomment.author.year}
+                        body={subcomment.reply_data}
+                        time={subcomment.create_at}
+                    />
+                )
+            })}
         </div>
     )
 }
