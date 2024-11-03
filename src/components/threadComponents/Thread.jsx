@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { CiMenuKebab } from "react-icons/ci";
 import { GiPin } from "react-icons/gi";
 import axios from "axios";
-import { Bounce, Slide, ToastContainer, toast } from "react-toastify";
+import { Slide, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../styles/custom-toastify.css";
 
@@ -201,7 +201,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
   }
 
   function handleScroll(e) {
-    const bottom = e.target.scrollHeight - e.target.scrollTop == e.target.clientHeight;
+    const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
     if (bottom) {
       setIsBottom(true);
       setOnBottom(!onBottom);
@@ -224,7 +224,6 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
 
   return (
     <div className="relative flex overflow-y-auto w-full" onScroll={handleScroll}>
-      <ToastContainer />
       <BackToCourseBtn toHome={fromHome} />
       <div className="flex flex-col px-9 py-10 mx-auto w-4/5 min-h-full h-max bg-neutral-800">
         <div className="w-full">
