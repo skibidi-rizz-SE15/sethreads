@@ -17,7 +17,7 @@ const ThreadCard = ({ name, year, time, title, body, comments }) => {
       </div>
       <div className='flex w-full justify-end items-center text-white'>
         <FaHeart className='mt-1 mr-2 text-lg text-white'/>
-        <p className='mr-4 mt-1'>16</p>
+        <p className='mr-4 mt-1 text-sm'>16</p>
         <CommentBtn number={comments.length} />
       </div>
     </article>

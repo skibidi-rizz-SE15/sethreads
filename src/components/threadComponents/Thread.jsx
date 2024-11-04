@@ -4,8 +4,9 @@ import { GiPin } from "react-icons/gi";
 import axios from "axios";
 import { Slide, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../../styles/custom-toastify.css";
-
+import "../../styles/custom-toastify.css";   
+import { FaHeart } from "react-icons/fa";
+                                              
 import Profile from "../card/profile/Profile";
 import TextTitle from "../card/textTitle/TextTitle";
 import TextBody from "../card/textBody/TextBody";
@@ -283,7 +284,11 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
           <TextTitle title={threadData.title} className="mt-3" />
           <TextBody body={threadData.body} className="mt-2" />
         </div>
-        <CommentDisplay number={numComment} />
+        <div className="flex w-full justify-end items-center text-white font-medium text-sm">
+          <FaHeart className='text-lg text-white'/>
+          <p className='mr-3 ml-1'><span>16</span></p>
+          <CommentDisplay number={numComment} />
+        </div>
         <Separator className="w-full my-6" />
         <div className="flex flex-col w-full">
             <CommentEditor onChange={setCommentBody} ref={editorRef} />
