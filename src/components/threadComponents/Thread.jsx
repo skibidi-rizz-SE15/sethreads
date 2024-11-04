@@ -56,8 +56,6 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
   const [onPost, setOnPost] = useState(false);
   const [onBottom, setOnBottom] = useState(false);
 
-  // hljs.highlightAll();
-
   useEffect(() => {
     axios
       .get(
@@ -286,7 +284,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
         </div>
         <div className="flex w-full justify-end items-center text-white font-medium text-sm">
           <FaHeart className='text-lg text-white'/>
-          <p className='mr-3 ml-1'><span>16</span></p>
+          <p className='mr-3 ml-1'><span>{threadData.likes}</span></p>
           <CommentDisplay number={numComment} />
         </div>
         <Separator className="w-full my-6" />
