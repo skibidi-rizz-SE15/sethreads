@@ -7,7 +7,7 @@ import HighlightSection from "./highlightSection/HighlightSection";
 import ThreadSection from "./threadSection/ThreadSection";
 import Loading from "../loading/Loading";
 
-const Home = () => {
+function Home({ studentId }) {
   const [threads, setThreads] = useState([]);
   const [limit, setLimit] = useState(10);
   const [isLoading, setIsLoading] = useState(true);
@@ -159,6 +159,7 @@ const Home = () => {
           <ThreadSection
             threads={threads.filter((thread) => thread.is_highlight === false)}
             isHomePage={true}
+            studentId={studentId}
           />
         </div>
       )}

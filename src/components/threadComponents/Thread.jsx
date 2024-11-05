@@ -4,8 +4,9 @@ import { GiPin } from "react-icons/gi";
 import axios from "axios";
 import { Slide, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../../styles/custom-toastify.css";
-
+import "../../styles/custom-toastify.css";   
+import { FaHeart } from "react-icons/fa";
+                                              
 import Profile from "../card/profile/Profile";
 import TextTitle from "../card/textTitle/TextTitle";
 import TextBody from "../card/textBody/TextBody";
@@ -19,6 +20,7 @@ import AlertBox from "../alertbox/AlertBox";
 import Loading from "../loading/Loading";
 
 import { useParams } from "react-router-dom";
+import { FaS } from "react-icons/fa6";
 
 let useClickOutside = (handler) => {
   let domNode = useRef();
@@ -54,8 +56,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
   const [isBottom, setIsBottom] = useState(false);
   const [onPost, setOnPost] = useState(false);
   const [onBottom, setOnBottom] = useState(false);
-
-  // hljs.highlightAll();
+  const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     axios
@@ -72,7 +73,8 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
       )
       .then((res) => {
         setThreadData(res.data);
-        setNumComment(res.data.comments.length)
+        setNumComment(res.data.comments.length);
+        setIsLiked(res.data.liked_by.some((like) => like.student_id === studentId));
         if (res.data.is_highlight) {
           setIsPin(true);
         }
@@ -216,6 +218,29 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
     setIsOpen(false);
   });
 
+  function handleLikeThread(e) {
+    e.preventDefault();
+    axios.put(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? 'home' : 'thread'}/update-likes`, {
+      thread_id: threadId,
+      student_id: studentId,
+      is_like: !isLiked
+    }, {
+      headers: {
+        'x-token': localStorage.getItem('token')
+      }
+    }).then((res) => {
+      setThreadData((prev) => {
+        return {
+          ...prev,
+          likes: res.data,
+        };
+      });
+      setIsLiked(!isLiked);
+    }).catch((err) => {
+      console.error("Error:", err);
+    });
+  }
+
   if (isLoading) {
     return (
       <Loading />
@@ -268,7 +293,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
                           </button>
                           <button
                             onClick={() => setIsAlertOpen(true)}
-                            className="block w-full px-4 py-2 text-sm text-white text-left hover:bg-general-highlight"
+                            className="block w-full px-4 py-2 text-sm text-white text-left hover:bg-general-highlight transition duration-150"
                             role="menuitem"
                           >
                             Delete
@@ -283,7 +308,16 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
           <TextTitle title={threadData.title} className="mt-3" />
           <TextBody body={threadData.body} className="mt-2" />
         </div>
-        <CommentDisplay number={numComment} />
+        <div className="flex w-full justify-end items-center text-white font-medium text-sm">
+          <div 
+            className={`w-7 h-7 mr-1 rounded-full cursor-pointer flex justify-center items-center hover:${ (isLiked === true) ? 'bg-white' : 'bg-cherry-red'} transition duration-150`}
+            onClick={handleLikeThread}
+            >
+            <FaHeart className={`text-lg text-${ (isLiked === true) ? 'cherry-red' : 'white'}`}/>
+          </div>
+          <p className='mr-3 ml-1'><span>{threadData.likes}</span></p>
+          <CommentDisplay number={numComment} />
+        </div>
         <Separator className="w-full my-6" />
         <div className="flex flex-col w-full">
             <CommentEditor onChange={setCommentBody} ref={editorRef} />
