@@ -6,7 +6,7 @@ import ThreadSection from "./threadSection/ThreadSection";
 import Separator from "../separator/Separator";
 import Loading from "../loading/Loading";
 
-const Content = ({ courseId, courseName }) => {
+const Content = ({ courseId, courseName, studentId }) => {
   const [threads, setThreads] = useState([]);
   const [limit, setLimit] = useState(10);
   const [isLoading, setIsLoading] = useState(true);
@@ -153,7 +153,7 @@ const Content = ({ courseId, courseName }) => {
         <div>
           <HighlightSection highlightThreads={threads.filter((thread) => thread.is_highlight === true)} courseId={courseId} />
           <Separator className="my-6 w-full max-w-full" />
-          <ThreadSection threads={threads.filter((thread) => thread.is_highlight === false)} courseId={courseId} isHomePage={false}/>
+          <ThreadSection threads={threads.filter((thread) => thread.is_highlight === false)} courseId={courseId} isHomePage={false} studentId={studentId} />
         </div>
       )}
     </main>
