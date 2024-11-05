@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { FaHeart } from "react-icons/fa";
 
 import CommentBtn from '../../../button/post/CommentBtn';
@@ -7,12 +8,31 @@ import TextBody from '../../../card/textBody/TextBody';
 import TextTitle from '../../../card/textTitle/TextTitle';
 import { getPreviewHTMLString } from '../../../../utilities/HtmlFilter';
 
-const ThreadCard = ({ name, year, time, title, body, comments, likes, liked_by, studentId }) => {
+const ThreadCard = ({ thread_id, name, year, time, title, body, comments, likes, liked_by, studentId, fromHome, onLikeClick }) => {
   const [isLiked, setIsLiked] = useState(null)
+  const [numberOfLikes, setNumberOfLikes] = useState(likes);
 
   useEffect(() => {
     setIsLiked(liked_by.some((like) => like.student_id === studentId));
   }, [liked_by]);
+
+  function handleLikeThread(e) {
+    e.preventDefault();
+    axios.put(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? 'home' : 'thread'}/update-likes`, {
+      thread_id: thread_id,
+      student_id: studentId,
+      is_like: !isLiked
+    }, {
+      headers: {
+        'x-token': localStorage.getItem('token')
+      }
+    }).then((res) => {
+      setNumberOfLikes(res.data);
+      setIsLiked(!isLiked);
+    }).catch((err) => {
+      console.error("Error:", err);
+    });
+  }
 
   return (
     <article className="flex overflow-hidden flex-col self-center pt-6 pb-3.5 mx-auto my-1 rounded-3xl bg-neutral-800 hover:bg-general-highlight min-w-96 w-4/5 max-md:mt-10 transition duration-200">
@@ -22,10 +42,12 @@ const ThreadCard = ({ name, year, time, title, body, comments, likes, liked_by, 
         <TextBody body={getPreviewHTMLString(body)} className='mt-2 line-clamp-3 text-ellipsis' />
       </div>
       <div className='flex w-full justify-end items-center text-white'>
-        <div className={`w-7 h-7 mt-1 mr-1 rounded-full flex justify-center items-center hover:${isLiked ? "bg-white" : "bg-software-orange-hover"} transition duration-100`}>
+        <div 
+          className={`w-7 h-7 mt-1 mr-1 rounded-full flex justify-center items-center hover:${ isLiked===true ? 'bg-white' : 'bg-software-orange-hover'} transition duration-100`}
+          onClick={handleLikeThread}>
           <FaHeart className={`text-lg ${ isLiked ? 'text-software-orange' : 'text-white'}`}/>
         </div>
-        <p className='mr-4 mt-1 text-sm'>{likes}</p>
+        <p className='mr-4 mt-1 text-sm'>{numberOfLikes}</p>
         <CommentBtn number={comments.length} />
       </div>
     </article>

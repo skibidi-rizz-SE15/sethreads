@@ -153,7 +153,7 @@ const Content = ({ courseId, courseName, studentId }) => {
         <div>
           <HighlightSection highlightThreads={threads.filter((thread) => thread.is_highlight === true)} courseId={courseId} />
           <Separator className="my-6 w-full max-w-full" />
-          <ThreadSection threads={threads.filter((thread) => thread.is_highlight === false)} courseId={courseId} isHomePage={false} studentId={studentId} />
+          <ThreadSection threads={threads.filter((thread) => thread.is_highlight === false)} courseId={courseId} isHomePage={false} studentId={studentId} fromHome={false}/>
         </div>
       )}
     </main>
