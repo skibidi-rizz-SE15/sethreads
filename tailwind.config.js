@@ -14,6 +14,8 @@ module.exports = {
         "comment-highlight": "rgb(87 83 78)",
         "general-highlight": "rgb(64 64 64)",
         "general-selected": "rgb(82 82 91)",
+        "red-violet": "#c71585",
+        "cherry-red": "#E53935"
       },
       gridTemplateColumns: {
         "main-page": "clamp(12rem, 20%, 15rem) 1fr"

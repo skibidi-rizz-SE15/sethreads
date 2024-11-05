@@ -8,8 +8,8 @@ import TextBody from '../../../card/textBody/TextBody';
 import TextTitle from '../../../card/textTitle/TextTitle';
 import { getPreviewHTMLString } from '../../../../utilities/HtmlFilter';
 
-const ThreadCard = ({ thread_id, name, year, time, title, body, comments, likes, liked_by, studentId, fromHome, onLikeClick }) => {
-  const [isLiked, setIsLiked] = useState(null)
+const ThreadCard = ({ thread_id, name, year, time, title, body, comments, likes, liked_by, studentId, fromHome}) => {
+  const [isLiked, setIsLiked] = useState(liked_by.some((like) => like.student_id === studentId));
   const [numberOfLikes, setNumberOfLikes] = useState(likes);
 
   useEffect(() => {
@@ -43,9 +43,9 @@ const ThreadCard = ({ thread_id, name, year, time, title, body, comments, likes,
       </div>
       <div className='flex w-full justify-end items-center text-white'>
         <div 
-          className={`w-7 h-7 mt-1 mr-1 rounded-full flex justify-center items-center hover:${ isLiked===true ? 'bg-white' : 'bg-software-orange-hover'} transition duration-100`}
+          className={`w-7 h-7 mt-1 mr-1 rounded-full flex justify-center items-center hover:${(isLiked === true) ? "bg-white" : "bg-cherry-red"} transition duration-100`}
           onClick={handleLikeThread}>
-          <FaHeart className={`text-lg ${ isLiked ? 'text-software-orange' : 'text-white'}`}/>
+          <FaHeart className={`text-lg ${ isLiked ? 'text-cherry-red' : 'text-white'}`}/>
         </div>
         <p className='mr-4 mt-1 text-sm'>{numberOfLikes}</p>
         <CommentBtn number={comments.length} />
