@@ -15,7 +15,7 @@ const ThreadCard = ({ thread_id, name, year, time, title, body, comments, likes,
   useEffect(() => {
     setIsLiked(liked_by.some((like) => like.student_id === studentId));
   }, [liked_by]);
-  console.log(fromHome);
+  
   function handleLikeThread(e) {
     e.preventDefault();
     axios.put(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? 'home' : 'thread'}/update-likes`, {
