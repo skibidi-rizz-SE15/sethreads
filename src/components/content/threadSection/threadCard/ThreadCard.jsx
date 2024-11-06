@@ -43,7 +43,7 @@ const ThreadCard = ({ thread_id, name, year, time, title, body, comments, likes,
       </div>
       <div className='flex w-full justify-end items-center text-white'>
         <div 
-          className={`w-7 h-7 mt-1 mr-1 rounded-full flex justify-center items-center hover:${(isLiked === true) ? "bg-white" : "bg-cherry-red"} transition duration-100`}
+          className={`w-7 h-7 mt-1 mr-1 rounded-full flex justify-center items-center ${(isLiked === true) ? "hover:bg-white" : "hover:bg-cherry-red"} transition duration-100`}
           onClick={handleLikeThread}>
           <FaHeart className={`text-lg ${ isLiked ? 'text-cherry-red' : 'text-white'}`}/>
         </div>
