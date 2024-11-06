@@ -4,7 +4,7 @@ import Separator from '../../separator/Separator';
 
 import { Link } from 'react-router-dom';
 
-const ThreadSection = ({ threads, courseId, isHomePage, studentId, fromHome }) => {
+const ThreadSection = ({ threads, courseId, isHomePage, studentId }) => {
   function handleClickLike() {
     console.log('Like button clicke');
   }
@@ -21,7 +21,7 @@ const ThreadSection = ({ threads, courseId, isHomePage, studentId, fromHome }) =
             likes={thread.likes}
             liked_by={thread.liked_by}
             studentId={studentId}
-            fromHome={fromHome}
+            fromHome={isHomePage}
             onLikeClick={handleClickLike}
             className='min-w-96 w-4/5' />
           {index < threads.length - 1 && (<Separator className='mx-auto w-4/5 min-w-96' />)}
