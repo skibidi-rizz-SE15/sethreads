@@ -10,6 +10,12 @@ const ThreadSection = ({ threads, courseId, isHomePage, studentId }) => {
   }
   return (
     <section>
+      <div className='flex w-4/5 mx-auto min-w-96'>
+         <button className='bg-software-orange hover:bg-software-orange-hover text-white font-bold py-2 px-4 rounded-full mb-2'>
+          Create a new thread
+          </button> 
+      </div>
+      <Separator className='mx-auto w-4/5 min-w-96' />
       {threads.map((thread, index) => (
         <Link to={isHomePage ? `thread/${thread.id}` : `/course/${courseId}/thread/${thread.id}`} key={thread.id} className='contents'>
           <ThreadCard
