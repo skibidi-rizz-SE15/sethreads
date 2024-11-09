@@ -121,6 +121,22 @@ function Home({ studentId }) {
     }
   }
 
+  function handleSortThreads(by) {
+    if (by === "date") {
+      setThreads((prevThreads) => [...prevThreads].sort((a, b) => b.id - a.id));
+    } else if (by === "like") {
+      setThreads((prevThreads) => [...prevThreads].sort((a, b) => b.likes - a.likes));
+    }
+  }
+
+  function updateLikes(threadId, numberOfLikes) {
+    setThreads((prev) => 
+      prev.map((thread) => 
+        thread.id === threadId ? { ...thread, likes: numberOfLikes } : thread
+      )
+    );
+  }
+
   if (isLoading) {
     return <Loading />;
   }
@@ -160,6 +176,8 @@ function Home({ studentId }) {
             threads={threads.filter((thread) => thread.is_highlight === false)}
             isHomePage={true}
             studentId={studentId}
+            updateLikes={updateLikes}
+            onSort={handleSortThreads}
           />
         </div>
       )}

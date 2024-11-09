@@ -29,6 +29,16 @@ module.exports = {
           '25%': { transform: 'translateX(5px)' },
           '50%': { transform: 'translateX(-5px)' },
           '75%': { transform: 'translateX(5px)' },
+        },
+        fadeIn: {
+          '0%': {
+            opacity: '0',
+            
+          },
+          '100%': {
+            opacity: '1',
+            
+          }
         }
       },
     },

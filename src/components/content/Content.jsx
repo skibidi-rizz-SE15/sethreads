@@ -123,6 +123,22 @@ const Content = ({ courseId, courseName, studentId }) => {
     }
   }
 
+  function handleSortThreads(by) {
+    if (by === "date") {
+      setThreads((prevThreads) => [...prevThreads].sort((a, b) => b.id - a.id));
+    } else if (by === "like") {
+      setThreads((prevThreads) => [...prevThreads].sort((a, b) => b.likes - a.likes));
+    }
+  }
+
+  function updateLikes(threadId, numberOfLikes) {
+    setThreads((prev) => 
+      prev.map((thread) => 
+        thread.id === threadId ? { ...thread, likes: numberOfLikes } : thread
+      )
+    );
+  }
+
   if (isLoading) {
     return <Loading />;
   }
@@ -153,7 +169,7 @@ const Content = ({ courseId, courseName, studentId }) => {
         <div>
           <HighlightSection highlightThreads={threads.filter((thread) => thread.is_highlight === true)} courseId={courseId} />
           <Separator className="my-6 w-full max-w-full" />
-          <ThreadSection threads={threads.filter((thread) => thread.is_highlight === false)} courseId={courseId} isHomePage={false} studentId={studentId} fromHome={false}/>
+          <ThreadSection threads={threads.filter((thread) => thread.is_highlight === false)} courseId={courseId} isHomePage={false} studentId={studentId} fromHome={false} onSort={handleSortThreads} updateLikes={updateLikes}/>
         </div>
       )}
     </main>

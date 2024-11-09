@@ -1,19 +1,58 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { IoIosArrowDown } from "react-icons/io";
 import ThreadCard from './threadCard/ThreadCard';
 import Separator from '../../separator/Separator';
 
 import { Link } from 'react-router-dom';
 
-const ThreadSection = ({ threads, courseId, isHomePage, studentId }) => {
+let useClickOutside = (handler) => {
+  let domNode = useRef();
+
+  useEffect(() => {
+    let maybeHandler = (event) => {
+      if (!domNode.current.contains(event.target)) {
+        handler();
+      }
+    };
+
+    document.addEventListener('mousedown', maybeHandler);
+
+    return () => {
+      document.removeEventListener('mousedown', maybeHandler);
+    };
+  });
+
+  return domNode;
+};
+
+const ThreadSection = ({ threads, courseId, isHomePage, studentId, onSort, updateLikes }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  let domNode = useClickOutside(() => {
+    setIsOpen(false);
+  });
+
   function handleClickLike() {
     console.log('Like button clicke');
   }
+
   return (
     <section>
-      <div className='flex w-4/5 mx-auto min-w-96'>
-         <button className='bg-software-orange hover:bg-software-orange-hover text-white font-bold py-2 px-4 rounded-full mb-2'>
-          Create a new thread
+      <div ref={domNode} className='flex w-4/5 mx-auto min-w-96'>
+         <button className={`${isOpen ? 'bg-steadfast' : 'bg-neutral-800'} hover:bg-steadfast text-white text-sm font-bold p-2 pl-3 rounded-full mb-2`} onClick={() => setIsOpen(!isOpen)} >
+          Date
+          <IoIosArrowDown className='inline-block ml-1' />
           </button> 
+          { isOpen && (
+            <div className='absolute top-50 mt-10 bg-natural-800 w-32 h-fit bg-steadfast rounded-md animate-[fadeIn_0.125s_ease-in]'>
+              <button className='hover:bg-general-selected text-white text-sm font-bold w-full p-2 pl-3 text-left rounded-md' onClick={() => onSort("date")}>
+                Date
+              </button>
+              <button className='hover:bg-general-selected text-white text-sm font-bold w-full p-2 pl-3 text-left rounded-md' onClick={() => onSort("like")}>
+                Like
+              </button>
+            </div>
+          )}
       </div>
       <Separator className='mx-auto w-4/5 min-w-96' />
       {threads.map((thread, index) => (
@@ -29,6 +68,7 @@ const ThreadSection = ({ threads, courseId, isHomePage, studentId }) => {
             studentId={studentId}
             fromHome={isHomePage}
             onLikeClick={handleClickLike}
+            updateLikes={updateLikes}
             className='min-w-96 w-4/5' />
           {index < threads.length - 1 && (<Separator className='mx-auto w-4/5 min-w-96' />)}
         </Link>

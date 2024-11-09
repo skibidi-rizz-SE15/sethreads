@@ -8,7 +8,7 @@ import TextBody from '../../../card/textBody/TextBody';
 import TextTitle from '../../../card/textTitle/TextTitle';
 import { getPreviewHTMLString } from '../../../../utilities/HtmlFilter';
 
-const ThreadCard = ({ thread_id, name, year, time, title, body, comments, likes, liked_by, studentId, fromHome}) => {
+const ThreadCard = ({ thread_id, name, year, time, title, body, comments, likes, liked_by, studentId, fromHome, updateLikes}) => {
   const [isLiked, setIsLiked] = useState(liked_by.some((like) => like.student_id === studentId));
   const [numberOfLikes, setNumberOfLikes] = useState(likes);
 
@@ -28,6 +28,7 @@ const ThreadCard = ({ thread_id, name, year, time, title, body, comments, likes,
       }
     }).then((res) => {
       setNumberOfLikes(res.data);
+      updateLikes(thread_id, res.data);
       setIsLiked(!isLiked);
     }).catch((err) => {
       console.error("Error:", err);
