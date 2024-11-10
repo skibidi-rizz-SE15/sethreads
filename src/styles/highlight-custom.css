@@ -16,6 +16,10 @@ code {
     overflow-x: auto;
 }
 
+blockquote {
+    margin: 1.5rem 0;
+}
+
 .hljs {
     background-color: rgb(58, 58, 58);
     color: white;
