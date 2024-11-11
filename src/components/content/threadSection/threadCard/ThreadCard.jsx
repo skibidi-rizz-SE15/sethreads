@@ -8,14 +8,14 @@ import TextBody from '../../../card/textBody/TextBody';
 import TextTitle from '../../../card/textTitle/TextTitle';
 import { getPreviewHTMLString } from '../../../../utilities/HtmlFilter';
 
-const ThreadCard = ({ thread_id, name, year, time, title, body, comments, likes, liked_by, studentId, fromHome}) => {
+const ThreadCard = ({ thread_id, name, year, time, title, body, comments, likes, liked_by, studentId, fromHome, updateLikes}) => {
   const [isLiked, setIsLiked] = useState(liked_by.some((like) => like.student_id === studentId));
   const [numberOfLikes, setNumberOfLikes] = useState(likes);
 
   useEffect(() => {
     setIsLiked(liked_by.some((like) => like.student_id === studentId));
   }, [liked_by]);
-
+  
   function handleLikeThread(e) {
     e.preventDefault();
     axios.put(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? 'home' : 'thread'}/update-likes`, {
@@ -28,6 +28,7 @@ const ThreadCard = ({ thread_id, name, year, time, title, body, comments, likes,
       }
     }).then((res) => {
       setNumberOfLikes(res.data);
+      updateLikes(thread_id, res.data);
       setIsLiked(!isLiked);
     }).catch((err) => {
       console.error("Error:", err);
@@ -43,7 +44,7 @@ const ThreadCard = ({ thread_id, name, year, time, title, body, comments, likes,
       </div>
       <div className='flex w-full justify-end items-center text-white'>
         <div 
-          className={`w-7 h-7 mt-1 mr-1 rounded-full flex justify-center items-center hover:${(isLiked === true) ? "bg-white" : "bg-cherry-red"} transition duration-100`}
+          className={`w-7 h-7 mt-1 mr-1 rounded-full flex justify-center items-center ${(isLiked === true) ? "hover:bg-white" : "hover:bg-cherry-red"} transition duration-100`}
           onClick={handleLikeThread}>
           <FaHeart className={`text-lg ${ isLiked ? 'text-cherry-red' : 'text-white'}`}/>
         </div>

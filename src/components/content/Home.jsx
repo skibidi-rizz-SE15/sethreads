@@ -90,7 +90,7 @@ function Home({ studentId }) {
           },
         }
       );
-      setThreads(res.data);
+      setThreads(res.data.sort((a, b) => b.id - a.id));
       setIsLoading(false);
       setOffset(currentOffset + 10);
     } catch (err) {
@@ -119,6 +119,24 @@ function Home({ studentId }) {
         console.error(err);
       });
     }
+  }
+
+  function handleSortThreads(by) {
+    if (by === "Newest") {
+      setThreads((prevThreads) => [...prevThreads].sort((a, b) => b.id - a.id));
+    } else if (by === "Oldest") {
+      setThreads((prevThreads) => [...prevThreads].sort((a, b) => a.id - b.id));
+    } else if (by === "Like") {
+      setThreads((prevThreads) => [...prevThreads].sort((a, b) => b.likes - a.likes));
+    }
+  }
+
+  function updateLikes(threadId, numberOfLikes) {
+    setThreads((prev) => 
+      prev.map((thread) => 
+        thread.id === threadId ? { ...thread, likes: numberOfLikes } : thread
+      )
+    );
   }
 
   if (isLoading) {
@@ -160,6 +178,8 @@ function Home({ studentId }) {
             threads={threads.filter((thread) => thread.is_highlight === false)}
             isHomePage={true}
             studentId={studentId}
+            updateLikes={updateLikes}
+            onSort={handleSortThreads}
           />
         </div>
       )}
