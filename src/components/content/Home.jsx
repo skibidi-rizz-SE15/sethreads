@@ -90,7 +90,7 @@ function Home({ studentId }) {
           },
         }
       );
-      setThreads(res.data);
+      setThreads(res.data.sort((a, b) => b.id - a.id));
       setIsLoading(false);
       setOffset(currentOffset + 10);
     } catch (err) {
@@ -122,9 +122,11 @@ function Home({ studentId }) {
   }
 
   function handleSortThreads(by) {
-    if (by === "date") {
+    if (by === "Newest") {
       setThreads((prevThreads) => [...prevThreads].sort((a, b) => b.id - a.id));
-    } else if (by === "like") {
+    } else if (by === "Oldest") {
+      setThreads((prevThreads) => [...prevThreads].sort((a, b) => a.id - b.id));
+    } else if (by === "Like") {
       setThreads((prevThreads) => [...prevThreads].sort((a, b) => b.likes - a.likes));
     }
   }
