@@ -100,7 +100,7 @@ function Home({ studentId }) {
   };
   
   function handleScroll(e) {
-    const bottom = e.target.scrollHeight - e.target.scrollTop == e.target.clientHeight;
+    const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
     if (bottom) {
       axios.get(
         `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/home/get-all?limit=${limit}&offset=${offset}`,
