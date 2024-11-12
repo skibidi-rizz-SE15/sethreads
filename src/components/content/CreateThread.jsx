@@ -109,7 +109,7 @@ const CreateThread = ({ registeredCourses, ta_course, studentId }) => {
                 files={selectedFiles}
                 onDelete={(file) =>
                     setSelectedFiles((prev) =>
-                    prev.filter((f) => f.original_filename !== file.original_filename)
+                    prev.filter((f) => f.name !== file.name)
                     )
                 }
             />

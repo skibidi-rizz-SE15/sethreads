@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { File, Image, FileText, Music, Video, Download, Eye, X } from 'lucide-react';
+import { File, Image, FileText, Music, Video, X } from 'lucide-react';
+import { FaRegFilePdf } from "react-icons/fa";
 
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
@@ -95,7 +96,10 @@ const FilesCard = ({ files, onDelete }) => {
       return <Video className="w-6 h-6" />;
     } else if (file.name.match(/\.(mp3|wav|ogg)$/i)) {
       return <Music className="w-6 h-6" />;
-    } else {
+    } else if (file.name.match(/\.(pdf)$/i)) {
+        return <FaRegFilePdf className="w-6 h-6" />;
+    }
+    else {
       return <File className="w-6 h-6" />;
     }
   };
@@ -103,15 +107,6 @@ const FilesCard = ({ files, onDelete }) => {
   const handleFilePreview = (file) => {
     setSelectedFile(file);
     setPreviewOpen(true);
-  };
-
-  const handleDownload = (file) => {
-    const link = document.createElement('a');
-    link.href = `/uploads/${file.filename}`;
-    link.download = file.name;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
   };
 
   if (!files || files.length === 0) {
@@ -123,13 +118,10 @@ const FilesCard = ({ files, onDelete }) => {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow">
-      <div className="p-4 border-b">
-        <h3 className="text-lg font-semibold">Attached Files</h3>
-      </div>
-      <ul className="divide-y divide-gray-200">
+    <div className="">
+      <ul className="flex gap-4 flex-wrap">
         {files.map((file, index) => (
-          <li key={index} className="p-4 hover:bg-gray-50 transition-colors">
+          <li key={index} className="p-4 bg-white hover:bg-gray-50 transition duration-150 rounded-md cursor-pointer" onClick={() => handleFilePreview(file)}>
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 {getFileIcon(file)}
@@ -142,21 +134,7 @@ const FilesCard = ({ files, onDelete }) => {
                   </span>
                 </div>
               </div>
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={() => handleFilePreview(file)}
-                  className="p-1 text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-100"
-                  title="Preview"
-                >
-                  <Eye className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={() => handleDownload(file)}
-                  className="p-1 text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-100"
-                  title="Download"
-                >
-                  <Download className="w-5 h-5" />
-                </button>
+              <div className="flex items-center ml-3">                
                 {onDelete && (
                   <button
                     onClick={() => onDelete(file)}
