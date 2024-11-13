@@ -273,6 +273,15 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
     });
   }
 
+  function handleDownloadFile(file) {
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(file);
+    link.download = file.name;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   if (isLoading) {
     return (
       <Loading />
