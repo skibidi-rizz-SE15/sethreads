@@ -21,6 +21,7 @@ import Loading from "../loading/Loading";
 import FilesCard from "../card/filesCard/FilesCard";
 
 import { useParams } from "react-router-dom";
+import LikeBtn from "../button/like/LikeBtn";
 
 let useClickOutside = (handler) => {
   let domNode = useRef();
@@ -339,20 +340,12 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
           <TextTitle title={threadData.title} className="mt-3" />
           <TextBody body={threadData.body} className="mt-2" />
         </div>
-        <div className="flex w-full justify-end items-center text-white font-medium text-sm">
-          <div className="flex-1">
-            {files.length > 0 && (
-              <FilesCard files={files} />
-            )}
-          </div>
-          <div 
-            className={`w-7 h-7 mr-1 rounded-full cursor-pointer flex justify-center items-center hover:${ (isLiked === true) ? 'bg-white' : 'bg-cherry-red'} transition duration-150`}
-            onClick={handleLikeThread}
-            >
-            <FaHeart className={`text-lg text-${ (isLiked === true) ? 'cherry-red' : 'white'}`}/>
-          </div>
-          <p className='mr-3 ml-1'><span>{threadData.likes}</span></p>
-          <div className="flex justify-center items-center">
+        <div className="flex w-full items-center text-white font-medium text-sm">
+          {files.length > 0 && (
+            <FilesCard files={files} />
+          )}
+          <div className="flex ml-auto self-end -mb-3">
+            <LikeBtn isLiked={isLiked} likeCount={threadData.likes} handleLikeThread={handleLikeThread} />
             <CommentDisplay number={numComment} />
           </div>
         </div>

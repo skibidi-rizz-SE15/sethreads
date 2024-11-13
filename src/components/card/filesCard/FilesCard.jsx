@@ -117,7 +117,7 @@ const FilesCard = ({ files, onDelete }) => {
   }
 
   return (
-    <div className="">
+    <div className="flex">
       <ul className="flex gap-4 flex-wrap">
         {files.map((file, index) => (
           <li key={index} className="p-4 bg-white hover:bg-neutral-500 transition duration-150 rounded-md cursor-pointer" onClick={() => handleFilePreview(file)}>

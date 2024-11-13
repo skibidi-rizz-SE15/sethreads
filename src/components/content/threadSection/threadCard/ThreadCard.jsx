@@ -7,6 +7,7 @@ import Profile from '../../../card/profile/Profile';
 import TextBody from '../../../card/textBody/TextBody';
 import TextTitle from '../../../card/textTitle/TextTitle';
 import { getPreviewHTMLString } from '../../../../utilities/HtmlFilter';
+import LikeBtn from '../../../button/like/LikeBtn';
 
 const ThreadCard = ({ thread_id, name, year, time, title, body, comments, likes, liked_by, studentId, fromHome, updateLikes}) => {
   const [isLiked, setIsLiked] = useState(liked_by.some((like) => like.student_id === studentId));
@@ -42,13 +43,8 @@ const ThreadCard = ({ thread_id, name, year, time, title, body, comments, likes,
         <TextTitle title={title} className='mt-3 line-clamp-6 text-ellipsis' />
         <TextBody body={getPreviewHTMLString(body)} className='mt-2 line-clamp-3 text-ellipsis' />
       </div>
-      <div className='flex w-full justify-end items-center text-white'>
-        <div 
-          className={`w-7 h-7 mt-1 mr-1 rounded-full flex justify-center items-center ${(isLiked === true) ? "hover:bg-white" : "hover:bg-cherry-red"} transition duration-100`}
-          onClick={handleLikeThread}>
-          <FaHeart className={`text-lg ${ isLiked ? 'text-cherry-red' : 'text-white'}`}/>
-        </div>
-        <p className='mr-4 mt-1 text-sm'>{numberOfLikes}</p>
+      <div className='flex w-full justify-end items-center pt-2 px-6 text-white'>
+        <LikeBtn isLiked={isLiked} likeCount={numberOfLikes} handleLikeThread={handleLikeThread} />
         <CommentBtn number={comments.length} />
       </div>
     </article>
