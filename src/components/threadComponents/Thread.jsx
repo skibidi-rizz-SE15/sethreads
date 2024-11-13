@@ -83,7 +83,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
           const downloadPromises = res.data.files.map(async (file) => {
             const res = await axios
               .get(
-                `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/home/get-file?file_name=${file.file_name}&key=mysecretpassword`,
+                `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? "home" : "thread"}/get-file?file_name=${file.file_name}&thread_id=${threadId}`,
                 {
                   headers: {
                     "x-token": localStorage.getItem("token"),
@@ -340,7 +340,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
           <TextBody body={threadData.body} className="mt-2" />
         </div>
         <div className="flex w-full justify-end items-center text-white font-medium text-sm">
-          <div className="">
+          <div className="flex-1">
             {files.length > 0 && (
               <FilesCard files={files} />
             )}
@@ -352,7 +352,9 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
             <FaHeart className={`text-lg text-${ (isLiked === true) ? 'cherry-red' : 'white'}`}/>
           </div>
           <p className='mr-3 ml-1'><span>{threadData.likes}</span></p>
-          <CommentDisplay number={numComment} />
+          <div className="flex justify-center items-center">
+            <CommentDisplay number={numComment} />
+          </div>
         </div>
         <Separator className="w-full my-6" />
         <div className="flex flex-col w-full">
