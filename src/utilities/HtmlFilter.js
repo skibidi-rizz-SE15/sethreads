@@ -28,7 +28,7 @@ function getPreviewHTMLString(htmlString) {
   if (foundImgTag) {
     return imgTagHtml;
   } else if (foundParagraphTag) {
-    return `<p>${paragraphContent}...</p>`;
+    return `<p>${paragraphContent}</p>`;
   } else if (!foundParagraphTag) {
     const codeBlocks = doc.querySelectorAll('pre > code');
     if (codeBlocks.length > 0) {
