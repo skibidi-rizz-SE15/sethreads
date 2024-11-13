@@ -39,7 +39,7 @@ const FilePreviewDialog = ({ isOpen, onClose, file }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="p-6">
-        <h2 className="text-xl font-semibold mb-4">{file.name}</h2>
+        <h2 className="text-xl font-semibold mb-4 text-black">{file.name}</h2>
         <div className="mt-4">
           {isImage && (
             <img
@@ -89,15 +89,14 @@ const FilesCard = ({ files, onDelete }) => {
   };
 
   const getFileIcon = (file) => {
-    console.log(file);
     if (file.name.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
-      return <Image className="w-6 h-6" />;
+      return <Image className="w-6 h-6 text-black" />;
     } else if (file.name.match(/\.(mp4|webm|ogg)$/i)) {
-      return <Video className="w-6 h-6" />;
+      return <Video className="w-6 h-6 text-black" />;
     } else if (file.name.match(/\.(mp3|wav|ogg)$/i)) {
-      return <Music className="w-6 h-6" />;
+      return <Music className="w-6 h-6 text-black" />;
     } else if (file.name.match(/\.(pdf)$/i)) {
-        return <FaRegFilePdf className="w-6 h-6" />;
+        return <FaRegFilePdf className="w-6 h-6 text-black" />;
     }
     else {
       return <File className="w-6 h-6" />;
@@ -121,7 +120,7 @@ const FilesCard = ({ files, onDelete }) => {
     <div className="">
       <ul className="flex gap-4 flex-wrap">
         {files.map((file, index) => (
-          <li key={index} className="p-4 bg-white hover:bg-gray-50 transition duration-150 rounded-md cursor-pointer" onClick={() => handleFilePreview(file)}>
+          <li key={index} className="p-4 bg-white hover:bg-neutral-500 transition duration-150 rounded-md cursor-pointer" onClick={() => handleFilePreview(file)}>
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 {getFileIcon(file)}

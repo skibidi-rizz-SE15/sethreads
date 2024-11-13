@@ -18,9 +18,9 @@ import BackToCourseBtn from "../button/back/BackToCourseBtn";
 import PostCommentBtn from "../button/createComment/PostCommentBtn"
 import AlertBox from "../alertbox/AlertBox";
 import Loading from "../loading/Loading";
+import FilesCard from "../card/filesCard/FilesCard";
 
 import { useParams } from "react-router-dom";
-import { FaS } from "react-icons/fa6";
 
 let useClickOutside = (handler) => {
   let domNode = useRef();
@@ -57,6 +57,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
   const [onPost, setOnPost] = useState(false);
   const [onBottom, setOnBottom] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const [files, setFiles] = useState([]);
 
   useEffect(() => {
     axios
@@ -77,6 +78,36 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
         setIsLiked(res.data.liked_by.some((like) => like.student_id === studentId));
         if (res.data.is_highlight) {
           setIsPin(true);
+        }
+        if (res.data.files.length > 0) {
+          const downloadPromises = res.data.files.map(async (file) => {
+            const res = await axios
+              .get(
+                `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/home/get-file?file_name=${file.file_name}&key=mysecretpassword`,
+                {
+                  headers: {
+                    "x-token": localStorage.getItem("token"),
+                  },
+                  responseType: 'blob'
+                }
+              );
+            const contentType = res.headers['content-type'];
+            return new File([res.data], file.file_name, { type: contentType });
+          });
+          
+          Promise.all(downloadPromises)
+            .then((downloadedFiles) => {
+              setFiles((prev) => {
+                // Check if file already exists to prevent duplicates
+                const newFiles = downloadedFiles.filter(newFile => 
+                  !prev.some(existingFile => existingFile.name === newFile.name)
+                );
+                return [...prev, ...newFiles];
+              });
+            })
+            .catch((err) => {
+              console.log('Error downloading files:', err);
+            });
         }
       })
       .catch((err) => {
@@ -309,6 +340,11 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
           <TextBody body={threadData.body} className="mt-2" />
         </div>
         <div className="flex w-full justify-end items-center text-white font-medium text-sm">
+          <div className="">
+            {files.length > 0 && (
+              <FilesCard files={files} />
+            )}
+          </div>
           <div 
             className={`w-7 h-7 mr-1 rounded-full cursor-pointer flex justify-center items-center hover:${ (isLiked === true) ? 'bg-white' : 'bg-cherry-red'} transition duration-150`}
             onClick={handleLikeThread}

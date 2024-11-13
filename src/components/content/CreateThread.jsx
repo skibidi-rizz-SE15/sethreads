@@ -128,6 +128,7 @@ const CreateThread = ({ registeredCourses, ta_course, studentId }) => {
             createdBy={studentId}
             courseId={selectedCourseId}
             isValid={isValid}
+            files={selectedFiles}
             className="ml-auto"
           />
         </div>
