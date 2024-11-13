@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { File, Image, FileText, Music, Video, X } from 'lucide-react';
+import { File, Image, FileText, Music, Video, Download, X } from 'lucide-react';
 import { FaRegFilePdf } from "react-icons/fa";
 
 const Modal = ({ isOpen, onClose, children }) => {
@@ -33,6 +33,7 @@ const FilePreviewDialog = ({ isOpen, onClose, file }) => {
   const isImage = file.name.match(/\.(jpg|jpeg|png|gif|webp)$/i);
   const isVideo = file.name.match(/\.(mp4|webm|ogg)$/i);
   const isPDF = file.name.match(/\.(pdf)$/i);
+  const isText = file.name.match(/\.(txt)$/i);
 
   const url = URL.createObjectURL(file);
 
@@ -53,7 +54,7 @@ const FilePreviewDialog = ({ isOpen, onClose, file }) => {
               controls
               className="max-w-full h-auto rounded"
             >
-              <source src={`/uploads/${file.name}`} type="video/mp4" />
+              <source src={url} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           )}
@@ -64,7 +65,14 @@ const FilePreviewDialog = ({ isOpen, onClose, file }) => {
               title={file.name}
             />
           )}
-          {!isImage && !isVideo && !isPDF && (
+          {isText && (
+            <iframe
+              src={url}
+              className="w-full h-[600px] rounded text-gray-900"
+              title={file.name}
+            />
+          )}
+          {!isImage && !isVideo && !isPDF && !isText && (
             <div className="text-center py-8">
               <FileText className="w-16 h-16 mx-auto text-gray-400" />
               <p className="mt-2">Preview not available for this file type</p>
@@ -76,7 +84,7 @@ const FilePreviewDialog = ({ isOpen, onClose, file }) => {
   );
 };
 
-const FilesCard = ({ files, onDelete }) => {
+const FilesCard = ({ files, onDelete, onDownload }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewOpen, setPreviewOpen] = useState(false);
 
@@ -133,7 +141,19 @@ const FilesCard = ({ files, onDelete }) => {
                   </span>
                 </div>
               </div>
-              <div className="flex items-center ml-3">                
+              <div className="flex items-center ml-3">
+                {onDownload && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onDownload(file);
+                    }}
+                    className="p-1 text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-50"
+                    title="Download"
+                  >
+                    <Download className="w-5 h-5" />
+                  </button>
+                )}
                 {onDelete && (
                   <button
                     onClick={() => onDelete(file)}

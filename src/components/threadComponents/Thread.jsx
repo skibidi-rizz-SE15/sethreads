@@ -272,6 +272,15 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
     });
   }
 
+  function handleDownloadFile(file) {
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(file);
+    link.download = file.name;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   if (isLoading) {
     return (
       <Loading />
@@ -342,7 +351,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
         <div className="flex w-full justify-end items-center text-white font-medium text-sm">
           <div className="flex-1">
             {files.length > 0 && (
-              <FilesCard files={files} />
+              <FilesCard files={files} onDownload={handleDownloadFile} />
             )}
           </div>
           <div 
