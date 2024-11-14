@@ -84,7 +84,7 @@ const FilePreviewDialog = ({ isOpen, onClose, file }) => {
   );
 };
 
-const FilesCard = ({ files, onDelete, onDownload }) => {
+const FilesCard = ({ files, onDelete, onDownload, className = "" }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewOpen, setPreviewOpen] = useState(false);
 
@@ -125,21 +125,20 @@ const FilesCard = ({ files, onDelete, onDownload }) => {
   }
 
   return (
-    <ul className="flex gap-4 flex-wrap">
+    <ul className={`flex flex-wrap gap-2 overflow-x-visible overflow-y-auto pr-2 -mr-2 max-h-[12rem] ${className}`}>
       {files.map((file, index) => (
         <li key={index} className="p-4 bg-white hover:bg-neutral-500 transition duration-150 rounded-md cursor-pointer" onClick={() => handleFilePreview(file)}>
           <div className="flex items-center justify-between">
-            <div className="relative group flex items-center space-x-3">
+            <div className="flex items-center space-x-3">
               {getFileIcon(file)}
               <div className="flex flex-col">
-                <span className="text-sm font-medium text-gray-900">
+                <span className="text-sm font-medium w-max text-gray-900 max-w-[8rem] overflow-hidden text-ellipsis">
                   {file.name}
                 </span>
                 <span className="text-xs text-gray-500">
                   {formatFileSize(file.size)}
                 </span>
               </div>
-              <div className='absolute bottom-full left-8 w-max text-white bg-black px-1 opacity-0 group-hover:opacity-100'>{file.name}</div>
             </div>
             <div className="flex items-center ml-3">
               {onDownload && (
