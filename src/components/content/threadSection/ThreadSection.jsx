@@ -40,8 +40,7 @@ const ThreadSection = ({ threads, courseId, isHomePage, studentId, onSort, updat
 
   return (
     <section className='flex flex-col w-4/5 mx-auto min-w-96'>
-      <div ref={domNode} className='flex w-full'>
-        <button className={`${isOpen ? 'bg-steadfast' : 'bg-neutral-800'} hover:bg-steadfast text-white text-sm font-bold p-2 pl-3 rounded-full mb-2`} onClick={() => setIsOpen(!isOpen)} >
+        <button ref={domNode} className={`${isOpen ? 'bg-steadfast' : 'bg-neutral-800'} hover:bg-steadfast text-white text-sm font-bold p-2 pl-3 w-fit rounded-full mb-2`} onClick={() => setIsOpen(!isOpen)} >
           {SortPlaceholder}
           <IoIosArrowDown className='inline-block ml-1' />
         </button>
@@ -58,7 +57,6 @@ const ThreadSection = ({ threads, courseId, isHomePage, studentId, onSort, updat
             </button>
           </div>
         )}
-      </div>
       <Separator className='w-full' />
       <section>
         {threads.map((thread, index) => (
