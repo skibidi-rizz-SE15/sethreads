@@ -148,7 +148,7 @@ function Home({ studentId }) {
       className={`
         flex flex-col 
         overflow-y-auto 
-        px-9 pt-10 
+        px-9 py-10 
         mx-auto 
         w-full 
         bg-neutral-800 
