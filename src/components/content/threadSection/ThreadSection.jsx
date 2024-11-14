@@ -39,44 +39,46 @@ const ThreadSection = ({ threads, courseId, isHomePage, studentId, onSort, updat
   }
 
   return (
-    <section>
-      <div ref={domNode} className='flex w-4/5 mx-auto min-w-96'>
-         <button className={`${isOpen ? 'bg-steadfast' : 'bg-neutral-800'} hover:bg-steadfast text-white text-sm font-bold p-2 pl-3 rounded-full mb-2`} onClick={() => setIsOpen(!isOpen)} >
+    <section className='flex flex-col w-4/5 mx-auto min-w-96'>
+      <div ref={domNode} className='flex w-full'>
+        <button className={`${isOpen ? 'bg-steadfast' : 'bg-neutral-800'} hover:bg-steadfast text-white text-sm font-bold p-2 pl-3 rounded-full mb-2`} onClick={() => setIsOpen(!isOpen)} >
           {SortPlaceholder}
           <IoIosArrowDown className='inline-block ml-1' />
-          </button> 
-          { isOpen && (
-            <div className='absolute top-50 mt-10 bg-natural-800 w-32 h-fit bg-steadfast rounded-md animate-[fadeIn_0.125s_ease-in]'>
-              <button className='hover:bg-general-selected text-white text-sm font-bold w-full p-2 pl-3 text-left rounded-md' onClick={() => handleSortThreads("Newest")}>
-                Newest
-              </button>
-              <button className='hover:bg-general-selected text-white text-sm font-bold w-full p-2 pl-3 text-left rounded-md' onClick={() => handleSortThreads("Oldest")}>
-                Oldest
-              </button>
-              <button className='hover:bg-general-selected text-white text-sm font-bold w-full p-2 pl-3 text-left rounded-md' onClick={() => handleSortThreads("Like")}>
-                Like
-              </button>
-            </div>
-          )}
+        </button>
+        {isOpen && (
+          <div className='absolute top-50 mt-10 bg-natural-800 w-32 h-fit bg-steadfast rounded-md animate-[fadeIn_0.125s_ease-in]'>
+            <button className='hover:bg-general-selected text-white text-sm font-bold w-full p-2 pl-3 text-left rounded-md' onClick={() => handleSortThreads("Newest")}>
+              Newest
+            </button>
+            <button className='hover:bg-general-selected text-white text-sm font-bold w-full p-2 pl-3 text-left rounded-md' onClick={() => handleSortThreads("Oldest")}>
+              Oldest
+            </button>
+            <button className='hover:bg-general-selected text-white text-sm font-bold w-full p-2 pl-3 text-left rounded-md' onClick={() => handleSortThreads("Like")}>
+              Like
+            </button>
+          </div>
+        )}
       </div>
-      <Separator className='mx-auto w-4/5 min-w-96' />
-      {threads.map((thread, index) => (
-        <Link to={isHomePage ? `thread/${thread.id}` : `/course/${courseId}/thread/${thread.id}`} key={thread.id} className='contents'>
-          <ThreadCard
-            thread_id={thread.id} 
-            name={`${thread.author.name} ${thread.author.surname}`} 
-            year={thread.author.year} time={thread.create_at}
-            title={thread.title} body={thread.body}
-            comments={thread.comments}
-            likes={thread.likes}
-            liked_by={thread.liked_by}
-            studentId={studentId}
-            fromHome={isHomePage}
-            updateLikes={updateLikes}
-            className='min-w-96 w-4/5' />
-          {index < threads.length - 1 && (<Separator className='mx-auto w-4/5 min-w-96' />)}
-        </Link>
-      ))}
+      <Separator className='w-full' />
+      <section>
+        {threads.map((thread, index) => (
+          <Link to={isHomePage ? `thread/${thread.id}` : `/course/${courseId}/thread/${thread.id}`} key={thread.id} className='contents'>
+            <ThreadCard
+              thread_id={thread.id}
+              name={`${thread.author.name} ${thread.author.surname}`}
+              year={thread.author.year} time={thread.create_at}
+              title={thread.title} body={thread.body}
+              comments={thread.comments}
+              likes={thread.likes}
+              liked_by={thread.liked_by}
+              studentId={studentId}
+              fromHome={isHomePage}
+              updateLikes={updateLikes}
+              className='min-w-96 w-full' />
+            {index < threads.length - 1 && (<Separator className='w-full' />)}
+          </Link>
+        ))}
+      </section>
     </section>
   );
 }
