@@ -25,20 +25,12 @@ const ThreadTitleEditor = ({ onChange }) => {
             CharacterCount.configure({ limit }),
         ],
         content: `<p></p>`,
-        onCreate: ({ editor }) => {
-            editor.commands.setBold();
-        },
         onUpdate: ({ editor }) => {
-            const isBold = editor.isActive('bold');
-            if (!isBold) {
-                editor.commands.setBold();
-            }
-
             //pass the content of the editor back to the parent
-            const currentContent = editor.getHTML();
             if (onChange) {
                 if(!editor.isEmpty){
-                    onChange(currentContent);
+                    const currentText = editor.getText();
+                    onChange(`<p><strong>${currentText}</strong></p>`);
                 } else {
                     onChange("");
                 }
