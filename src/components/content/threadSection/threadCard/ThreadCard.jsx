@@ -43,8 +43,8 @@ const ThreadCard = ({ thread_id, name, year, time, title, body, comments, likes,
         <TextTitle title={title} className='mt-3 line-clamp-6 text-ellipsis' />
         <TextBody body={getPreviewHTMLString(body)} className='mt-2 line-clamp-3 text-ellipsis' />
       </div>
-      <div className='flex w-full justify-end items-center mt-2 text-white'>
-        <LikeBtn isLiked={isLiked} likeCount={numberOfLikes} handleLikeThread={handleLikeThread} className='mr-auto -ml-2.5' />
+      <div className='flex items-center mt-2 -ml-2.5 text-white'>
+        <LikeBtn isLiked={isLiked} likeCount={numberOfLikes} handleLikeThread={handleLikeThread} />
         <CommentBtn number={comments.length} />
       </div>
     </article>
