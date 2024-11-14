@@ -37,14 +37,14 @@ const ThreadCard = ({ thread_id, name, year, time, title, body, comments, likes,
   }
 
   return (
-    <article className="flex overflow-hidden flex-col self-center pt-6 pb-3.5 mx-auto my-1 rounded-3xl bg-neutral-800 hover:bg-general-highlight transition duration-200">
-      <div className="flex flex-col items-start mx-6 w-fit ">
+    <article className="flex overflow-hidden flex-col self-center px-6 pt-6 pb-3.5 mx-auto my-1 rounded-3xl bg-neutral-800 hover:bg-general-highlight transition duration-200">
+      <div className="flex flex-col items-start w-fit">
         <Profile name={name} year={year} time={time}/>
         <TextTitle title={title} className='mt-3 line-clamp-6 text-ellipsis' />
         <TextBody body={getPreviewHTMLString(body)} className='mt-2 line-clamp-3 text-ellipsis' />
       </div>
-      <div className='flex w-full justify-end items-center pt-2 px-6 text-white'>
-        <LikeBtn isLiked={isLiked} likeCount={numberOfLikes} handleLikeThread={handleLikeThread} />
+      <div className='flex w-full justify-end items-center mt-2 text-white'>
+        <LikeBtn isLiked={isLiked} likeCount={numberOfLikes} handleLikeThread={handleLikeThread} className='mr-auto -ml-2.5' />
         <CommentBtn number={comments.length} />
       </div>
     </article>
