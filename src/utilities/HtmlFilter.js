@@ -1,4 +1,4 @@
-function getPreviewHTMLString(htmlString) {
+const getPreviewHTMLString = (htmlString) => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(htmlString, 'text/html');
 
@@ -19,7 +19,6 @@ function getPreviewHTMLString(htmlString) {
       paragraphContent = element.innerHTML;
     }
 
-    // Capture the first element if we haven't already
     if (!firstElementHtml && (element.nodeType === Node.ELEMENT_NODE || (element.nodeType === Node.TEXT_NODE && element.textContent.trim()))) {
       firstElementHtml = element.outerHTML || `<p>${element.textContent.trim()}</p>`;
     }
