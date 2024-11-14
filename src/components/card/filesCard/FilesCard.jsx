@@ -8,11 +8,11 @@ const Modal = ({ isOpen, onClose, children }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
-      <div 
+      <div
         className="fixed inset-0 bg-black bg-opacity-50"
         onClick={onClose}
       />
-      
+
       {/* Modal content */}
       <div className="relative z-50 bg-white rounded-lg shadow-xl max-w-4xl w-full m-4">
         <button
@@ -104,7 +104,7 @@ const FilesCard = ({ files, onDelete, onDownload }) => {
     } else if (file.name.match(/\.(mp3|wav|ogg)$/i)) {
       return <Music className="w-6 h-6 text-black" />;
     } else if (file.name.match(/\.(pdf)$/i)) {
-        return <FaRegFilePdf className="w-6 h-6 text-black" />;
+      return <FaRegFilePdf className="w-6 h-6 text-black" />;
     }
     else {
       return <File className="w-6 h-6" />;
@@ -125,49 +125,48 @@ const FilesCard = ({ files, onDelete, onDownload }) => {
   }
 
   return (
-    <div className="flex">
-      <ul className="flex gap-4 flex-wrap">
-        {files.map((file, index) => (
-          <li key={index} className="p-4 bg-white hover:bg-neutral-500 transition duration-150 rounded-md cursor-pointer" onClick={() => handleFilePreview(file)}>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                {getFileIcon(file)}
-                <div className="flex flex-col">
-                  <span className="text-sm font-medium text-gray-900">
-                    {file.name}
-                  </span>
-                  <span className="text-xs text-gray-500">
-                    {formatFileSize(file.size)}
-                  </span>
-                </div>
+    <ul className="flex gap-4 flex-wrap">
+      {files.map((file, index) => (
+        <li key={index} className="p-4 bg-white hover:bg-neutral-500 transition duration-150 rounded-md cursor-pointer" onClick={() => handleFilePreview(file)}>
+          <div className="flex items-center justify-between">
+            <div className="relative group flex items-center space-x-3">
+              {getFileIcon(file)}
+              <div className="flex flex-col">
+                <span className="text-sm font-medium text-gray-900">
+                  {file.name}
+                </span>
+                <span className="text-xs text-gray-500">
+                  {formatFileSize(file.size)}
+                </span>
               </div>
-              <div className="flex items-center ml-3">
-                {onDownload && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onDownload(file);
-                    }}
-                    className="p-1 text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-50"
-                    title="Download"
-                  >
-                    <Download className="w-5 h-5" />
-                  </button>
-                )}
-                {onDelete && (
-                  <button
-                    onClick={() => onDelete(file)}
-                    className="p-1 text-red-500 hover:text-red-700 rounded-full hover:bg-red-50"
-                    title="Delete"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
-                )}
-              </div>
+              <div className='absolute bottom-full left-8 w-max text-white bg-black px-1 opacity-0 group-hover:opacity-100'>{file.name}</div>
             </div>
-          </li>
-        ))}
-      </ul>
+            <div className="flex items-center ml-3">
+              {onDownload && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDownload(file);
+                  }}
+                  className="p-1 text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-50"
+                  title="Download"
+                >
+                  <Download className="w-5 h-5" />
+                </button>
+              )}
+              {onDelete && (
+                <button
+                  onClick={() => onDelete(file)}
+                  className="p-1 text-red-500 hover:text-red-700 rounded-full hover:bg-red-50"
+                  title="Delete"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              )}
+            </div>
+          </div>
+        </li>
+      ))}
 
       <FilePreviewDialog
         isOpen={previewOpen}
@@ -177,7 +176,7 @@ const FilesCard = ({ files, onDelete, onDownload }) => {
         }}
         file={selectedFile}
       />
-    </div>
+    </ul>
   );
 };
 

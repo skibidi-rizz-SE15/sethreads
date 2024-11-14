@@ -5,7 +5,6 @@ import axios from "axios";
 import { Slide, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../styles/custom-toastify.css";   
-import { FaHeart } from "react-icons/fa";
                                               
 import Profile from "../card/profile/Profile";
 import TextTitle from "../card/textTitle/TextTitle";
@@ -353,7 +352,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
           {files.length > 0 && (
             <FilesCard files={files} />
           )}
-          <div className="flex ml-auto self-end -mb-3">
+          <div className="flex w-max ml-auto self-end -mb-3">
             <LikeBtn isLiked={isLiked} likeCount={threadData.likes} handleLikeThread={handleLikeThread} />
             <CommentDisplay number={numComment} />
           </div>
