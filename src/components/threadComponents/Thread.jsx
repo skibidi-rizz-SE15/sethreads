@@ -378,18 +378,18 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
       <AlertBox isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)}>
         <h2 className="text-xl font-bold mb-4">Confirm Deletion</h2>
         <p>Are you sure you want to delete this thread?</p>
-        <div className="mt-4 flex justify-end">
-          <button
-            onClick={() => setIsAlertOpen(false)}
-            className="mr-2 px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-500"
-          >
-            Cancel
-          </button>
+        <div className="mt-4 gap-2 flex justify-end">
           <button
             onClick={deleteThread}
             className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
           >
             Delete
+          </button>
+          <button
+            onClick={() => setIsAlertOpen(false)}
+            className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-500"
+          >
+            Cancel
           </button>
         </div>
       </AlertBox>
