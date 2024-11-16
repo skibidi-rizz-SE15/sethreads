@@ -15,7 +15,8 @@ module.exports = {
         "general-highlight": "rgb(64 64 64)",
         "general-selected": "rgb(82 82 91)",
         "red-violet": "#c71585",
-        "cherry-red": "#E53935"
+        "cherry-red": "#E53935",
+        "pale-gray": "#E0E0E0",
       },
       gridTemplateColumns: {
         "main-page": "clamp(12rem, 20%, 15rem) 1fr"
@@ -37,6 +38,16 @@ module.exports = {
           },
           '100%': {
             opacity: '1',
+            
+          }
+        },
+        fadeOut: {
+          '0%': {
+            opacity: '1',
+            
+          },
+          '100%': {
+            opacity: '0',
             
           }
         }

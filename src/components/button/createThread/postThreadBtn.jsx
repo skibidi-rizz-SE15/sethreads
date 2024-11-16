@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const PostThreadBtn = ({ title, body, createdBy, courseId, isValid, files, isNotify, className="" }) => {
+const PostThreadBtn = ({ title, body, createdBy, courseId, isValid, onPost, files, isNotify, className="" }) => {
   const navigate = useNavigate();
 
   const formattedDateTime = new Intl.DateTimeFormat("en-GB", {
@@ -96,6 +96,7 @@ const PostThreadBtn = ({ title, body, createdBy, courseId, isValid, files, isNot
 
   function handlePostThread() {
     if (isValid) {
+      onPost();
       const minDelay = 1000; // Minimum delay in milliseconds
       toast.promise(
         new Promise((resolve, reject) => {

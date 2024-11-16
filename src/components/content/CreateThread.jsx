@@ -19,9 +19,13 @@ const CreateThread = ({ registeredCourses, ta_course, studentId }) => {
   });
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [isNotify, setIsNotify] = useState(false);
+  const [isValid, setIsValid] = useState(false);
 
-  const isValid = title && body && selectedCourseId;
   const isAllowNotify = ta_course ? ta_course.course_id === selectedCourseId : studentId === "admin";
+
+  useEffect(() => {
+    setIsValid(selectedCourseId && title && body);
+  }, [selectedCourseId, title, body]);
 
   useEffect(() => {
     const delays = {
@@ -112,11 +116,7 @@ const CreateThread = ({ registeredCourses, ta_course, studentId }) => {
         {(selectedFiles.length > 0) && (
             <FilesCard
                 files={selectedFiles}
-                onDelete={(file) =>
-                    setSelectedFiles((prev) =>
-                    prev.filter((f) => f.name !== file.name)
-                    )
-                }
+                onDelete={(file) => setSelectedFiles((prev) => prev.filter((f) => f.lastModified !== file.lastModified))}
             />
         )}
 
@@ -132,6 +132,9 @@ const CreateThread = ({ registeredCourses, ta_course, studentId }) => {
             body={body}
             createdBy={studentId}
             courseId={selectedCourseId}
+            onPost={() => {
+              setIsValid(false);
+            }}
             isValid={isValid}
             files={selectedFiles}
             isNotify={isNotify && isAllowNotify}

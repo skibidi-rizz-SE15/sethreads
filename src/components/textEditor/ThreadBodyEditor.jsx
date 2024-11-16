@@ -141,6 +141,11 @@ const ThreadBodyEditor = ({ onChange, handleFileSelect }) => {
         }
       }
     },
+    editorProps: {
+      attributes: {
+        class: "p-4 border border-neutral-700 rounded min-h-40 shadow-sm focus:outline-none focus:border-white focus:bg-neutral-700 transition duration-200"
+      },
+    }
   });
 
   const setLink = useCallback(() => {
@@ -315,7 +320,6 @@ const ThreadBodyEditor = ({ onChange, handleFileSelect }) => {
       )}
       <EditorContent
         editor={editor}
-        className="p-4 border border-neutral-700 rounded min-h-40 shadow-sm focus:outline-none hover:border-neutral-500 hover:bg-neutral-700"
         onClick={() => editor.commands.focus()}
       />
       {editor && (
