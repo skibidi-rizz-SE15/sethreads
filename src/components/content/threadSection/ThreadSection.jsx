@@ -36,16 +36,18 @@ const ThreadSection = ({ threads, courseId, isHomePage, studentId, onSort, updat
   function handleSortThreads(by) {
     setSortPlaceholder(by);
     onSort(by);
+    setIsOpen(false);
   }
 
   return (
     <section className='flex flex-col w-4/5 mx-auto min-w-96'>
-        <button ref={domNode} className={`${isOpen ? 'bg-steadfast' : 'bg-neutral-800'} hover:bg-steadfast text-white text-sm font-bold p-2 pl-3 w-fit rounded-full mb-2`} onClick={() => setIsOpen(!isOpen)} >
+      <div ref={domNode} className='w-fit'>
+        <button className={`${isOpen ? 'bg-steadfast' : 'bg-neutral-800'} hover:bg-steadfast text-white text-sm font-bold p-2 pl-3 w-fit rounded-full mb-2`} onClick={() => setIsOpen(!isOpen)} >
           {SortPlaceholder}
           <IoIosArrowDown className='inline-block ml-1' />
         </button>
         {isOpen && (
-          <div className='absolute top-50 mt-10 bg-natural-800 w-32 h-fit bg-steadfast rounded-md animate-[fadeIn_0.125s_ease-in]'>
+          <div className='absolute top-[25.2rem] mt-10 bg-natural-800 w-32 h-fit bg-steadfast rounded-md animate-[fadeIn_0.125s_ease-in]'>
             <button className='hover:bg-general-selected text-white text-sm font-bold w-full p-2 pl-3 text-left rounded-md' onClick={() => handleSortThreads("Newest")}>
               Newest
             </button>
@@ -57,6 +59,7 @@ const ThreadSection = ({ threads, courseId, isHomePage, studentId, onSort, updat
             </button>
           </div>
         )}
+      </div>
       <Separator className='w-full' />
       <section>
         {threads.map((thread, index) => (

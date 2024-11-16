@@ -36,6 +36,11 @@ const ThreadTitleEditor = ({ onChange }) => {
                 }
             }
         },
+        editorProps: {
+            attributes: {
+                class: "flex items-center p-4 border border-neutral-500 rounded shadow-sm hover:cursor-text focus:border-white focus:bg-neutral-700 transition duration-200",
+            },
+        }
     });
 
     return (
@@ -43,7 +48,6 @@ const ThreadTitleEditor = ({ onChange }) => {
             <h1 className="pb-4 text-gray-50 font-semibold text-xl">Title</h1>
             <EditorContent
                 editor={editor}
-                className="flex items-center p-4 border border-neutral-700 rounded shadow-sm focus:outline-none hover:border-neutral-500 hover:bg-neutral-700"
                 onClick={() => editor.commands.focus()}
             />
             {editor && (

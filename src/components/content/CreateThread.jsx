@@ -4,14 +4,7 @@ import ThreadTitleEditor from "../textEditor/ThreadTitleEditor";
 import CourseDropdown from "./courseDropdown/CourseDropdown";
 import PostThreadBtn from "../button/createThread/postThreadBtn";
 import FilesCard from "../card/filesCard/FilesCard";
-
-function formatFileSize(bytes) {
-  if (bytes === 0) return "0 Bytes";
-  const k = 1024;
-  const size = ["Bytes", "KB", "MB", "GB"];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + size[i];
-}
+import CheckBox from "../button/checkbox/CheckBox";
 
 const CreateThread = ({ registeredCourses, ta_course, studentId }) => {
   const [selectedCourseId, setSelectedCourseId] = useState(null);
@@ -25,8 +18,14 @@ const CreateThread = ({ registeredCourses, ta_course, studentId }) => {
     button: false,
   });
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [isNotify, setIsNotify] = useState(false);
+  const [isValid, setIsValid] = useState(false);
 
-  const isValid = title && body && selectedCourseId;
+  const isAllowNotify = ta_course ? ta_course.course_id === selectedCourseId : studentId === "admin";
+
+  useEffect(() => {
+    setIsValid(selectedCourseId && title && body);
+  }, [selectedCourseId, title, body]);
 
   useEffect(() => {
     const delays = {
@@ -66,7 +65,7 @@ const CreateThread = ({ registeredCourses, ta_course, studentId }) => {
         </h1>
 
         <div
-          className={`transform transition-all duration-500 ease-out ${
+          className={`flex items-center transform transition-all duration-500 ease-out ${
             showComponents.dropdown
               ? "translate-x-0 opacity-100"
               : "translate-x-full opacity-0"
@@ -79,6 +78,16 @@ const CreateThread = ({ registeredCourses, ta_course, studentId }) => {
             setSelectedCourseId={setSelectedCourseId}
             selectedCourseId={selectedCourseId}
           />
+          {(isAllowNotify) && (
+            <div className="ml-5 text-white">
+              <CheckBox 
+                id="notify"
+                label="Notify"
+                checked={isNotify}
+                onChange={(e) => setIsNotify(e.target.checked)}
+              />          
+            </div>
+          )}
         </div>
 
         <div
@@ -107,11 +116,7 @@ const CreateThread = ({ registeredCourses, ta_course, studentId }) => {
         {(selectedFiles.length > 0) && (
             <FilesCard
                 files={selectedFiles}
-                onDelete={(file) =>
-                    setSelectedFiles((prev) =>
-                    prev.filter((f) => f.name !== file.name)
-                    )
-                }
+                onDelete={(file) => setSelectedFiles((prev) => prev.filter((f) => f.lastModified !== file.lastModified))}
             />
         )}
 
@@ -127,8 +132,12 @@ const CreateThread = ({ registeredCourses, ta_course, studentId }) => {
             body={body}
             createdBy={studentId}
             courseId={selectedCourseId}
+            onPost={() => {
+              setIsValid(false);
+            }}
             isValid={isValid}
             files={selectedFiles}
+            isNotify={isNotify && isAllowNotify}
             className="ml-auto"
           />
         </div>
