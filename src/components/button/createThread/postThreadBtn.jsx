@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const PostThreadBtn = ({ title, body, createdBy, courseId, isValid, files, className="" }) => {
+const PostThreadBtn = ({ title, body, createdBy, courseId, isValid, files, isNotify, className="" }) => {
   const navigate = useNavigate();
 
   const formattedDateTime = new Intl.DateTimeFormat("en-GB", {
@@ -54,7 +54,7 @@ const PostThreadBtn = ({ title, body, createdBy, courseId, isValid, files, class
     const files_name = files.map((file) => file.name);
 
     return axios.post(
-      `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/create-thread`,
+      `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/create-thread?notify=${isNotify}`,
       {
         title: title,
         body: setLanguage(body),
@@ -76,7 +76,7 @@ const PostThreadBtn = ({ title, body, createdBy, courseId, isValid, files, class
     const files_name = files.map((file) => file.name);
     
     return axios.post(
-      `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/home/create-thread`,
+      `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/home/create-thread?notify=${isNotify}`,
       {
         title: title,
         body: body,
