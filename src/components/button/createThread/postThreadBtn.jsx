@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const PostThreadBtn = ({ title, body, createdBy, courseId, isValid, files, isNotify, className="" }) => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const PostThreadBtn = ({ title, body, createdBy, courseId, isValid, files, isNot
     return doc.body.innerHTML;
   }
 
-  function uploadFiles(thread_id) {
+  async function uploadFiles(thread_id) {
     const formData = new FormData();
     Array.from(files).forEach((file) => {
       const newFile = new File([file], `${courseId === "home" ? "home" : "thread"}ID_${thread_id}-${file.name}`, { type: file.type });
@@ -95,16 +96,52 @@ const PostThreadBtn = ({ title, body, createdBy, courseId, isValid, files, isNot
 
   function handlePostThread() {
     if (isValid) {
-      (courseId === "home" ? postToHome() : postToCourse())
-        .then((response) => {
-          uploadFiles(response.data.id);
-          if (response.status === 201) {
-            navigate(courseId === "home" ? "/home" : `/course/${courseId}`);
+      const minDelay = 1000; // Minimum delay in milliseconds
+      toast.promise(
+        new Promise((resolve, reject) => {
+          const startTime = Date.now();
+          (courseId === "home" ? postToHome() : postToCourse())
+            .then((res) => {
+              const elapsedTime = Date.now() - startTime;
+              const remainingDelay = Math.max(0, minDelay - elapsedTime);
+
+              setTimeout(() => resolve(res), remainingDelay);
+            })
+            .catch((err) => {
+              const elapsedTime = Date.now() - startTime;
+              const remainingDelay = Math.max(0, minDelay - elapsedTime);
+
+              setTimeout(() => reject(err), remainingDelay);
+            });
+        }),
+        {
+          pending: "Creating your thread...",
+          success: {
+            render({ data }) {
+              uploadFiles(data.data.id);
+              if (data.status === 201) {
+                navigate(courseId === "home" ? "/home" : `/course/${courseId}`);
+                return "Thread created successfully! 👍";
+              } else {
+                throw new Error("Login failed");
+              }
+            },
+          },
+          error: {
+            render({ data }) {
+              console.error(data);
+              return `Failed to create thread`;
+            }
           }
-        })
-        .catch((error) => {
-          console.error("Error posting thread:", error);
-        });
+        },
+        {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+        }
+      );
     }
   }
 
