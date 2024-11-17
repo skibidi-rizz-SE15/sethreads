@@ -1,70 +1,95 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div align="center">
 
-## Available Scripts
+![MasterHead](https://i.ibb.co/0GHJTgR/SEThreads-Logo.png)
 
-In the project directory, you can run:
+</div>
 
-### `npm start`
+# SEThreads
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+SEThreads is a web application designed specifically for Software Engineering students at KMITL. This platform allows students to create and interact with discussion threads, whether to ask questions or share valuable information. Inspired by popular platforms like Reddit, Stack Overflow, and Pantip, SEThreads fosters a collaborative environment for students to connect, learn, and grow.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
 
-### `npm test`
+- **Post Threads**: Students can post their own discussion topics, including questions, tips, or announcements.
+- **Interactive Discussions**: Engage with threads by commenting and discussing with peers.
+- **Like System**: Show appreciation for useful threads or comments with a like button.
+- **File System**: Students can attach files to their threads, such as documents, images, or code snippets, to provide additional context or resources.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies Used
 
-### `npm run build`
+![react](https://img.shields.io/badge/React-black?logo=react) ![html5](https://img.shields.io/badge/HTML-black?logo=html5) ![tailwindCSS](https://img.shields.io/badge/TailwindCSS-black?logo=tailwindcss) ![css3](https://img.shields.io/badge/CSS-black?logo=css3&logoColor=1572B6) ![javascript](https://img.shields.io/badge/Javascript-black?logo=javascript)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation and Setup
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Prerequisites
+- NodeJS install on your PC
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Steps to Run Locally
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/skibidi-rizz-SE15/sethreads.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd sethreads
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Configure the database:
+   - Update the `.env` file with your database credentials.
+5. Start the application:
+   ```bash
+   npm start
+   ```
+6. Open your browser and go to:
+   ```
+   http://localhost:3000
+   ```
 
-### `npm run eject`
+## Usage
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Sign up or log in using your university credentials.
+- Create a thread to ask questions or share knowledge.
+- Browse and interact with existing threads by commenting or liking.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Future Enhancements
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **Notifications**: Notify users about activity on their threads or comments.
+- **Mobile Responsiveness**: Optimize for mobile devices.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Contributing
 
-## Learn More
+Contributions are welcome! Please follow these steps to contribute:
+1. Fork the repository.
+2. Create a new branch:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "Add your feature or fix description"
+   ```
+4. Push to your branch:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+5. Submit a pull request.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## License
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-### Code Splitting
+## Acknowledgments
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Inspired by platforms like Reddit, Stack Overflow, and Pantip.
+- Special thanks to the Software Engineering department at KMITL for their support.
 
-### Analyzing the Bundle Size
+## Contact
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+For questions or feedback, feel free to contact us:
+- **GitHub**: [serayutaka](https://github.com/serayutaka)
+- **GitHub**: [whatdislol](https://github.com/whatdislol)
+- **GitHub**: [WDTX1402](https://github.com/WDTX1402)
