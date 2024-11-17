@@ -39,7 +39,10 @@ SEThreads is a web application designed specifically for Software Engineering st
    npm install
    ```
 4. Configure the database:
-   - Update the `.env` file with your database credentials.
+   - Update the `.env` file.
+   ```bash
+   REACT_APP_SERVER_DOMAIN_NAME = http://localhost:3000
+   ```
 5. Start the application:
    ```bash
    npm start
