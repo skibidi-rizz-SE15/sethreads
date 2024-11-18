@@ -14,7 +14,7 @@ const Modal = ({ isOpen, onClose, isClose, children }) => {
       />
 
       {/* Modal content */}
-      <div className="relative z-50 bg-white rounded-lg shadow-xl max-w-4xl w-full m-4">
+      <div className="relative z-50 bg-gray-200 rounded-lg shadow-xl max-w-4xl w-full m-4">
         <button
           onClick={onClose}
           className="absolute right-4 top-4 text-gray-500 hover:text-gray-700"
@@ -137,12 +137,12 @@ const FilesCard = ({ files, onDelete, onDownload, className = "" }) => {
   return (
     <ul className={`flex flex-wrap gap-2 overflow-x-visible overflow-y-auto pr-2 -mr-2 max-h-[12rem] ${className}`}>
       {files.map((file, index) => (
-        <li key={index} className="p-4 bg-gray-200 hover:bg-[#2D2D2D] hover:border-software-orange-hover border transition duration-150 rounded-md cursor-pointer group" onClick={() => handleFilePreview(file)}>
+        <li key={index} className="p-4 bg-gray-200 hover:bg-eerie-black hover:border-software-orange-hover border transition duration-150 rounded-md cursor-pointer group" onClick={() => handleFilePreview(file)}>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               {getFileIcon(file)}
               <div className="flex flex-col">
-                <span className="text-sm font-medium w-max text-gray-900 group-hover:text-pale-gray max-w-[8rem] overflow-hidden text-ellipsis transition duration-150">
+                <span className="text-sm font-medium text-nowrap text-gray-900 group-hover:text-pale-gray max-w-[8rem] overflow-hidden text-ellipsis transition duration-150">
                   {file.name}
                 </span>
                 <span className="text-xs text-gray-500 group-hover:text-gray-400">
