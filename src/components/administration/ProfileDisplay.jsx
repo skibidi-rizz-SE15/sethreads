@@ -50,7 +50,7 @@ function ProfileDisplay({ studentInfo, handleOnUpdate }) {
   }
 
   return (
-    <div className='self-stretch grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] mt-14 mx-6 justify-items-center gap-5'>
+    <div className='self-stretch grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] mt-14 mx-6 justify-items-center gap-5 animate-[fadeIn_0.15s_ease-in]'>
       {studentInfo.map((student) => (
           <ProfileCard key={student.student_id} student={student} onclick={() => handleCardClick(student)} />
       ))}

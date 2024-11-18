@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { LoaderCircle } from 'lucide-react';
 import axios from 'axios';
 
 import Search from '../../components/administration/Search';
 import ProfileDisplay from '../../components/administration/ProfileDisplay';
 import AlertBox from '../../components/alertbox/AlertBox';
 
-
-
 function AdminPage({ registeredCourses }) {
   const [selectedYear, setSelectedYear] = useState('');
   const [selectedCourse, setSelectedCourse] = useState('');
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [isClose, setIsClose] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectCourse, setSelectCourse] = useState(registeredCourses);
   const [data, setData] = useState([]);
   const [update, setUpdate] = useState(false);
@@ -38,6 +39,7 @@ function AdminPage({ registeredCourses }) {
   function handleSearch() {
     if (selectedYear === '' || selectedCourse === '') {
       setIsAlertOpen(true);
+      setIsClose(false);
       return;
     } else {
       axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/student/get-all?year=${selectedYear}&course_id=${selectedCourse}`, {
@@ -45,7 +47,11 @@ function AdminPage({ registeredCourses }) {
           "x-token": localStorage.getItem("token")
         }
       }).then((res) => {
-        setData(res.data);
+        setIsLoading(true);
+        setTimeout(() => {
+          setData(res.data);
+          setIsLoading(false);
+        }, 1000);
       }).catch((err) => {
         console.log(err);
       })
@@ -60,8 +66,18 @@ function AdminPage({ registeredCourses }) {
     <div className='flex flex-col items-center py-6 overflow-y-auto'>
       <h1 className='text-white text-center text-4xl mx-auto mt-8'>Administration</h1>
       <Search registeredCourses={selectCourse} onSelectYear={handleSelectYear} onSelectCourse={handleSelectCourse} onSearch={handleSearch} />
-      <ProfileDisplay studentInfo={data} handleOnUpdate={handleOnUpdate} />
-      <AlertBox isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)}>
+      { isLoading 
+        ? <LoaderCircle strokeWidth={1} size={56} className='mt-20 text-white animate-spin' /> 
+        : <ProfileDisplay studentInfo={data} handleOnUpdate={handleOnUpdate} />
+      }
+      <AlertBox 
+        isOpen={isAlertOpen}
+        isClose={isClose}
+        onClose={() => {
+          setIsClose(true);
+          setTimeout(() => setIsAlertOpen(false), 150);
+        }}
+      >
         <p>Please select year and courses</p>
       </AlertBox>
     </div>

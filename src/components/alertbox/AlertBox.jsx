@@ -1,12 +1,12 @@
 import React from 'react';
 
-const AlertBox = ({ isOpen, onClose, children }) => {
+const AlertBox = ({ isOpen, isClose, onClose, children }) => {
   if (!isOpen) {
     return null;
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className={`fixed inset-0 z-50 flex items-center justify-center ${isClose ? "animate-[fadeOut_0.15s_ease-in]" : "animate-[fadeIn_0.15s_ease-in]"}`}>
       <div className="absolute inset-0 bg-black opacity-50" onClick={onClose}></div>
       <div className="relative z-10 bg-eerie-black border text-white border-software-orange p-6 rounded-lg shadow-xl max-w-md w-full">
         <button
