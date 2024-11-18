@@ -75,7 +75,7 @@ const ThreadBodyEditor = ({ onChange, handleFileSelect }) => {
       CharacterCount.configure({ limit }),
       Dropcursor,
       Mathematics,
-      Placeholder.configure({ placeholder: "Write something ..." }),
+      Placeholder.configure({ placeholder: "Write something..." }),
       FileHandler.configure({
         allowedMimeTypes: [
           "image/png",
