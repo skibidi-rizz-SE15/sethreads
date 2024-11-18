@@ -15,6 +15,7 @@ function AdminPage({ registeredCourses }) {
   const [selectCourse, setSelectCourse] = useState(registeredCourses);
   const [data, setData] = useState([]);
   const [update, setUpdate] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     if (update) {
@@ -26,7 +27,6 @@ function AdminPage({ registeredCourses }) {
   function handleSelectYear(e) {
     setSelectedYear(e.target.value);
     if (e.target.value === 'all') {
-      console.log(registeredCourses.filter((course) => course.year === 0));
       setSelectCourse(registeredCourses.filter((course) => course.year === 0));
       return;
     }
@@ -38,6 +38,7 @@ function AdminPage({ registeredCourses }) {
 
   function handleSearch() {
     if (selectedYear === '' || selectedCourse === '') {
+      setErrorMessage('Please select year and course');
       setIsAlertOpen(true);
       setIsClose(false);
       return;
@@ -53,7 +54,14 @@ function AdminPage({ registeredCourses }) {
           setIsLoading(false);
         }, 1000);
       }).catch((err) => {
-        console.log(err);
+        setIsLoading(true);
+        setErrorMessage(err.response.data.detail);
+        setTimeout(() => {
+          setIsAlertOpen(true);
+          setIsClose(false);
+          setIsLoading(false);
+        }, 1000);
+        setIsAlertOpen(true);
       })
     }
   }
@@ -78,7 +86,7 @@ function AdminPage({ registeredCourses }) {
           setTimeout(() => setIsAlertOpen(false), 150);
         }}
       >
-        <p>Please select year and courses</p>
+        <p>{errorMessage}</p>
       </AlertBox>
     </div>
   )

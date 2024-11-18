@@ -20,7 +20,7 @@ function Search({ registeredCourses, onSelectYear, onSelectCourse, onSearch }) {
             ))}
             <option value='all' onClick={onSelectCourse}>All Courses</option>
       </select>
-      <button className='flex justify-center items-center grow bg-software-orange hover:bg-software-orange-hover text-white font-bold py-2 px-4 rounded transition duration-200' onClick={onSearch}><FaSearch /></button>
+      <button className='flex justify-center items-center grow bg-software-orange hover:bg-software-orange-hover text-white font-bold py-2 px-4 rounded transition duration-150' onClick={onSearch}><FaSearch /></button>
     </div>
   )
 }
