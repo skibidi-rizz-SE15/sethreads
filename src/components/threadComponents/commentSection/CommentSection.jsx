@@ -105,7 +105,7 @@ const CommentSection = ({ thread_id, isHome, isPostComment, studentId, triggerFe
     
     return (
         <div className="mt-4">
-            {comments.length === 0 ? <div className="text-white">No comments found</div> : comments.map((comment) => {
+            {comments.length === 0 ? <div className="text-white text-center">No comments found</div> : comments.map((comment) => {
                 return (
                     <Comment
                         key={comment.id}
