@@ -6,7 +6,7 @@ import Edit from "./Edit";
 import TableCourses from "./TableCourses";
 import Separator from "../../separator/Separator";
 
-const ProfileAlert = ({ isOpen, onClose, children, setStudent, EditCourse }) => {
+const ProfileAlert = ({ isOpen, isClose, onClose, children, setStudent, EditCourse }) => {
   const [inputTACourse, setInputTACourse] = useState("");
   const [inputCourse, setInputCourse] = useState("");
   const [isEditCourses, setIsEditCourses] = useState(false);
@@ -106,7 +106,7 @@ const ProfileAlert = ({ isOpen, onClose, children, setStudent, EditCourse }) => 
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className={`fixed inset-0 z-50 flex items-center justify-center ${isClose ? "animate-[fadeOut_0.15s_ease-in]" : "animate-[fadeIn_0.15s_ease-in]"}`}>
       <div
         className="absolute inset-0 bg-black opacity-50"
         onClick={onClose}

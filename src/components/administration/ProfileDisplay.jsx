@@ -7,6 +7,7 @@ function ProfileDisplay({ studentInfo, handleOnUpdate }) {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [EditCourse, setEditCourse] = useState(false);
+  const [isClose, setIsClose] = useState(false);
   
   if (studentInfo.length === 0) {
     return (
@@ -25,10 +26,12 @@ function ProfileDisplay({ studentInfo, handleOnUpdate }) {
       }).then((res) => {
         setSelectedStudent({ ...student, courseTAInfo: res.data });
         setIsAlertOpen(true);
+        setIsClose(false);
       })
     } else {
       setSelectedStudent(student);
       setIsAlertOpen(true);
+      setIsClose(false);
     }
     setEditCourse(false);
   }
@@ -54,7 +57,18 @@ function ProfileDisplay({ studentInfo, handleOnUpdate }) {
       {studentInfo.map((student) => (
           <ProfileCard key={student.student_id} student={student} onclick={() => handleCardClick(student)} />
       ))}
-      <ProfileAlert isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)} setStudent={handleOnchangeStudent} EditCourse={EditCourse} >
+      <ProfileAlert 
+        isOpen={isAlertOpen}
+        isClose={isClose}
+        onClose={() => {
+          setIsClose(true);
+          setTimeout(() => {
+            setIsAlertOpen(false)
+          }, 150)
+        }}
+        setStudent={handleOnchangeStudent}
+        EditCourse={EditCourse}
+      >
         {selectedStudent && (selectedStudent)}
       </ProfileAlert>
     </div>
