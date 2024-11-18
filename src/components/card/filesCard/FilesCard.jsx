@@ -137,7 +137,7 @@ const FilesCard = ({ files, onDelete, onDownload, className = "" }) => {
   return (
     <ul className={`flex flex-wrap gap-2 overflow-x-visible overflow-y-auto pr-2 -mr-2 max-h-[12rem] ${className}`}>
       {files.map((file, index) => (
-        <li key={index} className="p-4 bg-white hover:bg-[#2D2D2D] hover:border-software-orange-hover border transition duration-150 rounded-md cursor-pointer group" onClick={() => handleFilePreview(file)}>
+        <li key={index} className="p-4 bg-gray-200 hover:bg-[#2D2D2D] hover:border-software-orange-hover border transition duration-150 rounded-md cursor-pointer group" onClick={() => handleFilePreview(file)}>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               {getFileIcon(file)}
