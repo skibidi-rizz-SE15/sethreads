@@ -19,7 +19,7 @@ function TableCourses({ student, isEditCourses, onDelete }) {
                             <td className='p-2 text-sm text-gray-700 text-center'>{course.course_id}</td>
                             <td className='p-2 text-sm text-gray-700'>{course.name}</td>
                             <td className={`p-1 text-sm text-gray-700 flex justify-center items-center ${ isEditCourses ? "" : "hidden" }`}>
-                                <div className='w-7 py-2 hover:bg-red-100 hover:cursor-pointer rounded-full transition duration-150' onClick={() => onDelete(course.course_id)} >
+                                <div className='w-7 py-2 hover:bg-red-100 hover:cursor-pointer rounded-full transition duration-150' onClick={() => onDelete(course.course_id, course.name)} >
                                     <FaTrash className='text-red-500 mx-auto' />
                                 </div>
                             </td>

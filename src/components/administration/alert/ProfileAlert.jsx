@@ -5,11 +5,14 @@ import Details from "./Details";
 import Edit from "./Edit";
 import TableCourses from "./TableCourses";
 import Separator from "../../separator/Separator";
+import AlertBox from "../../alertbox/AlertBox";
 
 const ProfileAlert = ({ isOpen, isClose, onClose, children, setStudent, EditCourse }) => {
   const [inputTACourse, setInputTACourse] = useState("");
   const [inputCourse, setInputCourse] = useState("");
   const [isEditCourses, setIsEditCourses] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(null);
 
   useEffect(() => {
     if (EditCourse) {
@@ -81,6 +84,11 @@ const ProfileAlert = ({ isOpen, isClose, onClose, children, setStudent, EditCour
     setInputCourse("");
   }
 
+  function onConfirm(course_id, course_name) {
+    setIsAlertOpen(true);
+    setSelectedCourse({ course_id, course_name });
+  }
+
   function handleRemoveCourse(course_id) {
     axios.delete(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/student/withdraw-course?student_id=${children.student_id}&course_id=${course_id}`, {
       headers: {
@@ -146,7 +154,7 @@ const ProfileAlert = ({ isOpen, isClose, onClose, children, setStudent, EditCour
             <h1 className="text-gray-300 text-2xl text-center mt-5 col-span-2">
               Registered Courses
             </h1>
-            <TableCourses student={children} isEditCourses={isEditCourses} onDelete={handleRemoveCourse} />
+            <TableCourses student={children} isEditCourses={isEditCourses} onDelete={onConfirm} />
             {!isEditCourses ? null : (
             <div className="col-span-2 flex justify-center mt-5 gap-5 h-fit">
               <input
@@ -163,6 +171,43 @@ const ProfileAlert = ({ isOpen, isClose, onClose, children, setStudent, EditCour
             )}
           </div>
       </div>
+      <AlertBox isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)}>
+        <h2 className="text-xl font-bold mb-4">Confirm Required</h2>
+        <p className="text-gray-300">
+          Are you sure you want to approve the withdrawal for the following course?
+        </p>
+        <ul>
+          <li className="text-gray-300 mt-2">
+            <span className="font-bold">Student ID:</span> {children.student_id}
+          </li>
+          <li className="text-gray-300 mt-2">
+            <span className="font-bold">Student Name:</span> {children.name} {children.surname}
+          </li>
+          <li className="text-gray-300 mt-2">
+            <span className="font-bold">Course ID:</span> {selectedCourse ? selectedCourse.course_id : ""}
+          </li>
+          <li className="text-gray-300 mt-2">
+            <span className="font-bold">Course Name:</span> {selectedCourse ? selectedCourse.course_name : ""}
+          </li>
+        </ul>
+        <div className="mt-4 gap-2 flex justify-end">
+          <button
+            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transition duration-150"
+            onClick={() => {
+              handleRemoveCourse(selectedCourse.course_id);
+              setIsAlertOpen(false);
+            }}
+          >
+            Delete
+          </button>
+          <button
+            onClick={() => setIsAlertOpen(false)}
+            className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-500 transition duration-150"
+          >
+            Cancel
+          </button>
+        </div>
+      </AlertBox>
     </div>
   );
 };
