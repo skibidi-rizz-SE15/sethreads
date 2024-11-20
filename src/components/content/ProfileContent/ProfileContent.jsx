@@ -37,14 +37,14 @@ const ProfileContent = ({ comments, comments_public, posted, posted_public, like
         <section className={`${className}`}>
             {(contentType === "threads") && (
                 <>
-                    <h1 className="text-white text-2xl mb-4 we"><strong>Home</strong></h1>
+                    <h1 className="text-white text-2xl mb-4"><strong>Home</strong></h1>
                     {posted_public.map((thread, index) => (
                         <div>
                             <MiniThreadCard data={thread} />
-                            {index < posted.length - 1 && (<Separator className='w-full my-4' />)}
+                            {index < posted_public.length - 1 && (<Separator className='w-full my-4' />)}
                         </div>
                     ))}
-                    <h1 className="text-white text-2xl m">Courses</h1>
+                    <h1 className="text-white text-2xl my-4"><strong>Courses</strong></h1>
                     {posted.map((thread, index) => (
                         <div>
                             <MiniThreadCard data={thread} />
@@ -55,14 +55,14 @@ const ProfileContent = ({ comments, comments_public, posted, posted_public, like
             )}
             {(contentType === "likedThreads") && (
                 <>
-                    <h1 className="text-white text-2xl mb-4 we"><strong>Home</strong></h1>
+                    <h1 className="text-white text-2xl mb-4"><strong>Home</strong></h1>
                     {posted_public.map((thread, index) => (
                         <div>
                             <MiniThreadCard data={thread} />
-                            {index < posted.length - 1 && (<Separator className='w-full my-4' />)}
+                            {index < posted_public.length - 1 && (<Separator className='w-full my-4' />)}
                         </div>
                     ))}
-                    <h1 className="text-white text-2xl m">Courses</h1>
+                    <h1 className="text-white text-2xl my-4"><strong>Courses</strong></h1>
                     {posted.map((thread, index) => (
                         <div>
                             <MiniThreadCard data={thread} />
