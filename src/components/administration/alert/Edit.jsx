@@ -17,6 +17,12 @@ const Edit = ({
     inputTARef.current.focus();
   }
 
+  function onSetTA() {
+    handleSetTA();
+    setIsEditTA(false);
+    inputTARef.current.disabled = true;
+  }
+
   return (
     <div className="flex flex-col w-full gap-y-4">
       <div className="flex w-full gap-2 justify-evenly items-center mb-auto">
@@ -35,7 +41,7 @@ const Edit = ({
         />
         <button
           className="w-[5rem] bg-software-orange hover:bg-software-orange-hover text-white font-bold py-2 px-2 rounded-lg transition duration-150"
-          onClick={isEditTA ? handleSetTA : toggleEditTA}
+          onClick={isEditTA ? onSetTA : toggleEditTA}
         >
           {isEditTA ? "Set TA" : "Edit TA"}
         </button>

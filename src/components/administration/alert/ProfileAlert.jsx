@@ -14,12 +14,16 @@ const ProfileAlert = ({ isOpen, isClose, onClose, children, setStudent, EditCour
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [isAlertClose, setIsAlertClose] = useState(false);
+  const [isErrorAlert, setIsErrorAlert] = useState(false);
+  const [isErrorClose, setIsErrorClose] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (EditCourse) {
       setIsEditCourses(true);
     } else {
       setIsEditCourses(false);
+      setInputTACourse(`${children.is_ta ? children.courseTAInfo.course_id : ""}`);
     }
   }, [children, isOpen, onClose]);
 
@@ -52,7 +56,8 @@ const ProfileAlert = ({ isOpen, isClose, onClose, children, setStudent, EditCour
     })
     .then((res) => {
       if (res.data.error) {
-        alert(res.data.error);
+        setErrorMessage(res.data.error);
+        setIsErrorAlert(true);
         return;
       }
       setStudent(res.data, "TA");
@@ -74,7 +79,8 @@ const ProfileAlert = ({ isOpen, isClose, onClose, children, setStudent, EditCour
     })
     .then((res) => {
       if (res.data.error) {
-        alert(res.data.error);
+        setErrorMessage(res.data.error);
+        setIsErrorAlert(true);
       } else {
         setStudent(res.data, "Course");
       }
@@ -98,7 +104,8 @@ const ProfileAlert = ({ isOpen, isClose, onClose, children, setStudent, EditCour
       }
     }).then((res) => {
       if (res.data.error) {
-        alert(res.data.error);
+        setErrorMessage(res.data.error);
+        setIsErrorAlert(true);
       } else {
         setStudent(res.data, "Course");
       }
@@ -173,6 +180,19 @@ const ProfileAlert = ({ isOpen, isClose, onClose, children, setStudent, EditCour
             )}
           </div>
       </div>
+      <AlertBox
+        isOpen={isErrorAlert}
+        isClose={isErrorClose}
+        onClose={() => {
+          setIsErrorClose(true);
+          setTimeout(() => {
+            setIsErrorAlert(false)
+            setIsErrorClose(false);
+          }, 150);
+        }}
+      >
+        <p>{errorMessage}</p>
+      </AlertBox>
       <AlertBox 
         isOpen={isAlertOpen} 
         isClose={isAlertClose}
