@@ -23,7 +23,7 @@ const ProfileAlert = ({ isOpen, isClose, onClose, children, setStudent, EditCour
       setIsEditCourses(true);
     } else {
       setIsEditCourses(false);
-      setInputTACourse(`${children.is_ta ? children.courseTAInfo.course_id : ""}`);
+      (children && setInputTACourse(`${children.is_ta ? children.courseTAInfo.course_id : ""}`))
     }
   }, [children, isOpen, onClose]);
 
@@ -58,6 +58,7 @@ const ProfileAlert = ({ isOpen, isClose, onClose, children, setStudent, EditCour
       if (res.data.error) {
         setErrorMessage(res.data.error);
         setIsErrorAlert(true);
+        setInputTACourse("");
         return;
       }
       setStudent(res.data, "TA");
