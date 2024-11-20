@@ -349,7 +349,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
           <TextBody body={threadData.body} className="mt-2" />
         </div>
         {files.length > 0 && (
-          <FilesCard files={files} className="pt-2" />
+          <FilesCard files={files} className="pt-2" onDownload={handleDownloadFile} />
         )}
         <div className="flex w-max -mb-6 text-white">
           <LikeBtn isLiked={isLiked} likeCount={threadData.likes} handleLikeThread={handleLikeThread} />
@@ -378,13 +378,13 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
         <div className="mt-4 gap-2 flex justify-end">
           <button
             onClick={deleteThread}
-            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
+            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transition duration-150"
           >
             Delete
           </button>
           <button
             onClick={() => setIsAlertOpen(false)}
-            className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-500"
+            className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-500 transition duration-150"
           >
             Cancel
           </button>

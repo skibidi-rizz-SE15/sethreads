@@ -4,7 +4,7 @@ import { FaCheck, FaXmark } from "react-icons/fa6";
 
 function ProfileCard({ student, onclick }) {
   return (
-    <div className='bg-eerie-black border border-software-orange h-[10rem] p-4 rounded-lg shadow-md grid grid-cols-[auto_1fr] gap-4 w-full items-center' onClick={onclick}>
+    <div className='bg-eerie-black border border-transparent hover:border-software-orange hover:bg-steadfast h-[10rem] p-4 rounded-lg shadow-md grid grid-cols-[auto_1fr] gap-4 w-full items-center transition duration-200 cursor-pointer' onClick={onclick}>
       <CgProfile className='text-white text-6xl' />
         <div className='flex flex-col h-full'>
             <strong className='text-white text-xl mb-1'>{student.student_id}</strong>

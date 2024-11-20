@@ -5,17 +5,25 @@ import Details from "./Details";
 import Edit from "./Edit";
 import TableCourses from "./TableCourses";
 import Separator from "../../separator/Separator";
+import AlertBox from "../../alertbox/AlertBox";
 
-const ProfileAlert = ({ isOpen, onClose, children, setStudent, EditCourse }) => {
+const ProfileAlert = ({ isOpen, isClose, onClose, children, setStudent, EditCourse }) => {
   const [inputTACourse, setInputTACourse] = useState("");
   const [inputCourse, setInputCourse] = useState("");
   const [isEditCourses, setIsEditCourses] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [isAlertClose, setIsAlertClose] = useState(false);
+  const [isErrorAlert, setIsErrorAlert] = useState(false);
+  const [isErrorClose, setIsErrorClose] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (EditCourse) {
       setIsEditCourses(true);
     } else {
       setIsEditCourses(false);
+      (children && setInputTACourse(`${children.is_ta ? children.courseTAInfo.course_id : ""}`))
     }
   }, [children, isOpen, onClose]);
 
@@ -48,7 +56,9 @@ const ProfileAlert = ({ isOpen, onClose, children, setStudent, EditCourse }) => 
     })
     .then((res) => {
       if (res.data.error) {
-        alert(res.data.error);
+        setErrorMessage(res.data.error);
+        setIsErrorAlert(true);
+        setInputTACourse("");
         return;
       }
       setStudent(res.data, "TA");
@@ -70,7 +80,8 @@ const ProfileAlert = ({ isOpen, onClose, children, setStudent, EditCourse }) => 
     })
     .then((res) => {
       if (res.data.error) {
-        alert(res.data.error);
+        setErrorMessage(res.data.error);
+        setIsErrorAlert(true);
       } else {
         setStudent(res.data, "Course");
       }
@@ -81,6 +92,12 @@ const ProfileAlert = ({ isOpen, onClose, children, setStudent, EditCourse }) => 
     setInputCourse("");
   }
 
+  function onConfirm(course_id, course_name) {
+    setIsAlertClose(false);
+    setIsAlertOpen(true);
+    setSelectedCourse({ course_id, course_name });
+  }
+
   function handleRemoveCourse(course_id) {
     axios.delete(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/student/withdraw-course?student_id=${children.student_id}&course_id=${course_id}`, {
       headers: {
@@ -88,7 +105,8 @@ const ProfileAlert = ({ isOpen, onClose, children, setStudent, EditCourse }) => 
       }
     }).then((res) => {
       if (res.data.error) {
-        alert(res.data.error);
+        setErrorMessage(res.data.error);
+        setIsErrorAlert(true);
       } else {
         setStudent(res.data, "Course");
       }
@@ -106,7 +124,7 @@ const ProfileAlert = ({ isOpen, onClose, children, setStudent, EditCourse }) => 
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className={`fixed inset-0 z-50 flex items-center justify-center ${isClose ? "animate-[fadeOut_0.15s_ease-in]" : "animate-[fadeIn_0.15s_ease-in]"}`}>
       <div
         className="absolute inset-0 bg-black opacity-50"
         onClick={onClose}
@@ -146,7 +164,7 @@ const ProfileAlert = ({ isOpen, onClose, children, setStudent, EditCourse }) => 
             <h1 className="text-gray-300 text-2xl text-center mt-5 col-span-2">
               Registered Courses
             </h1>
-            <TableCourses student={children} isEditCourses={isEditCourses} onDelete={handleRemoveCourse} />
+            <TableCourses student={children} isEditCourses={isEditCourses} onDelete={onConfirm} />
             {!isEditCourses ? null : (
             <div className="col-span-2 flex justify-center mt-5 gap-5 h-fit">
               <input
@@ -156,13 +174,74 @@ const ProfileAlert = ({ isOpen, onClose, children, setStudent, EditCourse }) => 
                 value={inputCourse}
                 onChange={(e) => setInputCourse(e.target.value)}
               />
-              <button className="bg-software-orange hover:bg-software-orange-hover text-white text-lg font-bold py-2 px-4 rounded-lg" onClick={handleRegCourse}>
+              <button className="bg-software-orange hover:bg-software-orange-hover text-white text-lg font-bold py-2 px-4 rounded-lg transition duration-200" onClick={handleRegCourse}>
                 Add
               </button>
             </div>
             )}
           </div>
       </div>
+      <AlertBox
+        isOpen={isErrorAlert}
+        isClose={isErrorClose}
+        onClose={() => {
+          setIsErrorClose(true);
+          setTimeout(() => {
+            setIsErrorAlert(false)
+            setIsErrorClose(false);
+          }, 150);
+        }}
+      >
+        <p>{errorMessage}</p>
+      </AlertBox>
+      <AlertBox 
+        isOpen={isAlertOpen} 
+        isClose={isAlertClose}
+        onClose={() => {
+          setIsAlertClose(true);
+          setTimeout(() => setIsAlertOpen(false), 150);
+        }}
+      >
+        <h2 className="text-xl font-bold mb-4">Confirm Required</h2>
+        <p className="text-gray-300">
+          Are you sure you want to approve the withdrawal for the following course?
+        </p>
+        <ul>
+          <li className="text-gray-300 mt-2">
+            <span className="font-bold">Student ID:</span> {children.student_id}
+          </li>
+          <li className="text-gray-300 mt-2">
+            <span className="font-bold">Student Name:</span> {children.name} {children.surname}
+          </li>
+          <li className="text-gray-300 mt-2">
+            <span className="font-bold">Course ID:</span> {selectedCourse ? selectedCourse.course_id : ""}
+          </li>
+          <li className="text-gray-300 mt-2">
+            <span className="font-bold">Course Name:</span> {selectedCourse ? selectedCourse.course_name : ""}
+          </li>
+        </ul>
+        <div className="mt-4 gap-2 flex justify-end">
+          <button
+            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transition duration-150"
+            onClick={() => {
+              handleRemoveCourse(selectedCourse.course_id);
+              setIsAlertClose(true);
+              setTimeout(() => setIsAlertOpen(false), 150);
+            }}
+          >
+            Delete
+          </button>
+          <button
+            onClick={() => {
+              setIsAlertClose(true);
+              setTimeout(() => setIsAlertOpen(false), 150)
+            }}
+            className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-500 transition duration-150"
+          >
+            Cancel
+          </button>
+        </div>
+      </AlertBox>
     </div>
   );
 };
