@@ -13,6 +13,7 @@ const ProfileAlert = ({ isOpen, isClose, onClose, children, setStudent, EditCour
   const [isEditCourses, setIsEditCourses] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
+  const [isAlertClose, setIsAlertClose] = useState(false);
 
   useEffect(() => {
     if (EditCourse) {
@@ -85,6 +86,7 @@ const ProfileAlert = ({ isOpen, isClose, onClose, children, setStudent, EditCour
   }
 
   function onConfirm(course_id, course_name) {
+    setIsAlertClose(false);
     setIsAlertOpen(true);
     setSelectedCourse({ course_id, course_name });
   }
@@ -171,7 +173,14 @@ const ProfileAlert = ({ isOpen, isClose, onClose, children, setStudent, EditCour
             )}
           </div>
       </div>
-      <AlertBox isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)}>
+      <AlertBox 
+        isOpen={isAlertOpen} 
+        isClose={isAlertClose}
+        onClose={() => {
+          setIsAlertClose(true);
+          setTimeout(() => setIsAlertOpen(false), 150);
+        }}
+      >
         <h2 className="text-xl font-bold mb-4">Confirm Required</h2>
         <p className="text-gray-300">
           Are you sure you want to approve the withdrawal for the following course?
@@ -195,13 +204,17 @@ const ProfileAlert = ({ isOpen, isClose, onClose, children, setStudent, EditCour
             className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transition duration-150"
             onClick={() => {
               handleRemoveCourse(selectedCourse.course_id);
-              setIsAlertOpen(false);
+              setIsAlertClose(true);
+              setTimeout(() => setIsAlertOpen(false), 150);
             }}
           >
             Delete
           </button>
           <button
-            onClick={() => setIsAlertOpen(false)}
+            onClick={() => {
+              setIsAlertClose(true);
+              setTimeout(() => setIsAlertOpen(false), 150)
+            }}
             className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-500 transition duration-150"
           >
             Cancel

@@ -49,7 +49,6 @@ function AdminPage({ registeredCourses }) {
         }
       }).then((res) => {
         if (non_animate) {
-          console.log(non_animate);
           setData(res.data);
           return;
         } else {
