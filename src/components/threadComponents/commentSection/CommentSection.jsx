@@ -4,7 +4,7 @@ import axios from "axios";
 
 import Comment from "./comment/Comment";
 
-const CommentSection = ({ thread_id, isHome, isPostComment, studentId, triggerFetch, isBottom, onPost, onPostCleanup, onBottomCleanup }) => {
+const CommentSection = ({ thread_id, isHome, isPostComment, studentId, triggerFetch, isBottom, onPost, onPostCleanup, onBottomCleanup, isAdmin, onDeleteComment }) => {
     const [comments, setComments] = useState([]);
     const [limit, setLimit] = useState(20);
     const [offset, setOffset] = useState(0);
@@ -103,6 +103,11 @@ const CommentSection = ({ thread_id, isHome, isPostComment, studentId, triggerFe
           );
     }
     
+    function handleOnDelete(commentId) {
+        onDeleteComment(commentId);
+        setComments(prevComments => prevComments.filter(comment => comment.id !== commentId));
+    }
+
     return (
         <div className="mt-4">
             {comments.length === 0 ? <div className="text-white text-center">No comments found</div> : comments.map((comment) => {
@@ -118,6 +123,8 @@ const CommentSection = ({ thread_id, isHome, isPostComment, studentId, triggerFe
                         fromHome={isHome}
                         studentId={studentId}
                         onPostReply={handlePostReply}
+                        onDelete={handleOnDelete}
+                        isLigit={(comment.author.student_id === studentId) || isAdmin}
                     />
                 )
             })}
