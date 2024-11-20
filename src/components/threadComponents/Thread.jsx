@@ -281,6 +281,18 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
     document.body.removeChild(link);
   }
 
+  function handleDeleteComment(commentID) {
+    axios.delete(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? 'home-comment' : 'comment'}/delete-comment?comment_id=${commentID}`, {
+      headers: {
+        'x-token': localStorage.getItem('token')
+      }
+    }).then(() => {
+      setNumComment((prev) => prev - 1);
+    }).catch((err) => {
+      console.error("Error:", err);
+    });
+  }
+
   if (isLoading) {
     return (
       <Loading />
@@ -318,7 +330,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
                   </div>
                   {isOpen && (
                     <div
-                      className="absolute right-20 z-10 w-48 mt-2 origin-top-right bg-eerie-black rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                      className="absolute right-20 z-10 w-48 mt-2 origin-top-right bg-eerie-black rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none animate-[fadeIn_0.125s_ease-in]"
                       role="menu"
                       aria-orientation="vertical"
                       aria-labelledby="options-menu"
@@ -370,6 +382,8 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
           onBottomCleanup={handleBottomCleanup}
           onPost={onPost}
           onPostCleanup={handlePostCleanup}
+          isAdmin={isAdmin}
+          onDeleteComment={handleDeleteComment}
         />
       </div>
       <AlertBox isOpen={isAlertOpen} onClose={() => setIsAlertOpen(false)}>
