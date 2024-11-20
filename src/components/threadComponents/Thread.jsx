@@ -330,7 +330,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
                   </div>
                   {isOpen && (
                     <div
-                      className="absolute right-20 z-10 w-48 mt-2 origin-top-right bg-eerie-black rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                      className="absolute right-20 z-10 w-48 mt-2 origin-top-right bg-eerie-black rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none animate-[fadeIn_0.125s_ease-in]"
                       role="menu"
                       aria-orientation="vertical"
                       aria-labelledby="options-menu"

@@ -140,6 +140,11 @@ const CommentEditor = React.forwardRef(({ onChange }, ref) => {
         }
       }
     },
+    editorProps: {
+      attributes: {
+        class: "p-4 rounded-3xl border border-neutral-700 focus:bg-neutral-700 shadow-sm focus:border-white transition duration-200"
+      },
+    }
   });
 
   const setLink = useCallback(() => {
@@ -301,7 +306,6 @@ const CommentEditor = React.forwardRef(({ onChange }, ref) => {
       )}
       <EditorContent
         editor={editor}
-        className="p-4 rounded-3xl border border-neutral-700 hover:bg-neutral-700 shadow-sm focus:outline-none"
         onClick={() => editor.commands.focus()}
       />
       <div className={`absolute top-full left-0 flex mt-1 ml-4 mr-auto text-sm text-gray-200`}>
