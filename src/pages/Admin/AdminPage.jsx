@@ -19,7 +19,7 @@ function AdminPage({ registeredCourses }) {
 
   useEffect(() => {
     if (update) {
-      handleSearch();
+      handleSearch(true);
     }
     setUpdate(false);
   }, [update])
@@ -36,7 +36,7 @@ function AdminPage({ registeredCourses }) {
     setSelectedCourse(e.target.value);
   }
 
-  function handleSearch() {
+  function handleSearch(non_animate) {
     if (selectedYear === '' || selectedCourse === '') {
       setErrorMessage('Please select year and course');
       setIsAlertOpen(true);
@@ -48,11 +48,17 @@ function AdminPage({ registeredCourses }) {
           "x-token": localStorage.getItem("token")
         }
       }).then((res) => {
-        setIsLoading(true);
-        setTimeout(() => {
+        if (non_animate) {
+          console.log(non_animate);
           setData(res.data);
-          setIsLoading(false);
-        }, 1000);
+          return;
+        } else {
+          setIsLoading(true);
+          setTimeout(() => {
+            setData(res.data);
+            setIsLoading(false);
+          }, 1000);
+        }
       }).catch((err) => {
         setIsLoading(true);
         setErrorMessage(err.response.data.detail);
