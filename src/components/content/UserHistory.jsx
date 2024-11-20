@@ -8,6 +8,7 @@ const UserHistory = () => {
     const [selectedTab, setSelectedTab] = useState("threads");
     const [studentData, setStudentData] = useState(null);
     const [threadsLiked, setThreadsLiked] = useState([]);
+    const [threadsLikedHome, setThreadsLikedHome] = useState([]);
     const { studentID } = useParams();
     const [yearBackground, setYearBackground] = useState("");
     useEffect(() => {
@@ -37,13 +38,26 @@ const UserHistory = () => {
                 default:
                     setYearBackground("bg-teal-500");
             }
-            res.data.registered_courses.forEach((course) => {
-                course.forums.forEach((thread) => {
-                    thread.liked_by.forEach((like) => {
-                        if (like.student_id === studentID) setThreadsLiked((prev) => [...prev, thread])
-                    })
-                })
+            const threads = res.data.registered_courses.flatMap(course =>
+                course.forums.filter(thread =>
+                    thread.liked_by.some(like => like.student_id === studentID)
+                )
+            );
+            setThreadsLiked(threads);
+            axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/home/get`, {
+                headers: {
+                    "x-token": localStorage.getItem("token")
+                }
             })
+            .then((res) => {
+                const likedThreads = res.data.filter(thread => 
+                    thread.liked_by.some(like => like.student_id === studentID)
+                );
+                setThreadsLikedHome(likedThreads);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
         }).catch((err) => {
             console.log(err);
         });
@@ -97,7 +111,7 @@ const UserHistory = () => {
                       posted={studentData.posted} 
                       posted_public={studentData.posted_public}
                       likedThreads={threadsLiked} 
-                      likedHomeThreads={studentData.likedHomeThreads}
+                      likedHomeThreads={threadsLikedHome}
                       contentType={selectedTab} 
                     />
                 )}
