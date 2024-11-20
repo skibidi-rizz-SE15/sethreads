@@ -156,7 +156,7 @@ const ProfileAlert = ({ isOpen, isClose, onClose, children, setStudent, EditCour
                 value={inputCourse}
                 onChange={(e) => setInputCourse(e.target.value)}
               />
-              <button className="bg-software-orange hover:bg-software-orange-hover text-white text-lg font-bold py-2 px-4 rounded-lg" onClick={handleRegCourse}>
+              <button className="bg-software-orange hover:bg-software-orange-hover text-white text-lg font-bold py-2 px-4 rounded-lg transition duration-200" onClick={handleRegCourse}>
                 Add
               </button>
             </div>

@@ -15,10 +15,14 @@ function TableCourses({ student, isEditCourses, onDelete }) {
             <tbody>
                 { student.registered_courses.map((course) => {
                     return (
-                        <tr key={course.course_id} className='hover:bg-orange-50 transition-colors border-b last:border-b-0 bg-gray-50'>
-                            <td className='p-3 text-sm text-gray-700 text-center'>{course.course_id}</td>
-                            <td className='p-3 text-sm text-gray-700'>{course.name}</td>
-                            <td className={`p-3 text-sm text-gray-700 ${ isEditCourses ? "" : "hidden" }`}><FaTrash className='text-red-500 mx-auto hover:cursor-pointer' onClick={() => onDelete(course.course_id)} /></td>
+                        <tr key={course.course_id} className='hover:bg-orange-50 transition-colors duration-150 border-b last:border-b-0 bg-gray-50'>
+                            <td className='p-2 text-sm text-gray-700 text-center'>{course.course_id}</td>
+                            <td className='p-2 text-sm text-gray-700'>{course.name}</td>
+                            <td className={`p-1 text-sm text-gray-700 flex justify-center items-center ${ isEditCourses ? "" : "hidden" }`}>
+                                <div className='w-7 py-2 hover:bg-red-100 hover:cursor-pointer rounded-full transition duration-150' onClick={() => onDelete(course.course_id)} >
+                                    <FaTrash className='text-red-500 mx-auto' />
+                                </div>
+                            </td>
                         </tr>
                     )
                 }) }
