@@ -207,6 +207,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
         }/create-comment`,
         {
           comment_from: threadId,
+          course_id: courseId,
           comment_data: commentBody,
           posted_by: studentId,
           create_at: formattedDateTime,
