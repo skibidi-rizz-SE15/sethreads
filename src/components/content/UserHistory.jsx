@@ -40,9 +40,6 @@ const UserHistory = () => {
             console.log(err);
         });
     }, []);
-    // temp
-    let year = 1;
-    let isTA = true;
 
     return (
         <main className="relative flex overflow-y-auto w-full">
@@ -53,7 +50,7 @@ const UserHistory = () => {
                         loading="lazy"
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/da1e4bf63962c141c8657868b117ac6c66f46017effdd8b677ebbc75f8cd98fd?placeholderIfAbsent=true&apiKey=55e9f8a1f064422990695f1eab1a40f5"
                         alt="User Avatar"
-                        className={`self-center row-start-1 row-end-${year ? "3" : "2"} object-contain shrink-0 aspect-square rounded-[100px] w-[10rem]`}
+                        className={`self-center row-start-1 row-end-${(studentData && studentData.year) ? "3" : "2"} object-contain shrink-0 aspect-square rounded-[100px] w-[10rem]`}
                     />
                     <div className="flex my-auto gap-2 text-4xl">
                         {studentData ? studentData.name : "loading"} {studentData ? studentData.surname : "loading"}
@@ -88,7 +85,9 @@ const UserHistory = () => {
                 {(studentData) && (
                     <ProfileContent 
                       comments={studentData.comment} 
+                      comments_public={studentData.comment_public}
                       posted={studentData.posted} 
+                      posted_public={studentData.posted_public}
                       likedThreads={studentData.likedThreads} 
                       likedHomeThreads={studentData.likedHomeThreads}
                       contentType={selectedTab} 

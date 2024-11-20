@@ -1,24 +1,28 @@
 import React from "react";
-import ThreadCard from "../threadSection/threadCard/ThreadCard";
 import TextTitle from "../../card/textTitle/TextTitle";
-import TextBody from "../../card/textBody/TextBody";
-import LikeBtn from "../../button/like/LikeBtn";
-import CommentBtn from "../../button/post/CommentBtn";
-import { getPreviewHTMLString } from "../../../utilities/HtmlFilter";
-
+import Separator from '../../separator/Separator';
+import { Link } from 'react-router-dom';
 
 const MiniThreadCard = ({ data }) => {
+    console.log(data);
     return (
-        <article className="flex overflow-hidden flex-col self-center px-6 pt-6 pb-3.5 mx-auto my-1 rounded-3xl bg-neutral-800 hover:bg-general-highlight transition duration-200">
-            <div className="flex flex-col items-start w-fit">
-                <TextTitle title={data.title} className='mt-3 line-clamp-6 text-ellipsis' />
-                <TextBody body={getPreviewHTMLString(data.body)} className='mt-2 line-clamp-3 text-ellipsis' />
-            </div>
-            <div className='flex items-center mt-2 -ml-2.5 text-white'>
-                <LikeBtn isLiked={data.isLiked} likeCount={data.numberOfLikes} handleLikeThread={handleLikeThread} />
-                <CommentBtn number={data.comments.length} />
-            </div>
-        </article>
+        <Link to={data.course_id ? `/course/${data.course_id}/thread/${data.id}` : `/home/thread/${data.id}`} className="contents">
+            <article className="flex overflow-hidden flex-col self-center px-6 py-3 rounded-3xl bg-eerie-black hover:bg-general-highlight transition duration-200">
+                <div className="text-software-orange">
+                    {(data.course_id)
+                    ? <>
+                        <span className="text-gray-300">Course ID: </span>
+                        <span>{data.course_id}</span>
+                    </>
+                    : <span>HOME</span>
+                    }
+                </div>
+                <TextTitle title={data.title} className='line-clamp-3 text-ellipsis' />
+                <div className='flex mt-2 items-center text-gray-400'>
+                    {data.likes} Likes  •  {data.comments.length} Comments
+                </div>
+            </article>
+        </Link>
     );
 }
 const MiniCommentCard = ({ data }) => {
@@ -27,26 +31,48 @@ const MiniCommentCard = ({ data }) => {
     );
 }
 
-const ProfileContent = ({ comments, posted, likedThreads, likedHomeThreads, contentType, className = "" }) => {
+const ProfileContent = ({ comments, comments_public, posted, posted_public, likedThreads, likedHomeThreads, contentType, className = "" }) => {
+    console.log(likedHomeThreads);
     return (
         <section className={`${className}`}>
             {(contentType === "threads") && (
-                posted.map((thread) => {
-                    <MiniThreadCard data={thread} />
-                })
+                <>
+                    <h1 className="text-white text-2xl mb-4 we"><strong>Home</strong></h1>
+                    {posted_public.map((thread, index) => (
+                        <div>
+                            <MiniThreadCard data={thread} />
+                            {index < posted.length - 1 && (<Separator className='w-full my-4' />)}
+                        </div>
+                    ))}
+                    <h1 className="text-white text-2xl m">Courses</h1>
+                    {posted.map((thread, index) => (
+                        <div>
+                            <MiniThreadCard data={thread} />
+                            {index < posted.length - 1 && (<Separator className='w-full my-4' />)}
+                        </div>
+                    ))}
+                </>
             )}
             {(contentType === "likedThreads") && (
-                (likedHomeThreads.map((thread) => {
-                    <MiniThreadCard data={thread} />
-                }))
-                (likedThreads.map((thread) => {
-                    <MiniThreadCard data={thread} />
-                }))
+                <>
+                    <h1 className="text-white text-2xl mb-4 we"><strong>Home</strong></h1>
+                    {posted_public.map((thread, index) => (
+                        <div>
+                            <MiniThreadCard data={thread} />
+                            {index < posted.length - 1 && (<Separator className='w-full my-4' />)}
+                        </div>
+                    ))}
+                    <h1 className="text-white text-2xl m">Courses</h1>
+                    {posted.map((thread, index) => (
+                        <div>
+                            <MiniThreadCard data={thread} />
+                            {index < posted.length - 1 && (<Separator className='w-full my-4' />)}
+                        </div>
+                    ))}
+                </>
             )}
             {(contentType === "comments") && (
-                comments.map((comment) => {
-                    <MiniCommentCard data={comment} />
-                })
+                comments.map((comment) => <MiniCommentCard data={comment} />)
             )}
         </section>
     );
