@@ -7,6 +7,7 @@ import ProfileContent from "./ProfileContent/ProfileContent";
 const UserHistory = () => {
     const [selectedTab, setSelectedTab] = useState("threads");
     const [studentData, setStudentData] = useState(null);
+    const [threadsLiked, setThreadsLiked] = useState([]);
     const { studentID } = useParams();
     const [yearBackground, setYearBackground] = useState("");
     useEffect(() => {
@@ -36,6 +37,13 @@ const UserHistory = () => {
                 default:
                     setYearBackground("bg-teal-500");
             }
+            res.data.registered_courses.forEach((course) => {
+                course.forums.forEach((thread) => {
+                    thread.liked_by.forEach((like) => {
+                        if (like.student_id === studentID) setThreadsLiked((prev) => [...prev, thread])
+                    })
+                })
+            })
         }).catch((err) => {
             console.log(err);
         });
@@ -88,7 +96,7 @@ const UserHistory = () => {
                       comments_public={studentData.comment_public}
                       posted={studentData.posted} 
                       posted_public={studentData.posted_public}
-                      likedThreads={studentData.likedThreads} 
+                      likedThreads={threadsLiked} 
                       likedHomeThreads={studentData.likedHomeThreads}
                       contentType={selectedTab} 
                     />
