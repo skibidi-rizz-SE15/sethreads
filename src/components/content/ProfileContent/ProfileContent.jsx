@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import TextTitle from "../../card/textTitle/TextTitle";
 import Separator from "../../separator/Separator";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import parse from "html-react-parser";
+import { LoaderCircle } from 'lucide-react';
 
 const MiniThreadCard = ({ data }) => {
   return (
@@ -68,8 +67,32 @@ const ProfileContent = ({
   contentType,
   className = "",
 }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentContentType, setCurrentContentType] = useState(contentType);
+
+  useEffect(() => {
+    setIsLoading(true);
+    setCurrentContentType(contentType);
+
+    const loadingTimer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(loadingTimer);
+  }, [contentType]);
+
+  if (isLoading) {
+    return (
+      <section className={`${className}`}>
+        <div className="flex justify-center items-center h-full">
+          <LoaderCircle strokeWidth={1} size={56} className='mt-20 text-white animate-spin' /> 
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className={`${className}`}>
+    <section className="animate-[fadeIn_0.15s_ease-in]">
       {contentType === "threads" && (
         <>
           <h1 className="text-white text-2xl mb-4">
