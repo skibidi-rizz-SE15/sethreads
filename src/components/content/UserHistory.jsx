@@ -17,7 +17,6 @@ const UserHistory = () => {
                 "x-token": localStorage.getItem("token")
             }
         }).then((res) => {
-            console.log(res.data);
             setStudentData(res.data);
             switch (res.data.year) {
                 case -1:

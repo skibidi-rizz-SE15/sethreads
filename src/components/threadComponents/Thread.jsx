@@ -298,6 +298,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
               name={`${threadData.author.name} ${threadData.author.surname}`}
               year={threadData.author.year}
               time={threadData.create_at}
+              studentId={threadData.author.student_id}
             />
             <div ref={domNode} className="flex-1 flex justify-end">
               {((studentId === threadData.author.student_id || isTA === true) || (isAdmin)) && (

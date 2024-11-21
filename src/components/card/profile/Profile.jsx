@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const Profile = ({ name, year=0, time="", className="" }) => {
+const Profile = ({ name, year=0, time="", studentId, className="" }) => {
+    const navigate = useNavigate();
+
     let yearBackground;
     switch(year){
       case -1:
@@ -28,9 +31,10 @@ const Profile = ({ name, year=0, time="", className="" }) => {
            loading="lazy" 
            src="https://cdn.builder.io/api/v1/image/assets/TEMP/da1e4bf63962c141c8657868b117ac6c66f46017effdd8b677ebbc75f8cd98fd?placeholderIfAbsent=true&apiKey=55e9f8a1f064422990695f1eab1a40f5" 
            alt="User Avatar" 
-           className={`self-center row-start-1 row-end-${year ? "3" : "2"} object-contain shrink-0 aspect-square rounded-[100px] w-[2rem]`} 
+           className={`self-center row-start-1 row-end-${year ? "3" : "2"} object-contain shrink-0 aspect-square rounded-[100px] w-[2rem] hover:cursor-pointer`}
+           onClick={() => navigate(`/profile/${studentId}`)} 
           />
-          <div className="flex my-auto gap-2">
+          <div className="flex my-auto gap-2 hover:cursor-pointer" onClick={() => navigate(`/profile/${studentId}`)}>
             <div className="grow">{name}</div>
             { time && <div className="text-neutral-400">{time}</div> }
           </div>

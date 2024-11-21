@@ -75,6 +75,7 @@ const ProfileContent = ({
           <h1 className="text-white text-2xl mb-4">
             <strong>Home</strong>
           </h1>
+          {posted_public.length === 0 && (<h1 className="text-gray-400 text-lg mb-4 text-center">No Activity</h1>)}
           {posted_public.map((thread, index) => (
             <div>
               <MiniThreadCard data={thread} />
@@ -86,6 +87,7 @@ const ProfileContent = ({
           <h1 className="text-white text-2xl my-4">
             <strong>Courses</strong>
           </h1>
+          {posted.length === 0 && (<h1 className="text-gray-400 text-lg mb-4 text-center">No Activity</h1>)}
           {posted.map((thread, index) => (
             <div>
               <MiniThreadCard data={thread} />
@@ -101,6 +103,7 @@ const ProfileContent = ({
           <h1 className="text-white text-2xl mb-4">
             <strong>Home</strong>
           </h1>
+          {likedHomeThreads.length === 0 && (<h1 className="text-gray-400 text-lg mb-4 text-center">No Activity</h1>)}
           {likedHomeThreads.map((thread, index) => (
             <div>
               <MiniThreadCard data={thread} />
@@ -112,6 +115,7 @@ const ProfileContent = ({
           <h1 className="text-white text-2xl my-4">
             <strong>Courses</strong>
           </h1>
+          {likedThreads.length === 0 && (<h1 className="text-gray-400 text-lg mb-4 text-center">No Activity</h1>)}
           {likedThreads.map((thread, index) => (
             <div>
               <MiniThreadCard data={thread} />
@@ -127,6 +131,7 @@ const ProfileContent = ({
           <h1 className="text-white text-2xl mb-4">
             <strong>Home</strong>
           </h1>
+          {comments_public.length === 0 && (<h1 className="text-gray-400 text-lg mb-4 text-center">No Activity</h1>)}
           {comments_public.map((comment, index) => (
             <div>
               <MiniCommentCard data={comment} />
@@ -138,6 +143,7 @@ const ProfileContent = ({
           <h1 className="text-white text-2xl mb-4">
             <strong>Course</strong>
           </h1>
+          {comments.length === 0 && (<h1 className="text-gray-400 text-lg mb-4 text-center">No Activity</h1>)}
           {comments.map((comment, index) => (
             <div>
               <MiniCommentCard data={comment} />
