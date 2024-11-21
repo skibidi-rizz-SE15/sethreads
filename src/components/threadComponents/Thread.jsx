@@ -207,6 +207,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
         }/create-comment`,
         {
           comment_from: threadId,
+          course_id: courseId,
           comment_data: commentBody,
           posted_by: studentId,
           create_at: formattedDateTime,
@@ -309,6 +310,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
               name={`${threadData.author.name} ${threadData.author.surname}`}
               year={threadData.author.year}
               time={threadData.create_at}
+              studentId={threadData.author.student_id}
             />
             <div ref={domNode} className="flex-1 flex justify-end">
               {((studentId === threadData.author.student_id || isTA === true) || (isAdmin)) && (

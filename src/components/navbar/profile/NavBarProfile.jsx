@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
-const NavBarProfile = ({ name, year, resetState }) => {
+const NavBarProfile = ({ name, year, resetState, studentId }) => {
   const [showButton, setShowButton] = useState(false);
   const imgRef = useRef(null);
   const buttonRef = useRef(null);
   const navigate = useNavigate();
 
   let yearBackground;
-  switch(year){
+  switch (year) {
     case -1:
       yearBackground = "bg-red-500";
       break;
@@ -29,20 +29,26 @@ const NavBarProfile = ({ name, year, resetState }) => {
   }
 
   const handleClickOutside = (event) => {
-    if (buttonRef && imgRef.current && !imgRef.current.contains(event.target) && buttonRef.current && !buttonRef.current.contains(event.target)) {
+    if (
+      buttonRef &&
+      imgRef.current &&
+      !imgRef.current.contains(event.target) &&
+      buttonRef.current &&
+      !buttonRef.current.contains(event.target)
+    ) {
       setShowButton(false);
     }
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
   return (
-    <div className='relative grid grid-cols-[auto,auto] gap-x-6 gap-y-1 mb-1 h-fit text-white text-right ml-10'>
+    <div className="relative grid grid-cols-[auto,auto] gap-x-6 gap-y-1 mb-1 h-fit text-white text-right ml-10">
       <p>{name}</p>
       <img
         ref={imgRef}
@@ -52,20 +58,36 @@ const NavBarProfile = ({ name, year, resetState }) => {
         className={`self-center col-start-2 row-start-1 row-end-3 object-contain shrink-0 aspect-square rounded-[100px] w-[2rem] hover:cursor-pointer`}
         onClick={() => setShowButton((prev) => !prev)}
       />
-      {(year === -1 || year) && (<p className={`justify-self-end px-3 w-fit text-sm rounded-lg ${yearBackground}`}>{(year === -1) ? `ADMIN` : `Year ${year}`}</p>)}
-      {showButton && (
-        <button
-          ref={buttonRef}
-          className="absolute top-[85%] left-[93%] px-2 py-2 z-10 w-fit text-sm text-white text-nowrap rounded-md border border-software-orange bg-eerie-black hover:bg-general-highlight"
-          role="menuitem"
-          onClick={() => { 
-            localStorage.clear();
-            resetState();
-            navigate("/login");
-          }}
+      {(year === -1 || year) && (
+        <p
+          className={`justify-self-end px-3 w-fit text-sm rounded-lg ${yearBackground}`}
         >
-          Log out
-        </button>
+          {year === -1 ? `ADMIN` : `Year ${year}`}
+        </p>
+      )}
+      {showButton && (
+        <div className="absolute top-[85%] left-[75%] w-[6rem] z-10 bg-eerie-black p-2 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 animate-[fadeIn_0.10s_ease-in]" ref={buttonRef}>
+          <button
+            className=" px-2 py-2  w-full text-sm hover:bg-general-highlight text-nowrap rounded-md border border-steadfast"
+            onClick={() => {
+              console.log("T")
+              navigate(`/profile/${studentId}`)
+            }}
+          >
+            Profile
+          </button>
+          <button
+            className=" px-2 py-2  w-full text-sm hover:bg-general-highlight text-nowrap rounded-md border border-steadfast"
+            role="menuitem"
+            onClick={() => {
+              localStorage.clear();
+              resetState();
+              navigate("/login");
+            }}
+          >
+            Log out
+          </button>
+        </div>
       )}
     </div>
   );

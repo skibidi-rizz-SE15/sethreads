@@ -12,6 +12,7 @@ import Home from './components/content/Home';
 import CreateThread from './components/content/CreateThread';
 import Loading from './components/loading/Loading';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
+import UserHistory from './components/content/UserHistory';
 import './App.css';
 
 function App() {
@@ -112,6 +113,7 @@ function App() {
           <Route path='/' element={<MainPage studentInfo={studentInfo} taCourse={taCourse} isAdmin={isAdmin} resetState={resetState} />}>
             <Route index element={<Navigate to="/home" />} />
             <Route path='home' element={<Home studentId={studentId} />} />
+            <Route path='profile/:studentID' element={<UserHistory />} />
             {studentInfo && (<Route path='admin' element={<AdminPage registeredCourses={studentInfo.registered_courses}/>} />)}
             {studentInfo && studentInfo.registered_courses.map((course) => (
               <Route key={course.course_id} path={`course/${course.course_id}`} element={<Content courseId={course.course_id} courseName={course.name} studentId={studentId} />} />
