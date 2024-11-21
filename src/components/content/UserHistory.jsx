@@ -19,6 +19,9 @@ const UserHistory = () => {
         }).then((res) => {
             setStudentData(res.data);
             switch (res.data.year) {
+                case -2:
+                    setYearBackground("bg-teal-600");
+                    break;
                 case -1:
                     setYearBackground("bg-red-500");
                     break;
@@ -35,7 +38,7 @@ const UserHistory = () => {
                     setYearBackground("bg-green-500");
                     break;
                 default:
-                    setYearBackground("bg-teal-500");
+                    setYearBackground("bg-gray-500");
             }
             const threads = res.data.registered_courses.flatMap(course =>
                 course.forums.filter(thread =>
@@ -78,7 +81,7 @@ const UserHistory = () => {
                     </div>
                     {(studentData) && (
                         <div className="flex gap-3 w-fit h-fit text-lg">
-                            <div className={`h-fit w-fit rounded-lg px-3 ${yearBackground}`}>{(studentData.year === -1) ? `ADMIN` : `Year ${studentData.year}`}</div>
+                            <div className={`h-fit w-fit rounded-lg px-3 ${yearBackground}`}>{(studentData.year <= -1) ? (studentData.year === -2 ? "ALUMNI" : "ADMIN") : `Year ${studentData.year}`}</div>
                             {studentData.is_ta ? (<div className="w-7 h-7 px-3 rounded-lg flex justify-center items-center bg-green-500">TA</div>) : ""}
                         </div>
                     )}

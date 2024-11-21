@@ -9,6 +9,9 @@ const NavBarProfile = ({ name, year, resetState, studentId }) => {
 
   let yearBackground;
   switch (year) {
+    case -2:
+      yearBackground = "bg-teal-600";
+      break;
     case -1:
       yearBackground = "bg-red-500";
       break;
@@ -25,7 +28,7 @@ const NavBarProfile = ({ name, year, resetState, studentId }) => {
       yearBackground = "bg-green-500";
       break;
     default:
-      yearBackground = "bg-teal-500";
+      yearBackground = "bg-gray-500";
   }
 
   const handleClickOutside = (event) => {
@@ -62,7 +65,7 @@ const NavBarProfile = ({ name, year, resetState, studentId }) => {
         <p
           className={`justify-self-end px-3 w-fit text-sm rounded-lg ${yearBackground}`}
         >
-          {year === -1 ? `ADMIN` : `Year ${year}`}
+          {year <= -1 ? (year === -2 ? "ALUMNI" : "ADMIN") : `Year ${year}`}
         </p>
       )}
       {showButton && (

@@ -6,6 +6,9 @@ const Profile = ({ name, year=0, time="", studentId, className="" }) => {
 
     let yearBackground;
     switch(year){
+      case -2:
+        yearBackground = "bg-teal-600";
+        break;
       case -1:
         yearBackground = "bg-red-500";
         break;
@@ -22,7 +25,7 @@ const Profile = ({ name, year=0, time="", studentId, className="" }) => {
         yearBackground = "bg-green-500";
         break;
       default:
-        yearBackground = "bg-teal-500";
+        yearBackground = "bg-gray-500";
     }
 
     return (
@@ -39,7 +42,7 @@ const Profile = ({ name, year=0, time="", studentId, className="" }) => {
             { time && <div className="text-neutral-400">{time}</div> }
           </div>
           {(year === -1 || year) && (
-            <div className={`w-fit rounded-lg text-xs px-3 ${yearBackground}`}>{(year === -1) ? `ADMIN` : `Year ${year}`}</div>
+            <div className={`w-fit rounded-lg text-xs px-3 ${yearBackground}`}>{(year <= -1) ? (year === -2 ? "ALUMNI" : "ADMIN") : `Year ${year}`}</div>
           )}
         </div>
     )
