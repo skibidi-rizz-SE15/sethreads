@@ -48,7 +48,39 @@ const CreateThread = ({ registeredCourses, ta_course, studentId }) => {
 
   function handleFileSelect(event) {
     const files = Array.from(event.target.files);
-    setSelectedFiles((prev) => [...prev, ...files]);
+    const validFiles = files.filter(validateFile);
+    if (validFiles.length === 0) return;
+    validFiles.forEach((file) => {
+      setSelectedFiles((prev) => [...prev, file]);
+    });
+  }
+
+  function validateFile(file) {
+    const allowedTypes = [
+      'image/jpeg', 
+      'image/png', 
+      'application/pdf',
+      'video/mp4'
+    ];
+    const maxSize = 25 * 1024 * 1024;
+    const maxVideoSize = 50 * 1024 * 1024;
+  
+    if (!allowedTypes.includes(file.type)) {
+      alert('Invalid file type. Allowed types are: JPEG, PNG, PDF, MP4');
+      return false;
+    }
+
+    if (file.type === 'video/mp4' && file.size > maxVideoSize) {
+      alert(`${file.name} video is too large. Maximum size is 50MB for video`);
+      return false;
+    }
+  
+    else if (file.size > maxSize) {
+      alert(`${file.name} too large. Maximum size is 5MB`);
+      return false;
+    }
+  
+    return true;
   }
 
   return (
