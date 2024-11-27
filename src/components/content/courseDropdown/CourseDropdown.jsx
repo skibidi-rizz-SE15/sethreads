@@ -19,16 +19,16 @@ const CourseDropdown = ({ registeredCourses, setSelectedCourseId }) => {
             >
                 HOME
             </option>
-            {registeredCourses.map((course) =>
+            {registeredCourses.map((register) =>
                 <option
-                    value={course.course_id}
+                    value={register.course.id}
                     onClick={() => {
-                        setSelectedCourseId(course.course_id);
-                        setSelectedCourse(course.name);
+                        setSelectedCourseId(register.course.id);
+                        setSelectedCourse(register.course.name);
                     }}
                     className="block px-4 py-2 text-sm" role="menuitem"
                 >
-                    {course.name}
+                    {register.course.name}
                 </option>
             )}
         </select>

@@ -51,7 +51,7 @@ const PostThreadBtn = ({ title, body, createdBy, courseId, isValid, onPost, file
     });
   }
 
-  function postToCourse() {
+  function postThread() {
     const files_name = files.map((file) => file.name);
 
     return axios.post(
@@ -73,27 +73,6 @@ const PostThreadBtn = ({ title, body, createdBy, courseId, isValid, onPost, file
     );
   }
 
-  function postToHome() {
-    const files_name = files.map((file) => file.name);
-    
-    return axios.post(
-      `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/home/create-thread?notify=${isNotify}`,
-      {
-        title: title,
-        body: body,
-        is_highlight: false,
-        create_at: formattedDateTime,
-        create_by: createdBy,
-        files_name: files_name,
-      },
-      {
-        headers: {
-          "x-token": localStorage.getItem("token"),
-        },
-      }
-    );
-  }
-
   function handlePostThread() {
     if (isValid) {
       onPost();
@@ -101,7 +80,7 @@ const PostThreadBtn = ({ title, body, createdBy, courseId, isValid, onPost, file
       toast.promise(
         new Promise((resolve, reject) => {
           const startTime = Date.now();
-          (courseId === "home" ? postToHome() : postToCourse())
+          postThread()
             .then((res) => {
               const elapsedTime = Date.now() - startTime;
               const remainingDelay = Math.max(0, minDelay - elapsedTime);

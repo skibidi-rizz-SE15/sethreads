@@ -39,12 +39,12 @@ const Sidebar = ({ registered_courses, currentPath, taCourse, isAdmin }) => {
       <Separator className="self-stretch mt-6" />
       <h2 className="mt-4 text-2xl font-bold text-neutral-400">Courses</h2>
       <div className="w-full">
-        {registered_courses.map((course) => (
+        {registered_courses.map((register) => (
           <SidebarItem
-            key={course.course_id}
-            subject={course.name}
-            to={`/course/${course.course_id}`}
-            isActive={currentPath === `/course/${course.course_id}`}
+            key={register.id}
+            subject={register.course.name}
+            to={`/course/${register.course.id}`}
+            isActive={currentPath === `/course/${register.course.id}`}
           />
         ))}
       </div>

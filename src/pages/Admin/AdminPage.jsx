@@ -27,10 +27,10 @@ function AdminPage({ registeredCourses }) {
   function handleSelectYear(e) {
     setSelectedYear(e.target.value);
     if (e.target.value === 'all') {
-      setSelectCourse(registeredCourses.filter((course) => course.year === 0));
+      setSelectCourse(registeredCourses.filter((register) => register.course.require_year === 0));
       return;
     }
-    setSelectCourse(registeredCourses.filter((course) => course.year === parseInt(e.target.value)));
+    setSelectCourse(registeredCourses.filter((register) => register.course.require_year === parseInt(e.target.value)));
   }
   function handleSelectCourse(e) {
     setSelectedCourse(e.target.value);

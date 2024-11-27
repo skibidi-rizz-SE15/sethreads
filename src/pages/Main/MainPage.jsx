@@ -16,10 +16,10 @@ const MainPage = ({ studentInfo, taCourse, isAdmin, resetState }) => {
         studentName={`${studentInfo.name} ${studentInfo.surname}`}
         studentYear={studentInfo.year}
         resetState={resetState}
-        studentId={studentInfo.student_id}
+        studentId={studentInfo.id}
       />
       <Sidebar 
-        registered_courses={studentInfo.registered_courses} 
+        registered_courses={studentInfo.registered} 
         taCourse={taCourse}
         currentPath={location.pathname}
         isAdmin={isAdmin}

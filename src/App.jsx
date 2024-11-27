@@ -114,16 +114,16 @@ function App() {
             <Route index element={<Navigate to="/home" />} />
             <Route path='home' element={<Home studentId={studentId} />} />
             <Route path='profile/:studentID' element={<UserHistory />} />
-            {studentInfo && (<Route path='admin' element={<AdminPage registeredCourses={studentInfo.registered_courses}/>} />)}
-            {studentInfo && studentInfo.registered_courses.map((course) => (
-              <Route key={course.course_id} path={`course/${course.course_id}`} element={<Content courseId={course.course_id} courseName={course.name} studentId={studentId} />} />
+            {studentInfo && (<Route path='admin' element={<AdminPage registeredCourses={studentInfo.registered}/>} />)}
+            {studentInfo && studentInfo.registered.map((register) => (
+              <Route key={register.id} path={`course/${register.course.id}`} element={<Content courseId={register.course.id} courseName={register.course.name} studentId={studentId} />} />
             ))}
             {taCourse && (
-              <Route path={`course/${taCourse.course_id}`} element={<Content courseId={taCourse.course_id} courseName={taCourse.name} studentId={studentId} />} />
+              <Route path={`course/${taCourse.id}`} element={<Content courseId={taCourse.id} courseName={taCourse.name} studentId={studentId} />} />
             )}
             { studentId && (<Route path='home/thread/:threadId' element={<Thread fromHome={true} studentId={studentId} isAdmin={isAdmin} />} />)}
             { (studentInfo) && (<Route path='course/:courseId/thread/:threadId' element={<Thread fromHome={false} studentId={studentId} isTA={studentInfo.is_ta} TACourseID={taCourse ? taCourse.course_id : ""} isAdmin={isAdmin} />} />)}
-            {studentInfo && (<Route path='/create-thread' element={<CreateThread registeredCourses={studentInfo.registered_courses} ta_course={taCourse} studentId={studentId} />} />)}
+            {studentInfo && (<Route path='/create-thread' element={<CreateThread registeredCourses={studentInfo.registered} ta_course={taCourse} studentId={studentId} />} />)}
           </Route>
         </Route>
         <Route path='/login' element={<LoginPage mode={mode} handleLinkClick={handleLinkClick} handleStudentIdChange={handleStudentIdChange} handlePasswordChange={handlePasswordChange} isSuccess={isSuccess} studentId={studentId} password={password} setIsSuccess={setIsSuccess} />} />

@@ -15,8 +15,8 @@ function Search({ registeredCourses, onSelectYear, onSelectCourse, onSearch }) {
       </select>
       <select className='flex grow w-[30rem] h-10 text-white text-center bg-steadfast rounded-md focus:outline-none focus:ring-1 focus:ring-software-orange transition duration-200'>
             <option value='' onClick={onSelectCourse} className='hidden'>Select Course</option>
-            {registeredCourses.map((course) => (
-                <option key={course.course_id} value={course.course_id} onClick={onSelectCourse}>{course.name}</option>
+            {registeredCourses.map((register) => (
+                <option key={register.course.id} value={register.course.id} onClick={onSelectCourse}>{register.course.name}</option>
             ))}
             <option value='all' onClick={onSelectCourse}>All Courses</option>
       </select>
