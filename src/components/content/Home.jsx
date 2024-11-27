@@ -83,7 +83,7 @@ function Home({ studentId }) {
   const fetchData = async (currentOffset) => {
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/home/get-all?limit=${limit}&offset=${currentOffset}`,
+        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/get-all?course_id=home&limit=${limit}&offset=${currentOffset}`,
         {
           headers: {
             "x-token": localStorage.getItem("token"),
@@ -103,7 +103,7 @@ function Home({ studentId }) {
     const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
     if (bottom) {
       axios.get(
-        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/home/get-all?limit=${limit}&offset=${offset}`,
+        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/get-all?course_id=home&limit=${limit}&offset=${offset}`,
         {
           headers: {
             "x-token": localStorage.getItem("token"),
@@ -127,14 +127,14 @@ function Home({ studentId }) {
     } else if (by === "Oldest") {
       setThreads((prevThreads) => [...prevThreads].sort((a, b) => a.id - b.id));
     } else if (by === "Like") {
-      setThreads((prevThreads) => [...prevThreads].sort((a, b) => b.likes - a.likes));
+      setThreads((prevThreads) => [...prevThreads].sort((a, b) => b.likes.length - a.likes.length));
     }
   }
 
-  function updateLikes(threadId, numberOfLikes) {
+  function updateLikes(threadId, likes_data) {
     setThreads((prev) => 
       prev.map((thread) => 
-        thread.id === threadId ? { ...thread, likes: numberOfLikes } : thread
+        thread.id === threadId ? { ...thread, likes: likes_data } : thread
       )
     );
   }

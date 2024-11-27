@@ -129,7 +129,7 @@ const Content = ({ courseId, courseName, studentId }) => {
     } else if (by === "Oldest") {
       setThreads((prevThreads) => [...prevThreads].sort((a, b) => a.id - b.id));
     } else if (by === "Like") {
-      setThreads((prevThreads) => [...prevThreads].sort((a, b) => b.likes - a.likes));
+      setThreads((prevThreads) => [...prevThreads].sort((a, b) => b.likes.length - a.likes.length));
     }
   }
 

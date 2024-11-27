@@ -71,7 +71,6 @@ const ThreadSection = ({ threads, courseId, isHomePage, studentId, onSort, updat
               title={thread.title} body={thread.body}
               comments={thread.comments}
               likes={thread.likes}
-              liked_by={thread.liked_by}
               studentId={studentId}
               fromHome={isHomePage}
               updateLikes={updateLikes}

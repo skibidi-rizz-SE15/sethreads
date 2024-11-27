@@ -9,17 +9,18 @@ import TextTitle from '../../../card/textTitle/TextTitle';
 import { getPreviewHTMLString } from '../../../../utilities/HtmlFilter';
 import LikeBtn from '../../../button/like/LikeBtn';
 
-const ThreadCard = ({ thread_id, name, year, time, title, body, comments, likes, liked_by, studentId, fromHome, updateLikes}) => {
-  const [isLiked, setIsLiked] = useState(liked_by.some((like) => like.student_id === studentId));
-  const [numberOfLikes, setNumberOfLikes] = useState(likes);
+const ThreadCard = ({ thread_id, name, year, time, title, body, comments, likes, studentId, updateLikes}) => {
+  console.log(likes)
+  const [isLiked, setIsLiked] = useState(likes.some((like) => like.student_id === studentId));
+  const [numberOfLikes, setNumberOfLikes] = useState(likes.length);
 
   useEffect(() => {
-    setIsLiked(liked_by.some((like) => like.student_id === studentId));
-  }, [liked_by]);
+    setIsLiked(likes.some((like) => like.student_id === studentId));
+  }, [likes]);
   
   function handleLikeThread(e) {
     e.preventDefault();
-    axios.put(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? 'home' : 'thread'}/update-likes`, {
+    axios.put(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/update-likes`, {
       thread_id: thread_id,
       student_id: studentId,
       is_like: !isLiked
@@ -28,7 +29,7 @@ const ThreadCard = ({ thread_id, name, year, time, title, body, comments, likes,
         'x-token': localStorage.getItem('token')
       }
     }).then((res) => {
-      setNumberOfLikes(res.data);
+      setNumberOfLikes(res.data.length);
       updateLikes(thread_id, res.data);
       setIsLiked(!isLiked);
     }).catch((err) => {
