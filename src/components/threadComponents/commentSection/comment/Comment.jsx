@@ -30,7 +30,7 @@ let useClickOutside = (handler) => {
   return domNode;
 };
 
-const Comment = ({commentId, name, year, time, body, subcomments, fromHome, studentId, onPostReply, isLigit, onDelete}) => {
+const Comment = ({commentId, name, year, time, body, replies, fromHome, studentId, onPostReply, isLigit, onDelete}) => {
     const editorRef = useRef(null);
     const [isRepliesVisible, setIsRepliesVisible] = useState(false);
     const [isReplyEditorVisible, setIsReplyEditorVisible] = useState(false);
@@ -68,12 +68,11 @@ const Comment = ({commentId, name, year, time, body, subcomments, fromHome, stud
     function handlePostReply() {
         if (replyBody) {
           axios.post(
-            `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? "home-comment" : "comment"
-            }/create-subcomment`,
+            `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/comment/create-subcomment`,
             {
-              "reply_of": commentId,
-              "posted_by": studentId,
-              "reply_data": replyBody,
+              "comment_id": commentId,
+              "replied_by": studentId,
+              "body": replyBody,
               "create_at": formattedDateTime
             },
             {
@@ -117,14 +116,14 @@ const Comment = ({commentId, name, year, time, body, subcomments, fromHome, stud
             <div className="ml-[2.625rem]">
                 <TextBody body={body} className="-mt-1" />
                 <div className="flex gap-1 items-center -mt-[0.75rem]">
-                    {(subcomments.length > 0) && <ToggleReplyBtn number={subcomments.length} handleOnClick={handleOnClick} />}
+                    {(replies.length > 0) && <ToggleReplyBtn number={replies.length} handleOnClick={handleOnClick} />}
                     <ReplyBtn handleClick={() => setIsReplyEditorVisible((prev) => !prev)} className="" />
                 </div>
                 {isReplyEditorVisible && (<div className="flex gap-4 my-4 w-full items-center">
                     <ReplyEditor onChange={setReplyBody} ref={editorRef} />
                     <PostReplyBtn isValid={replyBody} handlePostReply={handlePostReply} className="flex text-white w-fit self-end mb-2" />
                 </div>)}
-                {isRepliesVisible && <ReplySection subcomments={subcomments} />}
+                {isRepliesVisible && <ReplySection replies={replies} />}
             </div>
             <AlertBox 
               isOpen={isAlertOpen}

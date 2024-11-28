@@ -1,15 +1,15 @@
 import React from "react";
 import Reply from "./reply/Reply";
 
-const ReplySection = ({ subcomments }) => {
+const ReplySection = ({ replies }) => {
     return (
         <div>
-            {subcomments.map((subcomment) => {
+            {replies.map((subcomment) => {
                 return (
                     <Reply
                         name={`${subcomment.author.name} ${subcomment.author.surname}`}
                         year={subcomment.author.year}
-                        body={subcomment.reply_data}
+                        body={subcomment.body}
                         time={subcomment.create_at}
                     />
                 )

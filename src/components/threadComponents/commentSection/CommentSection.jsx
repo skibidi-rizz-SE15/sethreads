@@ -64,7 +64,7 @@ const CommentSection = ({ thread_id, isHome, isPostComment, studentId, triggerFe
     
     const fetchData = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${isHome ? (`home-comment/get-comments?home_id=${thread_id}`) : (`comment/get-comments?thread_id=${thread_id}`)}&limit=${limit}&offset=${offset}`, {
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/comment/get-comments?thread_id=${thread_id}&limit=${limit}&offset=${offset}`, {
                 headers: {
                     "x-token": localStorage.getItem("token")
                 }
@@ -78,7 +78,7 @@ const CommentSection = ({ thread_id, isHome, isPostComment, studentId, triggerFe
 
     const handlefetchDataOnPost = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${isHome ? (`home-comment/get-last-comment?thread_id=${thread_id}`) : (`comment/get-last-comment?thread_id=${thread_id}`)}`, {
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/comment/get-last-comment?thread_id=${thread_id}`, {
                 headers: {
                     "x-token": localStorage.getItem("token")
                 }
@@ -96,7 +96,7 @@ const CommentSection = ({ thread_id, isHome, isPostComment, studentId, triggerFe
               comment.id === newSubcomment.reply_of 
                 ? {
                     ...comment,
-                    subcomments: [...comment.subcomments, newSubcomment]
+                    replies: [...comment.replies, newSubcomment]
                   }
                 : comment
             )
@@ -118,13 +118,13 @@ const CommentSection = ({ thread_id, isHome, isPostComment, studentId, triggerFe
                         name={`${comment.author.name} ${comment.author.surname}`}
                         year={comment.author.year}
                         time={comment.create_at}
-                        body={comment.comment_data}
-                        subcomments={comment.subcomments}
+                        body={comment.body}
+                        replies={comment.replies}
                         fromHome={isHome}
                         studentId={studentId}
                         onPostReply={handlePostReply}
                         onDelete={handleOnDelete}
-                        isLigit={(comment.author.student_id === studentId) || isAdmin}
+                        isLigit={(comment.author.id === studentId) || isAdmin}
                     />
                 )
             })}

@@ -202,10 +202,10 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
       axios.post(
         `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/comment/create-comment`,
         {
-          comment_from: threadId,
-          course_id: courseId,
-          comment_data: commentBody,
-          posted_by: studentId,
+          thread_id: threadId,
+          course_id: fromHome ? "home" : courseId,
+          body: commentBody,
+          commented_by: studentId,
           create_at: formattedDateTime,
         },
         {
@@ -279,7 +279,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
   }
 
   function handleDeleteComment(commentID) {
-    axios.delete(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/delete-comment?comment_id=${commentID}`, {
+    axios.delete(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/comment/delete-comment?comment_id=${commentID}`, {
       headers: {
         'x-token': localStorage.getItem('token')
       }
@@ -362,7 +362,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
           <FilesCard files={files} className="pt-2" onDownload={handleDownloadFile} />
         )}
         <div className="flex w-max -mb-6 text-white">
-          <LikeBtn isLiked={isLiked} likeCount={threadData.likes} handleLikeThread={handleLikeThread} />
+          <LikeBtn isLiked={isLiked} likeCount={threadData.likes.length} handleLikeThread={handleLikeThread} />
           <CommentDisplay number={numComment} />
         </div>
         <Separator className="w-full my-6" />
