@@ -33,12 +33,12 @@ const PostThreadBtn = ({ title, body, createdBy, courseId, isValid, onPost, file
   async function uploadFiles(thread_id) {
     const formData = new FormData();
     Array.from(files).forEach((file) => {
-      const newFile = new File([file], `${courseId === "home" ? "home" : "thread"}ID_${thread_id}-${file.name}`, { type: file.type });
+      const newFile = new File([file], `threadID_${thread_id}-${file.name}`, { type: file.type });
       formData.append("files", newFile);
     });
 
     axios.post(
-      `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${courseId === "home" ? "home" : "thread"}/upload-files`,
+      `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/upload-files`,
       formData,
       {
         headers: {

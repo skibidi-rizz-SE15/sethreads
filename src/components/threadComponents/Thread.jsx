@@ -62,10 +62,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
   useEffect(() => {
     axios
       .get(
-        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome
-          ? `home/get-thread?thread_id=${threadId}`
-          : `thread/get-thread?thread_id=${threadId}&course_id=${courseId}`
-        }`,
+        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/get-thread?thread_id=${threadId}&course_id=${fromHome ? "home" : courseId}`,
         {
           headers: {
             "x-token": localStorage.getItem("token"),
@@ -75,15 +72,15 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
       .then((res) => {
         setThreadData(res.data);
         setNumComment(res.data.comments.length);
-        setIsLiked(res.data.liked_by.some((like) => like.student_id === studentId));
+        setIsLiked(res.data.likes.some((like) => like.student_id === studentId));
         if (res.data.is_highlight) {
           setIsPin(true);
         }
-        if (res.data.files.length > 0) {
-          const downloadPromises = res.data.files.map(async (file) => {
+        if (res.data.have_file.length > 0) {
+          const downloadPromises = res.data.have_file.map(async (file) => {
             const res = await axios
               .get(
-                `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? "home" : "thread"}/get-file?file_name=${file.file_name}&thread_id=${threadId}`,
+                `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/get-file?file_name=${file.file_name}&thread_id=${threadId}`,
                 {
                   headers: {
                     "x-token": localStorage.getItem("token"),
@@ -158,7 +155,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
   function deleteThread() {
     axios
       .delete(
-        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? "home" : "thread"}/delete-thread?thread_id=${threadId}`,
+        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/delete-thread?thread_id=${threadId}`,
         {
           headers: {
             "x-token": localStorage.getItem("token"),
@@ -176,7 +173,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
   function PinThread() {
     axios
       .put(
-        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? "home" : "thread"}/update-is-highlight?thread_id=${threadId}`,
+        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/update-is-highlight?thread_id=${threadId}`,
         {},
         {
           headers: {
@@ -203,8 +200,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
   function handlePostComment() {
     if (commentBody) {
       axios.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? "home-comment" : "comment"
-        }/create-comment`,
+        `${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/comment/create-comment`,
         {
           comment_from: threadId,
           course_id: courseId,
@@ -252,7 +248,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
 
   function handleLikeThread(e) {
     e.preventDefault();
-    axios.put(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? 'home' : 'thread'}/update-likes`, {
+    axios.put(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/update-likes`, {
       thread_id: threadId,
       student_id: studentId,
       is_like: !isLiked
@@ -283,7 +279,7 @@ const Thread = ({ fromHome, studentId, isTA, TACourseID, isAdmin }) => {
   }
 
   function handleDeleteComment(commentID) {
-    axios.delete(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/${fromHome ? 'home-comment' : 'comment'}/delete-comment?comment_id=${commentID}`, {
+    axios.delete(`${process.env.REACT_APP_SERVER_DOMAIN_NAME}/api/thread/delete-comment?comment_id=${commentID}`, {
       headers: {
         'x-token': localStorage.getItem('token')
       }
