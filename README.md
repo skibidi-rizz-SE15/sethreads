@@ -95,4 +95,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 For questions or feedback, feel free to contact us:
 - **GitHub**: [serayutaka](https://github.com/serayutaka)
 - **GitHub**: [whatdislol](https://github.com/whatdislol)
-- **GitHub**: [WDTX1402](https://github.com/WDTX1402)
+- **GitHub**: [WDTX1401](https://github.com/wsdot1401)
